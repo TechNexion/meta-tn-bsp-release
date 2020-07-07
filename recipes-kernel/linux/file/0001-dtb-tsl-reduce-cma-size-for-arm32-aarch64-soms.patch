@@ -1,0 +1,138 @@
+From cb5eb0ecec383fa5fd8c1699bc9c8d0ad954a415 Mon Sep 17 00:00:00 2001
+From: Po Cheng <po.cheng@technexion.com>
+Date: Wed, 20 Jan 2021 11:37:38 +0800
+Subject: [PATCH] dtb: tsl: reduce cma size for arm32/aarch64 soms
+
+Signed-off-by: Po Cheng <po.cheng@technexion.com>
+---
+ arch/arm/boot/dts/imx6dl.dtsi                  | 2 +-
+ arch/arm/boot/dts/imx6q.dtsi                   | 2 +-
+ arch/arm/boot/dts/imx7d-pico-qca.dtsi          | 2 +-
+ arch/arm/boot/dts/imx7ulp.dtsi                 | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mm.dtsi      | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mn.dtsi      | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mp.dtsi      | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi  | 2 +-
+ arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi | 2 +-
+ 9 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx6dl.dtsi b/arch/arm/boot/dts/imx6dl.dtsi
+index 845adee..8fec998 100755
+--- a/arch/arm/boot/dts/imx6dl.dtsi
++++ b/arch/arm/boot/dts/imx6dl.dtsi
+@@ -90,7 +90,7 @@
+                 linux,cma {
+                         compatible = "shared-dma-pool";
+                         reusable;
+-                        size = <0x14000000>;
++                        size = <0x03000000>;
+                         linux,cma-default;
+                 };
+         };
+diff --git a/arch/arm/boot/dts/imx6q.dtsi b/arch/arm/boot/dts/imx6q.dtsi
+index 2d3e137..351704e 100644
+--- a/arch/arm/boot/dts/imx6q.dtsi
++++ b/arch/arm/boot/dts/imx6q.dtsi
+@@ -167,7 +167,7 @@
+                 linux,cma {
+                         compatible = "shared-dma-pool";
+                         reusable;
+-                        size = <0x14000000>;
++                        size = <0x03000000>;
+                         linux,cma-default;
+                 };
+         };
+diff --git a/arch/arm/boot/dts/imx7d-pico-qca.dtsi b/arch/arm/boot/dts/imx7d-pico-qca.dtsi
+index 45e8792..02a4312 100644
+--- a/arch/arm/boot/dts/imx7d-pico-qca.dtsi
++++ b/arch/arm/boot/dts/imx7d-pico-qca.dtsi
+@@ -103,7 +103,7 @@
+ 		linux,cma {
+ 		compatible = "shared-dma-pool";
+ 		reusable;
+-		size = <0x14000000>;
++		size = <0x03000000>;
+ 		linux,cma-default;
+ 		};
+ 	};
+diff --git a/arch/arm/boot/dts/imx7ulp.dtsi b/arch/arm/boot/dts/imx7ulp.dtsi
+index 471cd61..18e11d1 100644
+--- a/arch/arm/boot/dts/imx7ulp.dtsi
++++ b/arch/arm/boot/dts/imx7ulp.dtsi
+@@ -70,7 +70,7 @@
+                 linux,cma {
+                         compatible = "shared-dma-pool";
+                         reusable;
+-                        size = <0xC000000>;
++                        size = <0x3000000>;
+                         alignment = <0x2000>;
+                         linux,cma-default;
+                 };
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm.dtsi b/arch/arm64/boot/dts/freescale/imx8mm.dtsi
+index 7551661..a00dd1b 100755
+--- a/arch/arm64/boot/dts/freescale/imx8mm.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mm.dtsi
+@@ -166,7 +166,7 @@
+ 		linux,cma {
+ 			compatible = "shared-dma-pool";
+ 			reusable;
+-			size = <0 0x28000000>;
++			size = <0 0x06000000>;
+ 			alloc-ranges = <0 0x40000000 0 0x60000000>;
+ 			linux,cma-default;
+ 		};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mn.dtsi b/arch/arm64/boot/dts/freescale/imx8mn.dtsi
+index 5d4c245..a8be47c 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mn.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mn.dtsi
+@@ -163,7 +163,7 @@
+ 		linux,cma {
+ 			compatible = "shared-dma-pool";
+ 			reusable;
+-			size = <0 0x28000000>;
++			size = <0 0x06000000>;
+ 			alloc-ranges = <0 0x40000000 0 0x60000000>;
+ 			linux,cma-default;
+ 		};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp.dtsi b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+index e3ec280..1fb7d06a2 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp.dtsi
+@@ -197,7 +197,7 @@
+ 		linux,cma {
+ 			compatible = "shared-dma-pool";
+ 			reusable;
+-			size = <0 0x3c000000>;
++			size = <0 0x06000000>;
+ 			alloc-ranges = <0 0x40000000 0 0xC0000000>;
+ 			linux,cma-default;
+ 		};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi
+index e9b7127..5ebcb58 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mq-edm.dtsi
+@@ -51,7 +51,7 @@
+ 		linux,cma {
+ 			compatible = "shared-dma-pool";
+ 			reusable;
+-			size = <0 0x30000000>;
++			size = <0 0x06000000>;
+ 			alloc-ranges = <0 0x40000000 0 0x40000000>;
+ 			linux,cma-default;
+ 		};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi
+index b568463..a8bca25 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mq-pico.dtsi
+@@ -41,7 +41,7 @@
+ 		linux,cma {
+ 			compatible = "shared-dma-pool";
+ 			reusable;
+-			size = <0 0x30000000>;
++			size = <0 0x06000000>;
+ 			alloc-ranges = <0 0x40000000 0 0x40000000>;
+ 			linux,cma-default;
+ 		};
+-- 
+2.7.4
+
