@@ -125,7 +125,7 @@ DISTRO_FEATURES_append_virtualization = " virtualization"
 
 # technexion rescue-loader
 DISTRO_FEATURES_remove_rescue = "irda alsa bluetooth wifi nfs 3g nfc ptest bluez bluez5 vulkan optee pulseaudio multiarch"
+USE_VT_rescue = "0"
 
 RDEPENDS_packagegroup-core-tools-testapps_remove_simcom = "mesa-demos connman-client connman-tools"
 RDEPENDS_packagegroup-base-3g_remove_simcom = "ofono"
-
