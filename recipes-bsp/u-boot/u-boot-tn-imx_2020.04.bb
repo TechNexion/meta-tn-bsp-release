@@ -5,22 +5,26 @@
 DESCRIPTION = "i.MX U-Boot suppporting TechNexion i.MX boards."
 HOMEPAGE = "http://www.denx.de/wiki/U-Boot/WebHome"
 SECTION = "bootloaders"
-DEPENDS += "flex-native bison-native"
+
 require recipes-bsp/u-boot/u-boot.inc
 inherit pythonnative
 
 PROVIDES += "u-boot"
-DEPENDS_append = " dtc-native"
+DEPENDS_append = " python dtc-native flex-native bison-native"
+RDEPENDS_${PN}_append_uenv = " u-boot-uenv"
+RDEPENDS_${PN}_append_bootscr = " u-boot-script-technexion"
+
 
 LICENSE = "GPLv2+"
 LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a4263"
 
 PR = "r0"
-SRCSERVER = "git://10.20.30.20/volume1/internal_git/edm/uboot-imx-edm.git"
-SRCOPTIONS = ";protocol=ssh;user=rdsw"
+SRCSERVER = "git://github.com/TechNexion/u-boot-tn-imx.git"
+SRCOPTIONS = ""
 SRCBRANCH = "tn-imx_v2020.04_5.4.24_2.1.0-next"
 SRC_URI = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTIONS}"
-SRCREV = "${AUTOREV}"
+SRCREV = "adbf1db68e496310e82d74f149b189a2a8f91788"
+SRC_URI_append = " file://splash.bmp"
 
 S = "${WORKDIR}/git"
 
@@ -29,6 +33,11 @@ inherit fsl-u-boot-localversion
 LOCALVERSION ?= "-${SRCREV}"
 
 BOOT_TOOLS = "imx-boot-tools"
+
+do_deploy_append () {
+	install -d ${DEPLOYDIR}
+	install ${WORKDIR}/splash.bmp ${DEPLOYDIR}/splash.bmp
+}
 
 do_deploy_append_mx8m () {
     # Deploy u-boot-nodtb.bin and fsl-imx8mq-XX.dtb, to be packaged in boot binary by imx-boot

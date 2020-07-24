@@ -1,0 +1,276 @@
+# Copyright (C) 2015-2016 Technexion Ltd.
+# Maintainer: Po Cheng <po.cheng@technexion.com>
+
+===============
+1. Description
+===============
+uEnv.txt is now used together with boot.scr to find an appropriate fdt file and
+construct a sensible kernel command line to boot the OS system on target board.
+
+
+
+====================
+2. Supported Boards
+====================
+PICO-IMX6-PI PICO-IMX6-NYMPH PICO-IMX6-HOBBIT PICO-IMX6-DWARF
+PICO-IMX7-PI PICO-IMX7-NYMPH PICO-IMX7-HOBBIT PICO-IMX7-DWARF
+PICO-IMX6UL-PI PICO-IMX6UL-NYMPH PICO-IMX6UL-HOBBIT PICO-IMX6UL-DWARF
+PICO-IMX8MQ-PI PICO-IMX8MM-PI
+EDM-IMX6-FAIRY EDM-IMX6-GNOME EDM-IMX6-TC0700 EDM-IMX6-TC1000
+EDM-IMX7-GNOME
+EDM-IMX8MQ-WIZARD
+FLEX-IMX8MM-PI
+
+
+
+==================================================================
+3. Setting som, form, baseboard parts of the device tree filename
+==================================================================
+The "som", "form", and "baseboard" u-boot environment variables determine the
+correct device tree filename for booting. "som" and "form" are predetermined in
+u-boot's c-codes when SPL loads the u-boot.img, and these variables can be
+overridden in uEnv.txt.
+
+--------
+a) som=
+--------
+supported:
+imx6dl imx6q imx6qp (edm only)
+imx7d
+imx6ul imx6ull
+imx8mq imx8mm
+
+---------
+b) form=
+---------
+supported: pico edm edm1 edm2 tep1 tep5 tek3
+
+--------------
+c) baseboard=
+--------------
+supported: (by form factor)
+pico => pi hobbit dwarf nymph
+edm => wizard
+edm1 => fairy gnome tc0700 tc1000
+edm2 => gremlin
+tep1 => <none> a2
+tep5 => <none> 15inch
+tek3 => <none>
+
+e.g. The following defines imx6q-edm1-gnome.dtb
+som=imx6q
+form=edm1
+baseboard=gnome
+
+
+
+============================================================
+4. Setting the additional parts of the device tree filename
+============================================================
+
+-----------
+a) dispif=
+-----------
+supported: dcss lcdif (imx8mq only)
+
+Used to set the display interface part of the device tree filename for imx8mq
+boards.
+
+-----------
+b) bridge=
+-----------
+supported: sn65dsi84 adv7535 (imx8mq/imx8mm only)
+
+Used to set the lvds/hdmi bridge part of the device tree filename for
+imx8mq/imx8mm boards.
+
+----------
+c) panel=
+----------
+supported: ili9881c g080uan01 g101uan02 g156xw01 hj070na m101nwwb
+
+Used to set the panel part of the device tree filename for imx8mq/imx8mm boards.
+
+----------------
+d) wifi_module=
+----------------
+supported: qca
+
+Used to set the qca part of the device tree filename.
+
+e.g. the folowing defines imx7d-pico-pi-qca.dtb
+som=imx7d
+form=pico
+baseboard=pi
+wifi_module=qca
+
+e.g. the following defines imx8mq-edm-wizard-dcss-ili9881c.dtb
+som=imx8mq
+form=edm
+baseboard=wizard
+dispif=dcss
+panel=ili9881c
+
+e.g. the following defines imx8mq-pico-pi-lcdif-sn65dsi84-hj070na.dtb
+som=imx8mq
+form=pico
+baseboard=pi
+dispif=lcdif
+bridge=sn65dsi84
+panel=hj070na
+
+e.g. the following defines imx8mm-pico-pi-adv7535.dtb
+som=imx8mm
+form=pico
+baseboard=pi
+bridge=adv7535
+
+-------------
+e) voicehat=
+-------------
+supported: voicehat
+
+Used to set the voicehat part of the device tree filename. Note: voicehat
+usually defines a device tree filename that does not include other features.
+
+e.g. the following defines imx8mq-edm-wizard-voicehat.dtb
+som=imx8mq
+form=edm
+baseboard=wizard
+voicehat=voicehat
+
+
+
+============================================
+5. Setting alternative device tree filename
+============================================
+
+----------------
+a) alt_fdtname=
+----------------
+Used to define an alternative device tree filename to load.
+
+------------
+b) uenvcmd=
+------------
+Used to define additional command to be run/callback by the boot.scr
+
+e.g. combining a) and b) the following defines an alternative device tree
+filename for boot.scr to load.
+
+alt_fdtname=alternative-device-tree-filename
+uenvcmd=setenv has_fdt 1; setenv fdtname ${alt_fdtname}; setenv fdtfile ${alt_fdtname}.dtb;
+
+NOTE: "has_fdt" flag must be set to 1, otherwise boot.scr will not load the
+alternative device tree file.
+
+
+
+===================================
+6. Other u-boot env variable flags
+===================================
+
+--------------
+a) has_touch=
+--------------
+supported: 0 or 1
+
+This flag is set in the u-boot c-codes using I2C api calls. If a touch
+control is detected, has_touch flag is set to 1.
+
+-----------
+b) has_m4=
+-----------
+supported: 0 or 1
+
+This flag is set in the u-boot c-codes. If an MCU is detected, has_m4 flag is
+set to 1. And consequently the device tree file will be appended with "-m4" and
+load by the boot.scr. 
+i.e. imx8mm-pico-pi-ili9881c.dtb => imx8mm-pico-pi-ili9881c-m4.dtb
+i.e. imx8mq-pico-pi.dtb => imx8mq-pico-pi-m4.dtb
+
+NOTE: depending on the device tree files available to load, you may wish to set
+has_m4 flag to 0 to stop the appending to the found device tree filename.
+
+------------
+c) m4image=
+------------
+Specifies the binary firmware filename for the MCU unit. This file will be
+loaded by the boot.scr if has_m4 flag is set to 1.
+
+---------------
+d) rescuefile=
+---------------
+Specifies the flatten image tree (fit) file for the rescue loader system. This
+variable allows to change to a different rescue loader image from the default
+"tnrescue.itb" file.
+
+NOTE: the fit image must contain kernel image file / device tree file / and
+rootfs file in order for the rescue loader system to boot correctly.
+
+
+
+======================================
+7. Setting video=... cmdline argument
+======================================
+
+----------------
+a) displayinfo=
+----------------
+sets the video=... cmdline argument to pass to kernel. For imx7 and imx6 boards
+
+e.g. HDMI 720P
+displayinfo=video=mxcfb0:dev=hdmi,1280x720M@60,if=RGB24
+
+e.g. HDMI 1080P
+displayinfo=video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24
+
+e.g. LVDS 1024x600 - 7 inch display
+displayinfo=video=mxcfb0:dev=ldb,1024x600@60,if=RGB24
+
+e.g. TTL LCD 800x480 - 5 inch/7 inch display
+displayinfo=video=mxcfb0:dev=lcd,800x480@60,if=RGB24
+
+e.g. Dual display output to HDMI 720P and LVDS 1024x600
+displayinfo=video=mxcfb0:dev=hdmi,1280x720M@60,if=RGB24 video=mxcfb1:dev=ldb,1024x600@60,if=RGB24
+
+NOTE: on imx8 boards, display resolutions are set by DRM display components.
+
+----------
+b) fbmem=
+----------
+Defines frame buffer memory size for the video interface specified by video=
+cmdline argument. Usually for hdmi interface 28M is specified, and 10M for others
+
+e.g. for HDMI 1920x1080x4=8294400(~8MB) required 1 display frame. And double
+that, i.e. 8294400x2=16588800(~16MB) for ping-pong/swapping. So set slightly
+bigger to account for potential higher resolution changes.
+
+fbmem=28M
+
+e.g. for LVDS 1024*600*4=2457600(~2.4MB) required for 1 display frame. And double
+that, i.e. 2457600x2=4915200(~5MB) for ping-pong/swapping. So set slightly bigger
+to account for potential higher resolution changes.
+
+fbmem=10M
+
+
+
+======================================
+8. Setting loglevel cmdline argument
+======================================
+
+-------------
+a) loglevel=
+-------------
+supported: 0 ~ 7
+
+0 (KERN_EMERG)		system is unusable
+1 (KERN_ALERT)		action must be taken immediately
+2 (KERN_CRIT)		critical conditions
+3 (KERN_ERR)		error conditions
+4 (KERN_WARNING)	warning conditions
+5 (KERN_NOTICE)		normal but significant condition
+6 (KERN_INFO)		informational
+7 (KERN_DEBUG)		debug-level messages
+
