@@ -9,14 +9,15 @@ i.MX Family Reference Boards. It includes support for many IPs such as GPU, VPU 
 
 require recipes-kernel/linux/linux-imx.inc
 
+LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://COPYING;md5=bbea815ee2795b2f4230826c0c6b8814"
 
 DEPENDS += "lzop-native bc-native"
 
 KERNEL_BRANCH ?= "tn-imx_5.4.24_2.1.0-next"
 LOCALVERSION = "-${SRCREV}"
-KERNEL_SRC ?= "git://10.20.30.20/volume1/internal_git/edm/tn-kernel.git"
-SRCOPTIONS = ";protocol=ssh;user=rdsw"
+KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git"
+SRCOPTIONS = ""
 SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
 
 SRCREV = "369a1d023f0740df24f7c41288a65d4aa55547b8"
@@ -34,23 +35,21 @@ DO_CONFIG_V7_COPY_mx6 = "yes"
 DO_CONFIG_V7_COPY_mx7 = "yes"
 DO_CONFIG_V7_COPY_mx8 = "no"
 
-TECHNEXION_ARM32_KERNEL_CONFIG = "tn_imx_defconfig"
-TECHNEXION_ARM64_KERNEL_CONFIG = "tn_imx8_defconfig"
-
 addtask copy_defconfig after do_patch before do_preconfigure
 
+# change do_copy_defconfig to use source code from our tn-kernel repository
 do_copy_defconfig () {
     install -d ${B}
     if [ ${DO_CONFIG_V7_COPY} = "yes" ]; then
         # copy latest imx_v7_defconfig to use for mx6, mx6ul and mx7
         mkdir -p ${B}
-        cp ${S}/arch/arm/configs/${TECHNEXION_ARM32_KERNEL_CONFIG} ${B}/.config
-        cp ${S}/arch/arm/configs/${TECHNEXION_ARM32_KERNEL_CONFIG} ${B}/../defconfig
+        cp ${S}/arch/arm/configs/tn_imx_defconfig ${B}/.config
+        cp ${S}/arch/arm/configs/tn_imx_defconfig ${B}/../defconfig
     else
-        # copy latest imx_v8_defconfig to use for mx8
+        # copy latest tn_imx8_defconfig to use for mx8
         mkdir -p ${B}
-        cp ${S}/arch/arm64/configs/${TECHNEXION_ARM64_KERNEL_CONFIG} ${B}/.config
-        cp ${S}/arch/arm64/configs/${TECHNEXION_ARM64_KERNEL_CONFIG} ${B}/../defconfig
+        cp ${S}/arch/arm64/configs/tn_imx8_defconfig ${B}/.config
+        cp ${S}/arch/arm64/configs/tn_imx8_defconfig ${B}/../defconfig
     fi
 }
 
@@ -74,4 +73,3 @@ do_merge_delta_config() {
 addtask merge_delta_config before do_preconfigure after do_copy_defconfig
 
 COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"
-
