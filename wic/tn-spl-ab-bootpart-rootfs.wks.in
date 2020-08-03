@@ -1,0 +1,28 @@
+# short-description: Create SD card image with a boot partition
+# long-description:
+# Create an image that can be written onto a SD card using dd for use
+# with i.MX SoC family.
+# It uses SPL and u-boot
+#
+# The disk layout used is:
+#  - ----- ---------- ---------- -------------- --------------
+# | | SPL | u-boot_a | u-boot_b |   rootfs_a   |   rootfs_b   |
+#  - ----- ---------- ---------- -------------- --------------
+# ^ ^     ^          ^          ^              ^
+# | |     |          |          |              |
+# 0 1kiB  69kiB      1MiB       4MiB
+#                               + rootfs_a
+#                               + IMAGE_EXTRA_SPACE_A (default 10MiB)
+#                                              4MiB
+#                                              + rootfs_a
+#                                              + IMAGE_EXTRA_SPACE_A (default 10MiB)
+#                                              + rootfs_b
+#                                              + IMAGE_EXTRA_SPACE_B (default 10MiB)
+#
+part SPL --source rawcopy --sourceparams="file=${SPL_BINARY}" --ondisk mmcblk --no-table --align ${IMX_BOOT_SEEK}
+part u-boot_a --source rawcopy --sourceparams="file=u-boot-${MACHINE}.${UBOOT_SUFFIX_A}" --ondisk mmcblk --no-table --align ${UBOOT_SEEK_A}
+part u-boot_b --source rawcopy --sourceparams="file=u-boot-${MACHINE}.${UBOOT_SUFFIX_B}" --ondisk mmcblk --no-table --align ${UBOOT_SEEK_B}
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs_a --align 4096
+part / --source rootfs --ondisk mmcblk --fstype=ext4 --label rootfs_b --align 4096
+
+bootloader --ptable msdos
