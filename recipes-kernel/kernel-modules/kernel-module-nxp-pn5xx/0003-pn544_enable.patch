@@ -1,0 +1,25 @@
+From 93eefb18670aa1da7fd53e95b48da039930f046b Mon Sep 17 00:00:00 2001
+From: Hank <hank.chang@technexion.com>
+Date: Mon, 3 Feb 2020 18:09:33 +0800
+Subject: [PATCH] ARM64: modify nxp-nfc driver for power on issue
+
+---
+ pn5xx_i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pn5xx_i2c.c b/pn5xx_i2c.c
+index 7faa67d..539420a 100644
+--- a/pn5xx_i2c.c
++++ b/pn5xx_i2c.c
+@@ -313,7 +313,7 @@ static int pn54x_dev_open(struct inode *inode, struct file *filp)
+ 
+ 	pr_info("%s : %d,%d\n", __func__, imajor(inode), iminor(inode));
+ 
+-	// pn544_enable(pn54x_dev, MODE_RUN);
++	pn544_enable(pn54x_dev, MODE_RUN);
+ 
+ 	return 0;
+ }
+-- 
+2.17.0
+
