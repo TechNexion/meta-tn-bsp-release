@@ -1,0 +1,43 @@
+From 5a71243f77be58697472aba80c2b56507480408f Mon Sep 17 00:00:00 2001
+From: Richard Hu <richard.hu@technexion.com>
+Date: Thu, 9 Jul 2020 07:13:43 +0000
+Subject: [PATCH] weston: fix memory leak
+
+The patch is from NXP.
+---
+ desktop-shell/shell.c      | 2 ++
+ libweston/compositor-drm.c | 1 +
+ 2 files changed, 3 insertions(+)
+
+diff --git a/desktop-shell/shell.c b/desktop-shell/shell.c
+index e5c3ef9..509e476 100644
+--- a/desktop-shell/shell.c
++++ b/desktop-shell/shell.c
+@@ -3037,6 +3037,7 @@ desktop_shell_set_background(struct wl_client *client,
+ 				if (surface->output->height > height)
+ 					surface->output->height = height;
+ 			}
++			free(size);
+ 		}
+ 	}
+ 
+@@ -3155,6 +3156,7 @@ desktop_shell_set_panel(struct wl_client *client,
+ 				if (surface->output->height > height)
+ 					surface->output->height = height;
+ 			}
++			free(size);
+ 		}
+ 	}
+ 
+diff --git a/libweston/compositor-drm.c b/libweston/compositor-drm.c
+index 3365d29..b8c0f4b 100644
+--- a/libweston/compositor-drm.c
++++ b/libweston/compositor-drm.c
+@@ -2281,6 +2281,7 @@ drm_output_render(struct drm_output_state *state, pixman_region32_t *damage)
+ 				if (scanout_state->src_h > (height << 16))
+ 					scanout_state->src_h = height << 16;
+ 			}
++			free(size);
+ 		}
+ 	}
+ 
