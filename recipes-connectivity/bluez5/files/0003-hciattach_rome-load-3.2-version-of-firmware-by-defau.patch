@@ -1,0 +1,27 @@
+From 2a04e270b3d0c65168fa13df8f9751ffbcdfff3a Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Fri, 21 Jun 2019 14:17:16 +0800
+Subject: [PATCH 3/3] hciattach_rome: load 3.2 version of firmware by default
+
+---
+ tools/hciattach_rome.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/hciattach_rome.h b/tools/hciattach_rome.h
+index 62f2ac0..4290a90 100755
+--- a/tools/hciattach_rome.h
++++ b/tools/hciattach_rome.h
+@@ -261,8 +261,8 @@ typedef struct
+ #else
+ #define TF_RAMPATCH_TLV_1_0_0_PATH      "/lib/firmware/qca/rampatch_tlv_tf_1.0.tlv"
+ #define TF_NVM_TLV_1_0_0_PATH           "/lib/firmware/qca/nvm_tlv_tf_1.0.bin"
+-#define TF_RAMPATCH_TLV_1_0_1_PATH      "/lib/firmware/qca/tfbtfw11.tlv"
+-#define TF_NVM_TLV_1_0_1_PATH           "/lib/firmware/qca/tfbtnv11.bin"
++#define TF_RAMPATCH_TLV_1_0_1_PATH      "/lib/firmware/qca/rampatch_tlv_3.2.tlv"
++#define TF_NVM_TLV_1_0_1_PATH           "/lib/firmware/qca/nvm_tlv_3.2.bin"
+ #endif
+ 
+ /* This header value in rampatch file decides event handling mechanism in the HOST */
+-- 
+2.7.4
+

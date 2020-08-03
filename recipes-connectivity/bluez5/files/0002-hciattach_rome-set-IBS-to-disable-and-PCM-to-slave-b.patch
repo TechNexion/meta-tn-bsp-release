@@ -1,0 +1,60 @@
+From 6cf9fc6f4cfd6e48a100be726fb66a9cc0d3e65c Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Fri, 21 Jun 2019 14:16:15 +0800
+Subject: [PATCH 2/3] hciattach_rome: set IBS to disable and PCM to slave by
+ default
+
+---
+ tools/hciattach_rome.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/tools/hciattach_rome.c b/tools/hciattach_rome.c
+index 63651e0..25c9619 100755
+--- a/tools/hciattach_rome.c
++++ b/tools/hciattach_rome.c
+@@ -1035,14 +1035,14 @@ int rome_get_tlv_file(char *file_path)
+ 	    if (nvm_ptr->tag_id == TAG_NUM_17) {
+ 		if ((ibs_value =
+ 			get_value_from_config(FW_CONFIG_FILE_PATH, "IBS")) >= 0) {
+-			if (ibs_value == FWCONF_IBS_DISABLE) {
+-				nvm_byte_ptr[FWCONF_IBS_VAL_OFFSET] &=
+-					(~(FWCONF_IBS_ENABLE <<
+-							FWCONF_IBS_VAL_BIT));
+-			} else if (ibs_value == FWCONF_IBS_ENABLE) {
++			if (ibs_value == FWCONF_IBS_ENABLE) {
+ 				nvm_byte_ptr[FWCONF_IBS_VAL_OFFSET] |=
+ 					(FWCONF_IBS_ENABLE <<
+ 							FWCONF_IBS_VAL_BIT);
++			}else {
++				nvm_byte_ptr[FWCONF_IBS_VAL_OFFSET] &=
++					(~(FWCONF_IBS_ENABLE <<
++							FWCONF_IBS_VAL_BIT));
+ 			}
+ 		}
+ 	    }
+@@ -1053,16 +1053,16 @@ int rome_get_tlv_file(char *file_path)
+                 if ((pcm_value =
+                     get_value_from_config(FW_CONFIG_FILE_PATH, "PCM")) >= 0) {
+ 
+-                    if (pcm_value == FWCONF_PCM_SLAVE) {
+-                        nvm_byte_ptr[FWCONF_PCM_MS_OFFSET_1] |=
+-					(1 << FWCONF_PCM_ROLE_BIT_OFFSET);
+-                        nvm_byte_ptr[FWCONF_PCM_MS_OFFSET_2] |=
+-					(1 << FWCONF_PCM_ROLE_BIT_OFFSET);
+-                    } else if (pcm_value == FWCONF_PCM_MASTER) {
++                    if (pcm_value == FWCONF_PCM_MASTER) {
+                         nvm_byte_ptr[FWCONF_PCM_MS_OFFSET_1] &=
+ 					(~(1 << FWCONF_PCM_ROLE_BIT_OFFSET));
+                         nvm_byte_ptr[FWCONF_PCM_MS_OFFSET_2] &=
+ 					(~(1 << FWCONF_PCM_ROLE_BIT_OFFSET));
++                    }else {
++                        nvm_byte_ptr[FWCONF_PCM_MS_OFFSET_1] |=
++					(1 << FWCONF_PCM_ROLE_BIT_OFFSET);
++                        nvm_byte_ptr[FWCONF_PCM_MS_OFFSET_2] |=
++					(1 << FWCONF_PCM_ROLE_BIT_OFFSET);
+                     }
+                 }
+             }
+-- 
+2.7.4
+

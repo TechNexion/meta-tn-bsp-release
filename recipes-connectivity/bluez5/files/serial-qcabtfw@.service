@@ -1,0 +1,16 @@
+[Unit]
+Description=QCA Bluetooth firmware service on %I
+ConditionPathIsDirectory=/sys/bus/platform/drivers/imx-sdma
+BindsTo=dev-%i.device
+After=dev-%i.device
+Before=bluetooth.service
+
+[Service]
+Type=simple
+RemainAfterExit=yes
+ExecStart=/usr/bin/hciattach -t 30 /dev/%I qca @BAUDRATE@ flow -
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
