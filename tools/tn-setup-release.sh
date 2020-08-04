@@ -185,6 +185,11 @@ echo "BBLAYERS += \"\${BSPDIR}/sources/meta-openembedded/meta-filesystems\"" >> 
 echo "BBLAYERS += \"\${BSPDIR}/sources/meta-qt5\"" >> $BUILD_DIR/conf/bblayers.conf
 echo "BBLAYERS += \"\${BSPDIR}/sources/meta-python2\"" >> $BUILD_DIR/conf/bblayers.conf
 
+# Add technexion bsp layers to bblayers.conf
+echo "" >> $PWD/conf/bblayers.conf
+echo "# setup Technexion i.MX Yocto Project Release Layers in bblayers.conf" | tee -a $PWD/conf/bblayers.conf
+echo "BBLAYERS += \"\${BSPDIR}/sources/meta-tn-imx-bsp\"" >> $PWD/conf/bblayers.conf
+
 if [ -d ../sources/meta-ivi ]; then
     echo -e "\n## Genivi layers" >> $BUILD_DIR/conf/bblayers.conf
     echo "BBLAYERS += \"\${BSPDIR}/sources/meta-gplv2\"" >> $BUILD_DIR/conf/bblayers.conf
