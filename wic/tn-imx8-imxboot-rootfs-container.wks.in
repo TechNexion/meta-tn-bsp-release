@@ -15,9 +15,9 @@
 #                        + IMAGE_EXTRA_SPACE  + (/var/lib/docker)
 #                          (default 10MiB)
 #
-part u-boot --source rawcopy --sourceparams="file=imx-boot-${MACHINE}-sd.bin" --ondisk ${WIC_FSTAB_BLKDEV} --no-table --align ${IMX_BOOT_SEEK}
+part u-boot --source rawcopy --sourceparams="file=imx-boot" --ondisk ${WIC_FSTAB_BLKDEV} --no-table --align ${IMX_BOOT_SEEK}
 part /boot --source bootimg-partition --ondisk ${WIC_FSTAB_BLKDEV} --fstype=vfat --label boot --active --align ${IMAGE_ROOTFS_ALIGNMENT} --size 32
 part / --source rootfs --ondisk ${WIC_FSTAB_BLKDEV} --fstype=ext4 --label root --align ${IMAGE_ROOTFS_ALIGNMENT}
-part ${TN_DOCKER_PARTITION_MOUNT} --source datafs --sourceparams="file=${TN_DOCKER_PARTITION_IMAGE}" --ondisk ${WIC_FSTAB_BLKDEV} --fstype=ext4 --fsoptions "defaults" --label docker --align ${IMAGE_ROOTFS_ALIGNMENT} --size 2048
+part ${TN_DOCKER_PARTITION_MOUNT} --source datafs --sourceparams="file=${TN_DOCKER_PARTITION_IMAGE}" --ondisk ${WIC_FSTAB_BLKDEV} --fstype=ext4 --fsoptions "defaults" --label docker --align ${IMAGE_ROOTFS_ALIGNMENT} --size ${TN_DOCKER_PARTITION_SIZE}
 
 bootloader --ptable ${WIC_PARTITION_TABLE_TYPE}
