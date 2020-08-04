@@ -1,0 +1,13 @@
+[Unit]
+Description=TechNexion Docker Container Service
+Requires=docker.service weston.service
+After=docker.service weston.service
+[Service]
+Type=simple
+# Clear docker containers before start
+ExecStartPre=-/usr/bin/docker container prune -f
+# Start container when unit is started
+ExecStart=/usr/bin/docker run --privileged=true -e XDG_RUNTIME_DIR=/tmp -e WAYLAND_DISPLAY=wayland-0 -v /run/user/%U/wayland-0:/tmp/wayland-0 @TN_DOCKER_REPOSITORY@:@TN_DOCKER_TAG@ @TN_DOCKER_APPLICATION@
+
+[Install]
+WantedBy=multi-user.target
