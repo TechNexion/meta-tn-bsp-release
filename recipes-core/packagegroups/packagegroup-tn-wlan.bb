@@ -20,3 +20,12 @@ RDEPENDS_${PN}_append_ath-pci = " linux-firmware-ath10k-tn"
 
 # Extra Kernel Modules
 RDEPENDS_${PN}_append = " ${@bb.utils.contains('COMBINED_FEATURES', 'wifi', 'kernel-module-qcacld-tn', '',d)}"
+
+3GTOOLS = "ofono-tests"
+
+RDEPENDS_${PN}_append = "\
+    connman-tools \
+    connman-tests \
+    connman-client \
+    ${@bb.utils.contains('DISTRO_FEATURES', '3g', "${3GTOOLS}", "", d)} \
+    "
