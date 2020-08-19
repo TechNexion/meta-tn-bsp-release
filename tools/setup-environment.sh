@@ -71,9 +71,9 @@ FSLCONFIGS=$(ls $CWD/sources/meta-imx/meta-bsp/conf/machine/*.conf $CWD/sources/
 # Set up the basic yocto environment by sourcing fsl community's setup-environment bash script with/without TEMPLATECONF
 if [ $TNCONFIGS -gt 0 ]; then
   echo "Setup TechNexion Yocto"
-  echo "    MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
+  echo "    TEMPLATECONF=$CWD/sources/meta-tn-imx-bsp/conf MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
   echo ""
-  MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
+  TEMPLATECONF="$CWD/sources/meta-tn-imx-bsp/conf" MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
 elif [ $FSLCONFIGS -gt 0 ]; then
   echo "Setup Freescale/i.MX Yocto"
   echo "    MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
