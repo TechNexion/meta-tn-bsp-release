@@ -220,18 +220,18 @@ if [ -z "${WIFI_FIRMWARE#"${WIFI_FIRMWARE%%[! ]*}"}" ]; then
     echo "WARNING - No WIFI_FIRMWARE specified"
     RF_FIRMWARES=""
 else
-    if [ "$WIFI_FIRMWARE" == "all" ]; then
-        if [ "$CPU_TYPE" == "imx8mq" ] || [ "$CPU_TYPE" == "imx8mm" ] || [ "$CPU_TYPE" == "imx8mp" ]; then
+    if [ "$WIFI_FIRMWARE" = "all" ]; then
+        if [ "$CPU_TYPE" = "imx8mq" -o "$CPU_TYPE" = "imx8mm" -o "$CPU_TYPE" = "imx8mp" ]; then
             echo "WARNING - imx8mq/imx8mm/imx8mp SOM only supports qca wireless module, so load qca firmware"
             RF_FIRMWARES="qca ath-pci"
-        elif [ "$CPU_TYPE" == "imx6" ] || [ "$CPU_TYPE" == "imx7" ] || [ "$CPU_TYPE" == "imx6ul" ]; then
+        elif [ "$CPU_TYPE" = "imx6" -o "$CPU_TYPE" = "imx7" -o "$CPU_TYPE" = "imx6ul" ]; then
             RF_FIRMWARES="qca brcm ath-pci"
         else
             echo "WARNING - No matched CPU_TYPE: $CPU_TYPE, hence no WIFI_FIRMWARE"
             RF_FIRMWARES=""
         fi
-    elif [ "$WIFI_FIRMWARE" == "y" ] || [ "$WIFI_FIRMWARE" == "Y" ]; then
-        if [ "$CPU_TYPE" == "imx8mq" ] || [ "$CPU_TYPE" == "imx8mm" ] || [ "$CPU_TYPE" == "imx8mp" ]; then
+    elif [ "$WIFI_FIRMWARE" = "y" -o "$WIFI_FIRMWARE" = "Y" ]; then
+        if [ "$CPU_TYPE" = "imx8mq" -o "$CPU_TYPE" = "imx8mm" -o "$CPU_TYPE" = "imx8mp" ]; then
             echo "WARNING - imx8mq/imx8mm/imx8mp SOM only supports qca wireless module, so load qca firmware"
             RF_FIRMWARES="qca"
         else

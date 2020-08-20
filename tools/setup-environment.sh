@@ -83,7 +83,7 @@ else
   echo "Setup OpenEmbedded Yocto"
   echo "    MACHINE=$MACHINE source $PROGNAME $BUILDDIRECTORY"
   echo ""
-  MACHINE=$MACHINE sourec $PROGRAME $BUILDDIRECTORY
+  MACHINE=$MACHINE source $PROGRAME $BUILDDIRECTORY
 fi
 
 #
@@ -94,7 +94,7 @@ fi
 
 # both imx and technexion MACHINE configs
 echo -e "\nTechNexion setup-environment.sh wrapper: Further modification to bblayers.conf and local.conf"
-if [ $TNCONFIGS -gt 0 ] || [ $FSLCONFIGS -gt 0 ]; then
+if [ $TNCONFIGS -gt 0 -o $FSLCONFIGS -gt 0 ]; then
   if [ -d $PWD/../sources/meta-imx ]; then
     # copy new EULA into community so setup uses latest i.MX EULA
     cp $PWD/../sources/meta-imx/EULA.txt $PWD/../sources/meta-freescale/EULA
