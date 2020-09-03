@@ -16,11 +16,11 @@ DEPENDS += "lzop-native bc-native"
 
 KERNEL_BRANCH ?= "tn-imx_5.4.24_2.1.0-next"
 LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KERNEL_BRANCH', True).split('_')[2:]).lower()}"
-KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git"
+KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
 SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
 
-SRCREV = "369a1d023f0740df24f7c41288a65d4aa55547b8"
+SRCREV = "32f63a01757bd1e6c347047ee0e17853d6406fce"
 
 FILES_${KERNEL_PACKAGE_NAME}-base += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
 
