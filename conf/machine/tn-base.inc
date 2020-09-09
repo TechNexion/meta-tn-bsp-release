@@ -97,9 +97,9 @@ IMAGE_FSTYPES_append = " ext4 wic.md5sum"
 LICENSE_FLAGS_WHITELIST += "commercial_qca commercial_brcm"
 
 # wic (sdcard) image
-WKS_FILE = "tn-spl-bootpart-rootfs.wks.in"
-WKS_FILE_mx8 = "tn-imx8-imxboot-bootpart-rootfs.wks.in"
-WKS_FILE_DEPENDS += "u-boot-edm"
+#WKS_FILE = "tn-spl-bootpart-rootfs.wks.in"
+#WKS_FILE_mx8 = "imx-imx-boot-bootpart-rootfs.wks.in"
+WKS_FILE_DEPENDS += "u-boot-tn-imx"
 WKS_FILE_DEPENDS_mx8 += "imx-boot"
 IMAGE_BOOT_FILES_append = " ${SPLASH_FILENAME}"
 IMAGE_BOOT_FILES_append_uenv = " ${UENV_FILENAME}"
