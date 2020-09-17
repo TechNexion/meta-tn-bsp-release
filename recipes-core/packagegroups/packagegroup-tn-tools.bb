@@ -34,6 +34,8 @@ RDEPENDS_${PN} = " \
     bashtop \
     stressapptest \
     fb-test \
+    fbida \
+    ramsmp \
     ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo glmark2 net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant wireless-tools bluez5 firmware-imx-sdma', '', d)} \
 "
 
