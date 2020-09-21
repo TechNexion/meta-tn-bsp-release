@@ -36,7 +36,8 @@ RDEPENDS_${PN} = " \
     fb-test \
     fbida \
     ramsmp \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo glmark2 net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant wireless-tools bluez5 firmware-imx-sdma', '', d)} \
+    wireless-tools \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo glmark2 net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)} \
 "
 
 RDEPENDS_${PN}_append_mx7 = " voicehat-test"
