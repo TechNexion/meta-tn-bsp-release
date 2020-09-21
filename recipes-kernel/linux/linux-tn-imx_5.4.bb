@@ -20,7 +20,7 @@ KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
 SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
 
-SRCREV = "6f4b000bb9d87d061a723cc1a2bf1719f3bbe3ec"
+SRCREV = "29056ff8cbf3d0b81d750827b06e04495ed02a9e"
 
 FILES_${KERNEL_PACKAGE_NAME}-base += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
 
