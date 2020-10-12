@@ -78,17 +78,17 @@ B = "${S}/build"
 #      |                                                          |
 #      +----------------------------------------------------------+
 #
-#    Consequently, JENKINS_HOMEDIR variable is introduced to set /path/to/shared/
+#    Consequently, DOCKER_SHAREDIR variable is introduced to set /path/to/shared/
 #    path on the Host OS (see-able to both sibling containers)
 #
 #    For example, on technexion's jenkins server which runs yocto builds in a
 #    "yocto-builder-container". Set the following in local.conf
 #
-#    JENKINS_HOMEDIR = "/home/admin/jenkins_home"
+#    DOCKER_SHAREDIR = "/home/admin/jenkins_home"
 #
-JENKINS_HOMEDIR ?= "${HOME}"
-SHAREDSRC = "${@ '%s' % (d.getVar('S', True).replace(d.getVar('HOME', True), d.getVar('JENKINS_HOMEDIR', True)))}"
-SHAREDBUILD = "${@ '%s' % (d.getVar('B', True).replace(d.getVar('HOME', True), d.getVar('JENKINS_HOMEDIR', True)))}"
+DOCKER_SHAREDIR ?= "${HOME}"
+SHAREDSRC = "${@ '%s' % (d.getVar('S', True).replace(d.getVar('HOME', True), d.getVar('DOCKER_SHAREDIR', True)))}"
+SHAREDBUILD = "${@ '%s' % (d.getVar('B', True).replace(d.getVar('HOME', True), d.getVar('DOCKER_SHAREDIR', True)))}"
 
 inherit deploy
 require docker-disk.inc
