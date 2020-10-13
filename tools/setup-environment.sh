@@ -109,6 +109,7 @@ if [ $TNCONFIGS -gt 0 -o $FSLCONFIGS -gt 0 ]; then
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-filesystems \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-python2 \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-browser \"" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-clang \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-rust\"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-qt5 \"" >> $PWD/conf/bblayers.conf
     fi
