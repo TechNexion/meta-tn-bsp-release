@@ -104,6 +104,7 @@ if [ $TNCONFIGS -gt 0 -o $FSLCONFIGS -gt 0 ]; then
       hook_in_layer meta-imx/meta-bsp
       hook_in_layer meta-imx/meta-sdk
       hook_in_layer meta-imx/meta-ml
+      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-nxp-demo-experience \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-gnome \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-networking \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-filesystems \"" >> $PWD/conf/bblayers.conf

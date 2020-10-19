@@ -36,4 +36,6 @@ BBLAYERS ?= " \
   \
   ##OEROOT##/../meta-nxp-nfc \
   ##OEROOT##/../meta-virtualization \
+  \
+  ##OEROOT##/../meta-nxp-demo-experience \
 "
