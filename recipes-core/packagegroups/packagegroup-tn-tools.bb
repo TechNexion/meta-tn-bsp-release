@@ -37,6 +37,10 @@ RDEPENDS_${PN} = " \
     fbida \
     ramsmp \
     wireless-tools \
+    sysbench \
+    fio \
+    iozone3 \
+    lmbench \
     ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo glmark2 net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)} \
 "
 
