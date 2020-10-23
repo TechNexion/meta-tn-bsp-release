@@ -118,3 +118,6 @@ DISTRO_FEATURES_append_virtualization = " virtualization"
 # technexion rescue-loader
 DISTRO_FEATURES_remove_rescue = "x11 wayland"
 DISTRO_FEATURES_append_rescue = " directfb"
+
+RDEPENDS_packagegroup-core-tools-testapps_remove = "mesa-demos connman-client connman-tools"
+RDEPENDS_packagegroup-base-3g_remove = "ofono"
