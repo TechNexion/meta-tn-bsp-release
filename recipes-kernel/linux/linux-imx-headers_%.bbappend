@@ -1,0 +1,2 @@
+DEPENDS += "rsync-native"
+
