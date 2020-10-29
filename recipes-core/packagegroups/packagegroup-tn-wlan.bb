@@ -19,10 +19,19 @@ PACKAGES_remove_ath-pci = "linux-firmware-ath10k"
 RDEPENDS_${PN}_append_ath-pci = " linux-firmware-ath10k-tn"
 
 # Extra Kernel Modules
-RDEPENDS_${PN}_append = " ${@bb.utils.contains('COMBINED_FEATURES', 'wifi', 'kernel-module-qcacld-tn', '',d)}"
+RDEPENDS_${PN}_append = " ${@bb.utils.contains('COMBINED_FEATURES', 'wifi', 'kernel-module-qcacld-tn', '', d)}"
+
+CONNMAN_UTILS = "connman-tools connman-tests connman-client"
+NETWORKMANAGER_UTILS = "networkmanager"
+
+3GTOOLS = "ofono-tests"
+
+5GTOOLS = "libmbim libqmi modemmanager"
+
+WIFITOOLS = "${@bb.utils.contains('MACHINE_FEATURES', 'nmcli', "${NETWORKMANAGER_UTILS}", "${CONNMAN_UTILS}", d)}"
 
 RDEPENDS_${PN}_append = "\
-    libmbim \
-    libqmi \
-    modemmanager \
+    ${WIFITOOLS} \
+    ${@bb.utils.contains('DISTRO_FEATURES', '3g', "${3GTOOLS}", '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'nmcli', "${5GTOOLS}", '', d)} \
     "
