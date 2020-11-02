@@ -35,7 +35,7 @@ IMAGE_INSTALL = "\
   glmark2 \
 "
 
-IMAGE_INSTALL_remove = "kernel-image kernel-devicetree u-boot-fw-utils mender"
+IMAGE_INSTALL_remove = "kernel-image kernel-devicetree u-boot-fw-utils mender mender-client"
 EXTRA_IMAGEDEPENDS_remove = "u-boot"
 
 # Workaround /var/volatile for now
