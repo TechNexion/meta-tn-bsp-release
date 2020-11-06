@@ -39,3 +39,5 @@ python do_check_initramfs_image () {
         bb.fatal("Must set INITRAMFS_IMAGE = \"tn-image-rescue-initramfs\" in local.conf to build tn-image-rescue-fitimage")
 }
 addtask check_initramfs_image before do_rootfs
+
+RDEPENDS_${PN} += "bash"
