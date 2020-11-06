@@ -12,21 +12,16 @@ TOUCH = ' ${@bb.utils.contains("MACHINE_FEATURES", "touchscreen", "tslib tslib-c
 PACKAGE_INSTALL = " \
 	${VIRTUAL-RUNTIME_base-utils} \
 	directfb \
-	icu \
 	udev \
-	kernel-modules \
 	firmware-imx-sdma \
 	packagegroup-core-boot \
-	packagegroup-core-ssh-openssh \
+	kernel-modules \
 	rescue-loader \
 	qt4-embedded-plugin-iconengine-svgicon \
-	qt4-embedded-plugin-imageformat-ico \
 	qt4-embedded-plugin-imageformat-svg \
 	qt4-embedded-plugin-gfxdriver-directfbscreen \
 	qt4-embedded-plugin-gfxdriver-gfxtransformed \
-	qt4-embedded-fonts-ttf-dejavu \
 	ttf-lato-font \
-	coreutils \
 	mmc-utils \
 	xz \
 	connman \
@@ -41,9 +36,8 @@ IMAGE_INSTALL_remove = "packagegroup-tn-tools packagegroup-tn-nfc packagegroup-t
 
 # Do not pollute the initrd image with rootfs features
 IMAGE_FEATURES = "empty-root-password"
-
 IMAGE_LINGUAS = ""
-
+NO_RECOMMENDATIONS = "1"
 LICENSE = "MIT"
 
 IMAGE_FSTYPES = "cpio.xz ${INITRAMFS_FSTYPES}"
@@ -54,6 +48,15 @@ inherit core-image
 IMAGE_ROOTFS_SIZE = "0"
 IMAGE_ROOTFS_EXTRA_SPACE = "0"
 IMAGE_OVERHEAD_FACTOR = "1.0"
-INITRAMFS_MAXSIZE = "262144000"
+# Use the default 131072 KB setting, anything bigger will cause dd problem in rescue-loader
+# INITRAMFS_MAXSIZE = "262144000"
 
 XZ_INTEGRITY_CHECK = "crc32"
+
+# Workaround /var/volatile for now
+ROOTFS_POSTPROCESS_COMMAND += "rootfs_fixup_var_volatile ; "
+
+rootfs_fixup_var_volatile () {
+	install -m 1777 -d ${IMAGE_ROOTFS}/${localstatedir}/volatile/tmp
+	install -m 755 -d ${IMAGE_ROOTFS}/${localstatedir}/volatile/log
+}
