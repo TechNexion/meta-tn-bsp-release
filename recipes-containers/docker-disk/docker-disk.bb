@@ -178,10 +178,14 @@ do_compile () {
 }
 
 do_deploy () {
+	install -d ${DEPLOY_DIR_IMAGE}
 	if [ -f ${B}/${TN_DOCKER_PARTITION_IMAGE} ]; then
-		install -m 644 ${B}/${TN_DOCKER_PARTITION_IMAGE} ${DEPLOYDIR}/${TN_DOCKER_PARTITION_IMAGE}
+		install -m 644 ${B}/${TN_DOCKER_PARTITION_IMAGE} ${DEPLOY_DIR_IMAGE}/${TN_DOCKER_PARTITION_IMAGE}
 	else
 		bbfatal "${B}/${TN_DOCKER_PARTITION_IMAGE} not found. Please ensure docker-disk exported docker container images correctly."
+	fi
+	if [ -f ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ]; then
+		install -m 644 ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ${DEPLOY_DIR_IMAGE}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE}
 	fi
 }
 addtask deploy before do_package after do_install

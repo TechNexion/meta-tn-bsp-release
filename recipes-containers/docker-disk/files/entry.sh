@@ -39,7 +39,7 @@ do
         exit 1
     fi
 done
-echo "Docker started."
+echo "Start building docker-disk..."
 
 if [ -n "${PRIVATE_REGISTRY}" ] && [ -n "${PRIVATE_REGISTRY_USER}" ] && [ -n "${PRIVATE_REGISTRY_PASSWORD}" ]; then
 	echo "login ${PRIVATE_REGISTRY}..."
@@ -70,7 +70,7 @@ fi
 echo "Imported Docker Images..."
 docker images
 
-echo "Stopping docker..."
+echo "Stop building docker-disk..."
 kill -TERM "$(cat /var/run/docker.pid)"
 # don't let wait() error out and crash the build if the docker daemon has already been stopped
 wait "$(cat /var/run/docker.pid)" || true
