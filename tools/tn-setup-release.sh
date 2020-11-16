@@ -20,6 +20,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+CALLER=`caller`
 CWD=`pwd`
 PROGNAME="$CWD/sources/meta-tn-imx-bsp/tools/setup-environment.sh"
 exit_message ()
@@ -38,7 +39,6 @@ echo "
     * [-h]: help
 "
 }
-
 
 clean_up()
 {
@@ -100,19 +100,18 @@ fi
 
 case $MACHINE in
 imx8*)
-    case $DISTRO in
-    *wayland)
-        : ok
-        ;;
-    *)
-        echo -e "\n ERROR - Only Wayland distros are supported for i.MX 8 or i.MX 8M"
-        echo -e "\n"
-        return 1
-        ;;
-    esac
-    ;;
-*)
-    : ok
+    if [ -n "$DISTRO" ]; then
+        case $DISTRO in
+        *wayland)
+            : true
+            ;;
+        *)
+            echo -e "\n ERROR - Only Wayland distros are supported for i.MX 8 or i.MX 8M"
+            echo -e "\n"
+            return 1
+            ;;
+        esac
+    fi
     ;;
 esac
 
@@ -131,26 +130,25 @@ cd -
 # Override the click-through in meta-freescale/EULA
 FSL_EULA_FILE=$CWD/sources/meta-imx/EULA.txt
 
-# Set up the basic yocto environment by calling our setup-environment.sh
-if [ -n "$FSLDISTRO" ]; then
-  echo "TechNexion Setup BSP Release: source TechNexion setup-environment.sh wrapper scripts"
-  echo "    MACHINE=$MACHINE FSLDISTRO=$FSLDISTRO source $PROGNAME $BUILD_DIR"
-  echo ""
-  DISTRO=$FSLDISTRO MACHINE=$MACHINE source $PROGNAME $BUILD_DIR
-elif [ -n "$DISTRO" ]; then
-  echo "TechNexion Setup BSP Release: Source TechNexion setup-environment.sh wrapper scripts"
+# Set up the basic yocto environment by souring our setup-environment.sh
+if [ -n "$DISTRO" ]; then
+  echo "Source TechNexion setup-environment.sh wrapper scripts"
   echo "    MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILD_DIR"
   echo ""
-  DISTRO=$DISTRO MACHINE=$MACHINE source $PROGNAME $BUILD_DIR
+  DISTRO=$FSLDISTRO MACHINE=$MACHINE source $PROGNAME $BUILD_DIR
 else
-  echo "TechNexion Setup BSP Release: Source TechNexion setup-environment.sh wrapper scripts"
+  echo "Source TechNexion setup-environment.sh wrapper scripts"
   echo "    MACHINE=$MACHINE source $PROGNAME $BUILD_DIR"
   echo ""
   MACHINE=$MACHINE source $PROGNAME $BUILD_DIR
 fi
 
-echo -e "\nTechNexion Setup BSP Release: Further modification to local.conf and bblayers.conf"
-# Point to the current directory since the source setup-environment.sh changed the directory to $BUILD_DIR
+if [ $? != 0 ]; then
+  return 1
+fi
+
+echo -e "\n# TechNexion Setup BSP Release: Further modification to local.conf and bblayers.conf" | tee -a conf/local.conf
+# source setup-environment.sh changes to the build directory, so re-set $BUILD_DIR to current build directory
 BUILD_DIR=.
 
 if [ ! -e $BUILD_DIR/conf/local.conf ]; then
@@ -159,18 +157,13 @@ if [ ! -e $BUILD_DIR/conf/local.conf ]; then
     return 1
 fi
 
-# On the first script run, backup the local.conf file
-# Consecutive runs, it restores the backup and changes are appended on this one.
+# When run tn-setup-release.sh script for the first time, backup the local.conf file
+# For consecutive script runs, it restores the backup and changes are appended on this one.
 if [ ! -e $BUILD_DIR/conf/local.conf.org ]; then
     cp $BUILD_DIR/conf/local.conf $BUILD_DIR/conf/local.conf.org
 else
     cp $BUILD_DIR/conf/local.conf.org $BUILD_DIR/conf/local.conf
 fi
-
-echo >> conf/local.conf
-echo "# Switch to Debian packaging and include package-management in the image" >> conf/local.conf
-echo "PACKAGE_CLASSES = \"package_deb\"" >> conf/local.conf
-echo "EXTRA_IMAGE_FEATURES += \"package-management\"" >> conf/local.conf
 
 if [ ! -e $BUILD_DIR/conf/bblayers.conf.org ]; then
     cp $BUILD_DIR/conf/bblayers.conf $BUILD_DIR/conf/bblayers.conf.org
@@ -178,7 +171,41 @@ else
     cp $BUILD_DIR/conf/bblayers.conf.org $BUILD_DIR/conf/bblayers.conf
 fi
 
-# Pass in the extra variables for uEnv.txt recipe
+#
+# Additional Settings to local.conf and bblayer.conf
+#
+
+# for zeus
+echo >> conf/local.conf
+echo "PACKAGE_CLASSES = \"package_deb\"" >> conf/local.conf
+echo "EXTRA_IMAGE_FEATURES += \"package-management\"" >> conf/local.conf
+
+# for mender
+if grep -q "tn-setup-mender" <<< $CALLER; then
+  echo -e "\n# Setup additional mender settings in local.conf" | tee -a conf/local.conf
+  if [ -f conf/local.conf ]; then
+    if grep -q "DISTRO.*b2qt" conf/local.conf; then
+      echo -e "\n# Setup additional local.conf settings for boot2qt." | tee -a conf/local.conf
+      echo "QBSP_IMAGE_CONTENT_remove = \"\${IMAGE_LINK_NAME}.img\"" >> conf/local.conf
+      echo "QBSP_IMAGE_CONTENT_prepend = \"\${IMAGE_LINK_NAME}.sdimg\"" >> conf/local.conf
+      echo "IMAGE_CLASSES_remove = \"deploy-conf\"" >> conf/local.conf
+      echo "IMAGE_CLASSES_append = \" deploy-conf-b2qt\"" >> conf/local.conf
+    fi
+    if grep -q "BBMULTICONFIG.*container" conf/local.conf; then
+      echo -e "\n# Setup additional local.conf settings for virtualization." | tee -a conf/local.conf
+      echo "BBMASK += \"meta-boot2qt/meta-boot2qt-distro/recipes-qt/qt5/ogl-runtime_git.bbappend\"" >> conf/local.conf
+      echo "TN_DOCKER_PARTITION_MOUNT_mender-disk = \"/data/docker\"" >> conf/local.conf
+    fi
+    echo "IMAGE_FSTYPES_remove = \"wic wic.xz\"" >> conf/local.conf
+    echo "IMAGE_FSTYPES_append_tn = \" sdimg.gz\"" >> conf/local.conf
+    echo "MENDER_UBOOT_STORAGE_DEVICE_tn = \"2\"" >> conf/local.conf
+    echo "MENDER_BOOT_PART_NUMBER_tn = \"2\"" >> conf/local.conf
+    echo "MENDER_STORAGE_TOTAL_SIZE_MB_tn = \"8176\"" >> conf/local.conf
+    echo "MENDER_DATA_PART_SIZE_MB_tn = \"2048\"" >> conf/local.conf
+  fi
+fi
+
+# extra variables for BB_ENV_EXTRAWHITE
 if [ -n "$TOKEN" ]; then
   echo "Specified PA_TOKEN: $TOKEN"
   export PA_TOKEN=$TOKEN
@@ -212,14 +239,13 @@ if [ -n "$FDTNAME" ]; then
     export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE ALT_FDTNAME"
 fi
 
-# Identify SOC type
-CPU_TYPE=$(echo $MACHINE | sed 's/.*-\(imx[5-8][a-z]*\)[- $]*.*/\1/g')
-
-# Choose corresponding firmware package for different WLAN (QCA or BRCM), e.g. 'linux-firmware-brcm-tn' or 'linux-firmware-qca-tn'
+# corresponding firmware package for different WLAN (QCA or BRCM), e.g. 'linux-firmware-brcm-tn' or 'linux-firmware-qca-tn'
 if [ -z "${WIFI_FIRMWARE#"${WIFI_FIRMWARE%%[! ]*}"}" ]; then
     echo "WARNING - No WIFI_FIRMWARE specified"
     RF_FIRMWARES=""
 else
+    # Identify SOC type
+    CPU_TYPE=$(echo $MACHINE | sed 's/.*-\(imx[5-8][a-z]*\)[- $]*.*/\1/g')
     if [ "$WIFI_FIRMWARE" = "all" ]; then
         if [ "$CPU_TYPE" = "imx8mq" -o "$CPU_TYPE" = "imx8mm" -o "$CPU_TYPE" = "imx8mp" ]; then
             echo "WARNING - imx8mq/imx8mm/imx8mp SOM only supports qca wireless module, so load qca firmware"
@@ -262,6 +288,13 @@ if [ -d ../sources/meta-freescale ]; then
     # Change settings according to environment
     sed -e "s,meta-fsl-arm\s,meta-freescale ,g" -i conf/bblayers.conf
     sed -e "s,\$.BSPDIR./sources/meta-fsl-arm-extra\s,,g" -i conf/bblayers.conf
+fi
+
+if grep -q "tn-setup-mender" <<< $CALLER; then
+    echo -e "\n# setup additional mender bsp layer in bblayers.conf" | tee -a conf/bblayers.conf
+    if [ -d ../sources/meta-mender-community/meta-mender-update-modules ]; then
+      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-mender-community/meta-mender-update-modules \"" >> conf/bblayers.conf
+    fi
 fi
 
 cd $BUILD_DIR

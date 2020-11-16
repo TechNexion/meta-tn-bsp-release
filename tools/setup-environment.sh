@@ -23,7 +23,22 @@
 . sources/meta-imx/tools/setup-utils.sh
 
 CWD=`pwd`
-PROGNAME="$CWD/sources/base/setup-environment"
+if [ -d "$CWD/sources/meta-boot2qt" ]; then
+  # Check if MACHINE has already been exported, if not fail out
+  ENVVARS=`printenv`
+  if grep -q "MACHINE=" <<< $ENVVARS; then
+	PROGNAME="$CWD/sources/meta-boot2qt/scripts/setup-environment.sh"
+	# Get TechNexion MACHINE configs from boot2qt
+	TNCONFIGS=$(ls $CWD/sources/meta-boot2qt/meta-boot2qt-distro/conf/distro/include/*.conf | xargs -n 1 basename | grep -E -c "$MACHINE")
+  else
+    echo -e "Try to setup boot2qt build environment. Please export MACHINE=xxx first."
+    return 1
+  fi
+else
+  PROGNAME="$CWD/sources/base/setup-environment"
+  # Get TechNexion MACHINE configs from yocto
+  TNCONFIGS=$(ls $CWD/sources/meta-tn-imx-bsp/conf/machine/*.conf | xargs -n 1 basename | grep -E -c "$MACHINE")
+fi
 
 usage ()
 {
@@ -59,31 +74,41 @@ if [ -z "$MACHINE" ]; then
   return 1
 fi
 
-if [ -z "$DISTRO" ]; then
-  echo "Error: DISTRO environment variable not defined"
-  return 1
+if [ ! -d "$CWD/sources/meta-boot2qt" ]; then
+  if [ -z "$DISTRO" ]; then
+      echo "Error: DISTRO environment variable not defined"
+      return 1
+  fi
 fi
 
-# Get TechNexion MACHINE configs
-TNCONFIGS=$(ls $CWD/sources/meta-tn-imx-bsp/conf/machine/*.conf | xargs -n 1 basename | grep -E -c "$MACHINE")
 # Get i.MX MACHINE configs
 FSLCONFIGS=$(ls $CWD/sources/meta-imx/meta-bsp/conf/machine/*.conf $CWD/sources/meta-freescale*/conf/machine/*.conf | xargs -n 1 basename | grep -E -c "$MACHINE")
 # Set up the basic yocto environment by sourcing fsl community's setup-environment bash script with/without TEMPLATECONF
-if [ $TNCONFIGS -gt 0 ]; then
-  echo "Setup TechNexion Yocto"
-  echo "    TEMPLATECONF=$CWD/sources/meta-tn-imx-bsp/conf MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
-  echo ""
-  TEMPLATECONF="$CWD/sources/meta-tn-imx-bsp/conf" MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
-elif [ $FSLCONFIGS -gt 0 ]; then
-  echo "Setup Freescale/i.MX Yocto"
-  echo "    MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
-  echo ""
-  MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
+if [ -n "${DISTRO}" ]; then
+  if [ "${TNCONFIGS}" = "1" ]; then
+    echo "Setup TechNexion Yocto"
+    echo "    TEMPLATECONF=$CWD/sources/meta-tn-imx-bsp/conf MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
+    echo ""
+    TEMPLATECONF="$CWD/sources/meta-tn-imx-bsp/conf" MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
+  elif [ "${FSLCONFIGS}" = "1" ]; then
+    echo "Setup Freescale/i.MX Yocto"
+    echo "    MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
+    echo ""
+    MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
+  fi
 else
-  echo "Setup OpenEmbedded Yocto"
-  echo "    MACHINE=$MACHINE source $PROGNAME $BUILDDIRECTORY"
-  echo ""
-  MACHINE=$MACHINE source $PROGRAME $BUILDDIRECTORY
+  if [ "${TNCONFIGS}" = "1" ]; then
+    echo "Setup Boot2qt"
+    echo "    export MACHINE=$MACHINE"
+    echo "    source $PROGNAME $BUILDDIRECTORY"
+    echo ""
+    source $PROGNAME $BUILDDIRECTORY
+  else
+    echo "Setup OpenEmbedded Yocto"
+    echo "    MACHINE=$MACHINE source $PROGNAME $BUILDDIRECTORY"
+    echo ""
+    MACHINE=$MACHINE source $PROGNAME $BUILDDIRECTORY
+  fi
 fi
 
 #
@@ -93,8 +118,9 @@ fi
 #
 
 # both imx and technexion MACHINE configs
-echo -e "\nTechNexion setup-environment.sh wrapper: Further modification to bblayers.conf and local.conf"
-if [ $TNCONFIGS -gt 0 -o $FSLCONFIGS -gt 0 ]; then
+echo -e "\n# TechNexion setup-environment.sh wrapper: Further modification to bblayers.conf and local.conf" | tee -a conf/local.conf
+
+if [ "${TNCONFIGS}" = "1" -o "${FSLCONFIGS}" = "1" ]; then
   if [ -d $PWD/../sources/meta-imx ]; then
     # copy new EULA into community so setup uses latest i.MX EULA
     cp $PWD/../sources/meta-imx/EULA.txt $PWD/../sources/meta-freescale/EULA
@@ -127,7 +153,7 @@ if [ $TNCONFIGS -gt 0 -o $FSLCONFIGS -gt 0 ]; then
 fi
 
 # technexion MACHINE configs
-if [ $TNCONFIGS -gt 0 ] ; then
+if [ "${TNCONFIGS}" = "1" ] ; then
   # add technexion bsp layers to bblayers.conf
   if [ -d $PWD/../sources/meta-tn-imx-bsp ]; then
     if ! grep -Fq "meta-tn-imx-bsp" $PWD/conf/bblayers.conf; then
@@ -163,7 +189,7 @@ TN_CONTAINER_IMAGE_TYPE ?= "tar.gz"
 EOF
       echo "TN_CONTAINER_IMAGE_TYPE = \"tar.gz\"" >> $PWD/conf/local.conf
       echo "BBMULTICONFIG = \"container\"" >> $PWD/conf/local.conf
-      echo "setup BBMULTICONFIG in local.conf with conf/multiconfig/container.conf"
+      echo "# setup BBMULTICONFIG in local.conf with conf/multiconfig/container.conf"
       cat $PWD/conf/multiconfig/container.conf
     fi
   else
