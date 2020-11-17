@@ -30,6 +30,8 @@ IMAGE_INSTALL = "\
 	tn-container-service \
 	"
 
+IMAGE_INSTALL_append_virtualization = " ${@'' if ('container' in (d.getVar('WKS_FILE', True))) else 'docker-disk'}"
+
 # Select Image Features
 IMAGE_FEATURES += " \
     splash \
@@ -81,3 +83,21 @@ usermod -a -G sudo,users,plugdev,docker technexion; \
 
 inherit core-image extrausers
 inherit distro_features_check ${@bb.utils.contains('BBFILE_COLLECTIONS', 'qt5-layer', 'populate_sdk_qt5', '', d)}
+
+
+IMAGE_FEATURES_append_mender-image = " package-management "
+IMAGE_INSTALL_append_mender-image += " packagegroup-mender-update-modules"
+DEPENDS_append_mender-image = " docker-disk"
+IMAGE_CMD_dataimg_prepend_mender-image () {
+  if [ -f ${DEPLOY_DIR_IMAGE}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ]; then
+    if [ -n ${TN_DOCKER_PARTITION_MOUNT} ]; then
+      mkdir -p ${IMAGE_ROOTFS}${TN_DOCKER_PARTITION_MOUNT}
+      bbnote "Extract ${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} to ${IMAGE_ROOTFS}${TN_DOCKER_PARTITION_MOUNT}"
+      tar zxf ${DEPLOY_DIR_IMAGE}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} -C ${IMAGE_ROOTFS}${TN_DOCKER_PARTITION_MOUNT} .
+    else
+      bbwarn "Extract ${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} to ${IMAGE_ROOTFS}/data, please ensure docker.service start with --data-root set to /data directory"
+      tar zxf ${DEPLOY_DIR_IMAGE}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} -C ${IMAGE_ROOTFS}/data .
+    fi
+  fi
+}
+
