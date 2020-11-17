@@ -3,8 +3,8 @@ LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
 INSANE_SKIP_${PN} += "already-stripped"
-SKIP_FILEDEPS_${PN} = "1"
-EXCLUDE_FROM_SHLIBS_${PN} = "1"
+SKIP_FILEDEPS = "1"
+EXCLUDE_FROM_SHLIBS = "1"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
@@ -189,3 +189,19 @@ do_deploy () {
 	fi
 }
 addtask deploy before do_package after do_install
+
+
+do_install[fakeroot] = "1"
+
+fakeroot do_install_append() {
+	if [ -n "${TN_DOCKER_PARTITION_MOUNT}" ]; then
+		install -d ${D}${TN_DOCKER_PARTITION_MOUNT}
+		if [ -f ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ]; then
+			tar zxf ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} -C ${D}${TN_DOCKER_PARTITION_MOUNT}
+		else
+			bbfatal "${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} not found. Please ensure docker-disk exported docker containers directory as tar.gz file correctly."
+		fi
+	fi
+}
+
+FILES_${PN} += "${D}${TN_DOCKER_PARTITION_MOUNT}"
