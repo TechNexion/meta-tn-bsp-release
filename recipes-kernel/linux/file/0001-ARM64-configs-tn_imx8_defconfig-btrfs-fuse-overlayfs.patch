@@ -1,0 +1,52 @@
+From 53af8b58b460a14a87ea794f97fd1f9e7e5a18d2 Mon Sep 17 00:00:00 2001
+From: Po Cheng <po.cheng@technexion.com>
+Date: Fri, 20 Nov 2020 15:21:28 +0800
+Subject: [PATCH] ARM64: configs: tn_imx8_defconfig: btrfs/fuse/overlayfs/vxlan
+ support for virtualization
+
+Signed-off-by: Po Cheng <po.cheng@technexion.com>
+---
+ arch/arm64/configs/tn_imx8_defconfig | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/configs/tn_imx8_defconfig b/arch/arm64/configs/tn_imx8_defconfig
+index 32f3eb2..85ea12e 100644
+--- a/arch/arm64/configs/tn_imx8_defconfig
++++ b/arch/arm64/configs/tn_imx8_defconfig
+@@ -131,7 +131,6 @@ CONFIG_NET_SCH_MQPRIO=y
+ CONFIG_NET_CLS_BASIC=y
+ CONFIG_NET_CLS_TCINDEX=y
+ CONFIG_TSN=y
+-CONFIG_DNS_RESOLVER=y
+ CONFIG_NET_SWITCHDEV=y
+ CONFIG_BPF_JIT=y
+ CONFIG_NET_PKTGEN=y
+@@ -245,6 +244,7 @@ CONFIG_PATA_OF_PLATFORM=y
+ CONFIG_NETDEVICES=y
+ CONFIG_MACVLAN=m
+ CONFIG_MACVTAP=m
++CONFIG_VXLAN=m
+ CONFIG_TUN=y
+ CONFIG_VETH=m
+ CONFIG_VIRTIO_NET=y
+@@ -879,12 +879,17 @@ CONFIG_MXC_MLB150=y
+ CONFIG_EXT2_FS=y
+ CONFIG_EXT3_FS=y
+ CONFIG_EXT4_FS_POSIX_ACL=y
++CONFIG_BTRFS_FS=m
++CONFIG_BTRFS_FS_POSIX_ACL=y
+ # CONFIG_DNOTIFY is not set
+ CONFIG_FANOTIFY=y
+ CONFIG_FANOTIFY_ACCESS_PERMISSIONS=y
+ CONFIG_QUOTA=y
+ CONFIG_QFMT_V2=y
+ CONFIG_AUTOFS_FS=y
++CONFIG_FUSE_FS=m
++CONFIG_CUSE=m
++CONFIG_OVERLAY_FS=m
+ CONFIG_VFAT_FS=y
+ CONFIG_TMPFS=y
+ CONFIG_HUGETLBFS=y
+-- 
+2.7.4
+

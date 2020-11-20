@@ -3,6 +3,8 @@
 # Copyright 2020 TechNexion Ltd.
 # Released under the MIT license (see COPYING.MIT for the terms)
 
+FILESEXTRAPATHS_prepend := "${THISDIR}/file:"
+
 SUMMARY = "Linux Kernel provided and supported by NXP"
 DESCRIPTION = "Linux Kernel provided and supported by NXP with focus on \
 i.MX Family Reference Boards. It includes support for many IPs such as GPU, VPU and IPU."
@@ -20,7 +22,9 @@ KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
 SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
 
-SRCREV = "9f64613fdd330244f1b8ce56126f89fe239b6442"
+SRC_URI_append_virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
+
+SRCREV = "3a21c668ec72f4c8af981a57f5b319b9522970a7"
 
 FILES_${KERNEL_PACKAGE_NAME}-base += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
 
