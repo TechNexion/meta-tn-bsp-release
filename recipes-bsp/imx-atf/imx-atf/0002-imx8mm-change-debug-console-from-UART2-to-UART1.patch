@@ -1,0 +1,25 @@
+From e8fcfc91f9a9a9573c39dff24d2fb69a4fa50771 Mon Sep 17 00:00:00 2001
+From: Richard Hu <richard.hu@technexion.com>
+Date: Tue, 20 Oct 2020 20:35:06 -0700
+Subject: [PATCH 2/2] imx8mm: change debug console from UART2 to UART1
+
+---
+ plat/imx/imx8m/imx8mm/include/platform_def.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/plat/imx/imx8m/imx8mm/include/platform_def.h b/plat/imx/imx8m/imx8mm/include/platform_def.h
+index 42b0361..0ff2e7b 100644
+--- a/plat/imx/imx8m/imx8mm/include/platform_def.h
++++ b/plat/imx/imx8m/imx8mm/include/platform_def.h
+@@ -51,7 +51,7 @@
+ 
+ #define HAB_RVT_BASE			U(0x00000900) /* HAB_RVT for i.MX8MM */
+ 
+-#define IMX_BOOT_UART_BASE		U(0x30890000)
++#define IMX_BOOT_UART_BASE		U(0x30860000)
+ #define IMX_BOOT_UART_CLK_IN_HZ		24000000 /* Select 24MHz oscillator */
+ 
+ #define PLAT_CRASH_UART_BASE		IMX_BOOT_UART_BASE
+-- 
+2.7.4
+
