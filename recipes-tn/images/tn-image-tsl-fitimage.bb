@@ -13,7 +13,7 @@ IMAGE_FSTYPES_remove = "tar tar.bz2 ext4 sdcard sdcard.bz2 sdcard.xz sdcard.md5s
 WKS_FILE = "tn-spl-uboot-fit.wks.in"
 WKS_FILE_mx8 = "tn-imx8-imxboot-fit.wks.in"
 #WKS_FILE_DEPENDS += ""
-IMAGE_BOOT_FILES = "fitImage-${INITRAMFS_IMAGE}-${MACHINE}.bin;tnrescue.itb"
+IMAGE_BOOT_FILES = "tnrescue.itb;tnrescue.itb"
 IMAGE_BOOT_FILES_append_arm = " u-boot-${MACHINE}.${UBOOT_SUFFIX};u-boot.img"
 
 # We do not want to install anything, only need the wic packaging"
@@ -35,9 +35,10 @@ IMAGE_OVERHEAD_FACTOR = "1.0"
 
 python do_check_initramfs_image () {
     initramfs_image = d.getVar("INITRAMFS_IMAGE", True)
-    if initramfs_image is None or initramfs_image != "tn-image-rescue-initramfs":
-        bb.fatal("Must set INITRAMFS_IMAGE = \"tn-image-rescue-initramfs\" in local.conf to build tn-image-rescue-fitimage")
+    if initramfs_image is None or initramfs_image != "tn-image-tsl-initramfs":
+        bb.fatal("Must set INITRAMFS_IMAGE = \"tn-image-tsl-initramfs\" in local.conf to build tn-image-tsl-fitimage")
 }
 addtask check_initramfs_image before do_rootfs
 
 RDEPENDS_${PN} += "bash"
+DEPENDS += "e2fsprogs-native"
