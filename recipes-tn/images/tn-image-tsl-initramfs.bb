@@ -11,25 +11,16 @@ TOUCH = ' ${@bb.utils.contains("MACHINE_FEATURES", "touchscreen", "tslib tslib-c
 # reassigned to RDEPNDS in image.bbclass
 PACKAGE_INSTALL = " \
 	${VIRTUAL-RUNTIME_base-utils} \
-	directfb \
 	udev \
 	firmware-imx-sdma \
 	packagegroup-core-boot \
 	kernel-modules \
-	rescue-loader \
-	qt4-embedded-plugin-iconengine-svgicon \
-	qt4-embedded-plugin-imageformat-svg \
-	qt4-embedded-plugin-gfxdriver-directfbscreen \
-	qt4-embedded-plugin-gfxdriver-gfxtransformed \
-	ttf-lato-font \
+	tsl-loader \
 	mmc-utils \
 	xz \
 	connman \
 	${TOUCH} \
 	"
-
-# default from core-image-minimal (core-image.bbclass)
-#IMAGE_INSTALL = "packagegroup-core-boot ${CORE_IMAGE_EXTRA_INSTALL}"
 
 # remove unneeded technexion packagegroups
 IMAGE_INSTALL_remove = "packagegroup-tn-tools packagegroup-tn-nfc packagegroup-tn-voicehat"
@@ -40,16 +31,14 @@ IMAGE_LINGUAS = ""
 NO_RECOMMENDATIONS = "1"
 LICENSE = "MIT"
 
-IMAGE_FSTYPES = "cpio.xz ${INITRAMFS_FSTYPES}"
-IMAGE_FSTYPES_remove = "ext4 sdcard.xz sdcard.md5sum"
+IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
+IMAGE_FSTYPES_remove = "ext4 sdcard.xz sdcard.md5sum wic wic.gz wic.md5sum"
 
 inherit core-image
 
 IMAGE_ROOTFS_SIZE = "0"
 IMAGE_ROOTFS_EXTRA_SPACE = "0"
 IMAGE_OVERHEAD_FACTOR = "1.0"
-# Use the default 131072 KB setting, anything bigger will cause dd problem in rescue-loader
-# INITRAMFS_MAXSIZE = "262144000"
 
 XZ_INTEGRITY_CHECK = "crc32"
 
