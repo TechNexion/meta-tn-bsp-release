@@ -1,0 +1,27 @@
+# set boot script for technexion software loader
+
+setenv fit_addr '@FIT_ADDR@'
+setenv fit_prefix '@FIT_PREFIX@'
+setenv fit_high '0xffffffff'
+setenv fit_overlay '
+  if test -n $fdt_file; then
+    setenv fdtfile $fdt_file
+  fi
+  setenv fit_conf conf@${fit_prefix}${fdtfile}
+  for ov in ${dtoverlay}
+  do
+    echo Overlaying ${ov}...
+    setenv ovconf conf@${fit_prefix}overlays_${ov}
+    setenv fit_conf ${fit_conf}#${ovconf}
+  done
+  echo fit_conf: ${fit_conf}
+'
+setenv fit_args '
+  setenv bootargs ${jh_clk} console=${console} root=/dev/ram0 rootwait rw modules-load=g_acm_ms g_acm_ms.stall=0 g_acm_ms.removable=1 g_acm_ms.file=/dev/mmcblk${mmcdev} g_acm_ms.iSerialNumber=00:00:00:00:00:00 g_acm_ms.iManufacturer=TechNexion fbcon=logo-pos:center
+'
+setenv loadfit 'fatload mmc ${mmcdev}:${mmcpart} ${fit_addr} tnrescue.itb'
+setenv fitboot 'echo Booting from FIT image ...; run fit_overlay; run fit_args; bootm ${fit_addr}#${fit_conf}'
+
+run loadfit
+run fitboot
+

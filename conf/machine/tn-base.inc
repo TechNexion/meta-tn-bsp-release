@@ -71,7 +71,7 @@ BOOT_SCRIPTS = ""
 UENV_FILENAME_uenv = "uEnv.txt"
 BOOT_SCRIPTS_append_uenv = " ${UENV_FILENAME}:uEnv.txt"
 UENV_SCRNAME_bootscr = "boot.scr.uimg"
-BOOT_SCRIPTS_append_bootscr = " ${UENV_SCRNAME}:boot.scr.uimg"
+BOOT_SCRIPTS_append_bootscr = " ${UENV_SCRNAME}:boot.scr"
 
 #
 # DDR Firmware Name (NXP firmwares)
@@ -111,7 +111,7 @@ WKS_FILE_DEPENDS += "u-boot-tn-imx"
 WKS_FILE_DEPENDS_mx8 += "imx-boot"
 IMAGE_BOOT_FILES_append = " ${SPLASH_FILENAME}"
 IMAGE_BOOT_FILES_append_uenv = " ${UENV_FILENAME}"
-IMAGE_BOOT_FILES_append_bootscr = " ${UENV_SCRNAME}"
+IMAGE_BOOT_FILES_append_bootscr = " ${UENV_SCRNAME};boot.scr"
 
 # xz compression options
 XZ_COMPRESSION_LEVEL = "-9"

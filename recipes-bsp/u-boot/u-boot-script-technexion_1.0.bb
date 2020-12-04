@@ -1,3 +1,5 @@
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+
 SUMMARY = "u-boot boot.scr.uimg"
 DESCRIPTION = "Boot script for launching bootable disk images on TechNexion products"
 SECTION = "base"
@@ -10,23 +12,26 @@ PR = "r0"
 
 COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"
 
-SRC_URI = " \
-		file://README \
-		file://boot.scr \
-"
+SRC_URI = "file://README file://boot.scr"
+SRC_URI_append_rescue = " file://boot.scr.tsl"
 
 S = "${WORKDIR}"
 
-inherit deploy
-
 do_compile () {
 	mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
-	              -n "TechNexion boot script" -d ${S}/boot.scr \
-	              ${S}/boot.scr.uimg
+		-n "TechNexion boot script" -d ${S}/boot.scr \
+		${S}/boot.scr.uimg
+}
+
+do_compile_append_rescue () {
+	sed -e 's,@FIT_ADDR@,'${UBOOT_FIT_LOADADDRESS}',g' -i ${S}/boot.scr.tsl
+	sed -e 's,@FIT_PREFIX@,'${UBOOT_FIT_PREFIX}',g' -i ${S}/boot.scr.tsl
+	mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
+		-n "TechNexion boot script" -d ${S}/boot.scr.tsl \
+		${S}/boot.scr.uimg
 }
 
 do_install () {
-	install -d ${DEPLOYDIR}
-	install -m 0644 ${S}/boot.scr.uimg ${DEPLOYDIR}
+	install -d ${DEPLOY_DIR_IMAGE}
+	install -m 0644 ${S}/boot.scr.uimg ${DEPLOY_DIR_IMAGE}
 }
-
