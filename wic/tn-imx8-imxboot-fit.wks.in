@@ -19,7 +19,7 @@
 # default is 1.3, use --overhead-factor to override
 #
 
-part u-boot --source rawcopy --sourceparams "file=imx-boot-${MACHINE}-sd.bin" --ondisk ${WIC_FSTAB_BLKDEV} --no-table --align ${IMX_BOOT_SEEK}
+part u-boot --source rawcopy --sourceparams "file=imx-boot" --ondisk ${WIC_FSTAB_BLKDEV} --no-table --align ${IMX_BOOT_SEEK}
 part /boot --source bootimg-partition --ondisk ${WIC_FSTAB_BLKDEV} --fstype=vfat --label boot --active --align ${IMAGE_ROOTFS_ALIGNMENT} --overhead-factor 1.0 --extra-space 4
 
 bootloader --ptable ${WIC_PARTITION_TABLE_TYPE}
