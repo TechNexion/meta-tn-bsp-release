@@ -1,0 +1,28 @@
+From 00fe3402d194e99b884bcbd9a5fd826112f15bdb Mon Sep 17 00:00:00 2001
+From: Po Cheng <po.cheng@technexion.com>
+Date: Wed, 13 Jan 2021 11:07:26 +0800
+Subject: [PATCH] u-boot: Set CONFIG_SYS_BOOTM_LEN in imx_env.h for TSL
+
+Signed-off-by: Po Cheng <po.cheng@technexion.com>
+---
+ include/configs/imx_env.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/include/configs/imx_env.h b/include/configs/imx_env.h
+index 7eed730..ed9cf19 100644
+--- a/include/configs/imx_env.h
++++ b/include/configs/imx_env.h
+@@ -28,6 +28,10 @@
+ #define MFG_NAND_FIT_PARTITION ""
+ #endif
+ 
++#ifdef CONFIG_FIT
++#define CONFIG_SYS_BOOTM_LEN          0xA000000
++#endif
++
+ #define CONFIG_MFG_ENV_SETTINGS_DEFAULT \
+ 	"mfgtool_args=setenv bootargs console=${console},${baudrate} " \
+ 		"rdinit=/linuxrc " \
+-- 
+2.7.4
+
