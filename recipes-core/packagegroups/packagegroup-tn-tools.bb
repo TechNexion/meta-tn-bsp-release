@@ -10,38 +10,47 @@ inherit packagegroup
 
 
 RDEPENDS_${PN} = " \
-    openssh-sftp-server \
-    libsocketcan \
+    alsa-utils \
+    alsa-tools \
     bash \
+    bashtop \
+    create-ap \
     cpulimit \
-    hostapd \
     dnf \
     dnsmasq \
     dtc \
-    haveged \
-    hdparm \
-    memtester \
-    create-ap \
-    iptables \
-    iperf3 \
-    rsync \
-    picocom \
-    libgpiod \
-    spidev-test \
-    stress-ng \
-    cpulimit \
-    thermal-imx-test \
-    bashtop \
-    stressapptest \
+    e2fsprogs-mke2fs \
+    evtest \
+    ethtool \
+    fbset \
     fb-test \
     fbida \
-    ramsmp \
-    wireless-tools \
-    sysbench \
     fio \
+    glmark2 \
+    haveged \
+    thermal-imx-test \
+    hdparm \
+    hostapd \
+    i2c-tools \
     iozone3 \
+    iptables \
+    iperf3 \
+    libgpiod \
+    libsocketcan \
     lmbench \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo glmark2 net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)} \
+    memtester \
+    openssh-sftp-server \
+    picocom \
+    ramsmp \
+    rsync \
+    spidev-test \
+    stress-ng \
+    stressapptest \
+    sysbench \
+    v4l-utils \
+    wireless-tools \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'v4l-utils gtk+3-demo', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)} \
 "
 
 RDEPENDS_${PN}_append_mx7 = " voicehat-test"
