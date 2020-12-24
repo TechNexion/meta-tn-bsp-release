@@ -103,8 +103,8 @@ IMAGE_INSTALL_append_voicehat = " packagegroup-tn-voicehat"
 IMAGE_INSTALL_append_nfc = " packagegroup-tn-nfc"
 IMAGE_FSTYPES_append = " ext4 wic.md5sum"
 LICENSE_FLAGS_WHITELIST += "commercial_qca commercial_brcm"
-MACHINE_FEATURES_BACKFILL_append_symcom = " nmcli"
-DISTRO_FEATURES_BACKFILL_append_symcom = " nmcli"
+MACHINE_FEATURES_BACKFILL_append_simcom = " nmcli"
+DISTRO_FEATURES_BACKFILL_append_simcom = " nmcli"
 
 # wic (sdcard) image
 #WKS_FILE = "tn-spl-bootpart-rootfs.wks.in"
@@ -129,6 +129,6 @@ DISTRO_FEATURES_append_virtualization = " virtualization"
 DISTRO_FEATURES_remove_rescue = "x11 wayland"
 DISTRO_FEATURES_append_rescue = " directfb"
 
-RDEPENDS_packagegroup-core-tools-testapps_remove_symcom = "mesa-demos connman-client connman-tools"
-RDEPENDS_packagegroup-base-3g_remove_symcom = "ofono"
+RDEPENDS_packagegroup-core-tools-testapps_remove_simcom = "mesa-demos connman-client connman-tools"
+RDEPENDS_packagegroup-base-3g_remove_simcom = "ofono"
 
