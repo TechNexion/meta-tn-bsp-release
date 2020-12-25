@@ -204,4 +204,4 @@ fakeroot do_install_append() {
 	fi
 }
 
-FILES_${PN} += "${D}${TN_DOCKER_PARTITION_MOUNT}"
+FILES_${PN} += "${TN_DOCKER_PARTITION_MOUNT}"

@@ -100,4 +100,3 @@ IMAGE_CMD_dataimg_prepend_mender-image () {
     fi
   fi
 }
-
