@@ -180,19 +180,20 @@ echo >> conf/local.conf
 echo "PACKAGE_CLASSES = \"package_deb\"" >> conf/local.conf
 echo "EXTRA_IMAGE_FEATURES += \"package-management\"" >> conf/local.conf
 
-# for mender
+# for mender, note: below should really be in tn-setup-mender.sh
 if grep -q "tn-setup-mender" <<< $CALLER; then
   echo -e "\n# Setup additional mender settings in local.conf" | tee -a conf/local.conf
   if [ -f conf/local.conf ]; then
     if grep -q "DISTRO.*b2qt" conf/local.conf; then
-      echo -e "\n# Setup additional local.conf settings for boot2qt." | tee -a conf/local.conf
+      echo -e "\n# Setup additional local.conf settings for mender boot2qt." | tee -a conf/local.conf
       echo "QBSP_IMAGE_CONTENT_remove = \"\${IMAGE_LINK_NAME}.img\"" >> conf/local.conf
       echo "QBSP_IMAGE_CONTENT_prepend = \"\${IMAGE_LINK_NAME}.sdimg\"" >> conf/local.conf
       echo "IMAGE_CLASSES_remove = \"deploy-conf\"" >> conf/local.conf
       echo "IMAGE_CLASSES_append = \" deploy-conf-b2qt\"" >> conf/local.conf
+      echo "BBMASK += \"meta-tn-imx-bsp/recipes-tn/images/tn-image-multimedia-full.bb\"" >> conf/local.conf
     fi
     if grep -q "BBMULTICONFIG.*container" conf/local.conf; then
-      echo -e "\n# Setup additional local.conf settings for virtualization." | tee -a conf/local.conf
+      echo -e "\n# Setup additional local.conf settings for mender virtualization." | tee -a conf/local.conf
       echo "BBMASK += \"meta-boot2qt/meta-boot2qt-distro/recipes-qt/qt5/ogl-runtime_git.bbappend\"" >> conf/local.conf
       echo "TN_DOCKER_PARTITION_MOUNT_mender-disk = \"/data/docker\"" >> conf/local.conf
     fi
@@ -202,6 +203,7 @@ if grep -q "tn-setup-mender" <<< $CALLER; then
     echo "MENDER_BOOT_PART_NUMBER_tn = \"2\"" >> conf/local.conf
     echo "MENDER_STORAGE_TOTAL_SIZE_MB_tn = \"8176\"" >> conf/local.conf
     echo "MENDER_DATA_PART_SIZE_MB_tn = \"2048\"" >> conf/local.conf
+    echo "IMAGE_ROOTFS_MAXSIZE_tn = \"25165824\"" >> conf/local.conf
   fi
 fi
 
