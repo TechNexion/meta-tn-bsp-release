@@ -105,8 +105,8 @@ MACHINE_FEATURES_BACKFILL_append_simcom = " nmcli"
 DISTRO_FEATURES_BACKFILL_append_simcom = " nmcli"
 
 # wic (sdcard) image
-#WKS_FILE = "tn-spl-bootpart-rootfs.wks.in"
-#WKS_FILE_mx8 = "imx-imx-boot-bootpart-rootfs.wks.in"
+WKS_FILE = "imx-uboot-spl-bootpart.wks.in"
+WKS_FILE_mx8 = "imx-imx-boot-bootpart.wks.in"
 WKS_FILE_DEPENDS += "u-boot-tn-imx"
 WKS_FILE_DEPENDS_mx8 += "imx-boot"
 IMAGE_BOOT_FILES_append = " ${SPLASH_FILENAME}"
