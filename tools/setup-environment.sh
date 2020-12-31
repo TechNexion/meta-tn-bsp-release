@@ -85,19 +85,19 @@ fi
 FSLCONFIGS=$(ls $CWD/sources/meta-imx/meta-bsp/conf/machine/*.conf $CWD/sources/meta-freescale*/conf/machine/*.conf | xargs -n 1 basename | grep -E -c "$MACHINE")
 # Set up the basic yocto environment by sourcing fsl community's setup-environment bash script with/without TEMPLATECONF
 if [ -n "${DISTRO}" ]; then
-  if [ "${TNCONFIGS}" = "1" ]; then
+  if [ ${TNCONFIGS} != 0 ]; then
     echo "Setup TechNexion Yocto"
     echo "    TEMPLATECONF=$CWD/sources/meta-tn-imx-bsp/conf MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
     echo ""
     TEMPLATECONF="$CWD/sources/meta-tn-imx-bsp/conf" MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
-  elif [ "${FSLCONFIGS}" = "1" ]; then
+  elif [ ${FSLCONFIGS} != 0 ]; then
     echo "Setup Freescale/i.MX Yocto"
     echo "    MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
     echo ""
     MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
   fi
 else
-  if [ "${TNCONFIGS}" = "1" ]; then
+  if [ ${TNCONFIGS} != 0 ]; then
     echo "Setup Boot2qt"
     echo "    export MACHINE=$MACHINE"
     echo "    source $PROGNAME $BUILDDIRECTORY"
@@ -120,7 +120,7 @@ fi
 # both imx and technexion MACHINE configs
 echo -e "\n# TechNexion setup-environment.sh wrapper: Further modification to bblayers.conf and local.conf" | tee -a conf/local.conf
 
-if [ "${TNCONFIGS}" = "1" -o "${FSLCONFIGS}" = "1" ]; then
+if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
   if [ -d $PWD/../sources/meta-imx ]; then
     # copy new EULA into community so setup uses latest i.MX EULA
     cp $PWD/../sources/meta-imx/EULA.txt $PWD/../sources/meta-freescale/EULA
@@ -153,7 +153,7 @@ if [ "${TNCONFIGS}" = "1" -o "${FSLCONFIGS}" = "1" ]; then
 fi
 
 # technexion MACHINE configs
-if [ "${TNCONFIGS}" = "1" ] ; then
+if [ ${TNCONFIGS} != 0 ] ; then
   # add technexion bsp layers to bblayers.conf
   if [ -d $PWD/../sources/meta-tn-imx-bsp ]; then
     if ! grep -Fq "meta-tn-imx-bsp" $PWD/conf/bblayers.conf; then
