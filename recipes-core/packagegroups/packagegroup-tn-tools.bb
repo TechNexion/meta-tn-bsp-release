@@ -14,12 +14,14 @@ RDEPENDS_${PN} = " \
     alsa-tools \
     bash \
     bashtop \
+    coreutils \
     create-ap \
     cpulimit \
     dnf \
     dnsmasq \
     dtc \
     e2fsprogs-mke2fs \
+    e2fsprogs-resize2fs \
     evtest \
     ethtool \
     fbset \
@@ -34,11 +36,14 @@ RDEPENDS_${PN} = " \
     i2c-tools \
     iozone3 \
     iptables \
+    iproute2 \
     iperf3 \
     libgpiod \
     libsocketcan \
     lmbench \
     memtester \
+    mmc-utils \
+    net-tools \
     openssh-sftp-server \
     picocom \
     ramsmp \
