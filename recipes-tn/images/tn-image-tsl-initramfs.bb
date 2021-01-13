@@ -6,7 +6,8 @@ the Minimal RAM-based Initial Root Filesystem (initramfs), which finds the \
 first 'init' program more efficiently. The rescue-loader is included, and is \
 used to program the target board with demo images."
 
-TOUCH = ' ${@bb.utils.contains("MACHINE_FEATURES", "touchscreen", "tslib tslib-calibrate tslib-tests qt4-embedded-plugin-mousedriver-tslib", "",d)}'
+TOUCH = "tslib tslib-calibrate tslib-tests"
+QTPLUGINS = "qtsvg-plugins qtbase-plugins"
 
 # reassigned to RDEPNDS in image.bbclass
 PACKAGE_INSTALL = " \
@@ -15,11 +16,15 @@ PACKAGE_INSTALL = " \
 	firmware-imx-sdma \
 	packagegroup-core-boot \
 	kernel-modules \
-	tsl-loader \
+	ttf-lato-font \
 	mmc-utils \
 	xz \
 	connman \
-	${TOUCH} \
+	tsl-loader \
+	${QTPLUGINS} \
+	${@bb.utils.contains("DISTRO_FEATURES", "wayland", "qtwayland-plugins weston-init", "", d)} \
+	${@bb.utils.contains("DISTRO_FEATURES", "x11 wayland", "weston-xwayland", "", d)} \
+	${@bb.utils.contains("MACHINE_FEATURES", "touchscreen", "${TOUCH}", "", d)} \
 	"
 
 # remove unneeded technexion packagegroups
