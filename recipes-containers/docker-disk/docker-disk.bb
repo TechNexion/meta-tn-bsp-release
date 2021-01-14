@@ -108,13 +108,13 @@ python () {
 PV = "${TARGET_TAG}"
 
 # multiconfig dependancy only works on yocto warrior onward
-do_postfetch[mcdepends] = "mc::container:${TN_CONTAINER_IMAGE}:do_image_complete"
+do_postfetch[mcdepends] = "mc:${MACHINE}:container:${TN_CONTAINER_IMAGE}:do_image_complete"
 do_postfetch () {
 	if [ -f ${TOPDIR}/tmp-container/deploy/images/tn-container/${TN_DOCKER_CONTAINER_IMAGE} ]; then
 		mkdir -p ${S}/container
 		install -m 644 ${TOPDIR}/tmp-container/deploy/images/tn-container/${TN_DOCKER_CONTAINER_IMAGE} ${S}/container/${TN_DOCKER_CONTAINER_IMAGE}
 	else
-		bbwarn "${TOPDIR}/tmp-container/deploy/images/tn-container/${TN_DOCKER_CONTAINER_IMAGE} not found. For yocto version earlier than warrior, please build ${TN_DOCKER_CONTAINER_IMAGE} separately with the following command:\n\tbitbake multiconfig:container:${TN_CONTAINER_IMAGE}"
+		bbwarn "${TOPDIR}/tmp-container/deploy/images/tn-container/${TN_DOCKER_CONTAINER_IMAGE} not found. For yocto version earlier than warrior, please build ${TN_DOCKER_CONTAINER_IMAGE} separately with the following command:\n\tbitbake mc:${MACHINE}:container:${TN_CONTAINER_IMAGE}"
 	fi
 }
 addtask postfetch before do_compile and after do_fetch
