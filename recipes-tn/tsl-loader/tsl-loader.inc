@@ -52,10 +52,25 @@ do_install_append() {
 	install -m 0644 ${S}/tsl/installerd.service ${D}${systemd_unitdir}/system/
 	ln -sf ${systemd_unitdir}/system/installerd.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/installerd.service
 
-	#guiclientd.sh
+	# guiclientd.sh
 	install -m 755 ${S}/tsl/guiclientd.sh ${D}${sbindir}/guiclientd.sh
 
+	# guiclientd.conf
+	# DBUS_SESSION_BUS_ADDRESS=unix:path=/var/run/dbus/session_bus_socket
+	# QT_QPA_PLATFORM="wayland"
+	# XDG_RUNTIME_DIR="/run/user/0"
+	echo "DBUS_SESSION_BUS_ADDRESS=unix:path=/var/run/dbus/session_bus_socket" > ${D}${sysconfdir}/systemd/guiclientd.conf
+	echo "QT_QPA_PLATFORM=wayland" >> ${D}${sysconfdir}/systemd/guiclientd.conf
+	echo "XDG_RUNTIME_DIR=/run/user/0" >> ${D}${sysconfdir}/systemd/guiclientd.conf
+
 	# tsl-loader guiclientd systemd service files
+	if [ "${@bb.utils.filter('DISTRO_FEATURES', 'wayland', d)}" ]; then
+		sed -e 's,@ENV_FILE@,${sysconfdir}/systemd/guiclientd.conf,g' -i ${S}/tsl/guiclientd.service
+		sed -e 's,@EXEC_START@,${bindir}/python3 ${libdir}/python3.7/site-packages/tsl/guiview.py,g' -i ${S}/tsl/guiclientd.service
+	else
+		sed -e 's,@ENV_FILE@,,g' -i ${S}/tsl/guiclientd.service
+		sed -e 's,@EXEC_START@,/usr/sbin/guiclientd.sh,g' -i ${S}/tsl/guiclientd.service
+	fi
 	install -m 0644 ${S}/tsl/guiclientd.service ${D}${systemd_unitdir}/system/
 	ln -sf ${systemd_unitdir}/system/guiclientd.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/guiclientd.service
 
@@ -77,6 +92,7 @@ FILES_${PN} += " \
 	${sysconfdir}/installer.xml \
 	${systemd_unitdir}/system/installerd.service \
 	${sysconfdir}/systemd/system/multi-user.target.wants/installerd.service \
+	${sysconfdir}/systemd/system/guiclientd.conf \
 	${systemd_unitdir}/system/guiclientd.service \
 	${sysconfdir}/systemd/system/multi-user.target.wants/guiclientd.service \
 	${systemd_unitdir}/system/dbus-sess.socket \
