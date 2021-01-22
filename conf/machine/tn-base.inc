@@ -100,7 +100,7 @@ IMAGE_INSTALL_append_tools = " packagegroup-tn-tools"
 IMAGE_INSTALL_append_voicehat = " packagegroup-tn-voicehat"
 IMAGE_INSTALL_append_nfc = " packagegroup-tn-nfc"
 IMAGE_FSTYPES_append = " ext4 wic.md5sum"
-LICENSE_FLAGS_WHITELIST += "commercial_qca commercial_brcm"
+LICENSE_FLAGS_WHITELIST += "commercial_qca commercial_brcm commercial_tn"
 MACHINE_FEATURES_BACKFILL_append_simcom = " nmcli"
 DISTRO_FEATURES_BACKFILL_append_simcom = " nmcli"
 
