@@ -22,11 +22,7 @@ python do_setuenv() {
                             "flex-imx8mm": ("pi"), \
                             "edm-imx6": ("gnome", "fairy", "tc0700", "tc1000"), \
                             "edm-imx7": ("gnome"), \
-                            "edm-imx8mq": ("wizard"), \
-                            "tep1-imx7": (""), \
-                            "tep1-imx6ul": (""), \
-                            "tek-imx6": (""), \
-                            "tek3-imx6ul": ("")}
+                            "edm-imx8mq": ("wizard")}
         default_boards = {"pico-imx6": "pi", \
                           "pico-imx7": "pi", \
                           "pico-imx6ul": "pi", \
@@ -35,33 +31,37 @@ python do_setuenv() {
                           "flex-imx8mm": "pi", \
                           "edm-imx6": "fairy", \
                           "edm-imx7": "gnome", \
-                          "edm-imx8mq": "wizard"}
+                          "edm-imx8mq": "wizard", \
+                          "tep1-imx7": None, \
+                          "tep1-imx6ul": None, \
+                          "tek-imx6": None, \
+                          "tek3-imx6ul": None}
         if mach in supported_boards.keys():
             if bboard in supported_boards[mach]:
                 return bboard
         if mach in default_boards.keys():
-            return "{}".format(default_boards[mach])
+            return default_boards[mach]
         if len(bboard) > 0:
             return bboard
         return None
 
-    def gen_videoarg(disp):
+    def gen_videoarg(index, disp):
         if disp == "custom":
-            return "video=mxcfb0:dev=hdmi,1280x720M@60,if=RGB24 fbmem=28M"
+            return "video=mxcfb{}:dev=hdmi,1280x720M@60,if=RGB24 fbmem=28M ".format(index)
         elif disp == "hdmi":
-            return "video=mxcfb0:dev=hdmi,1280x720M@60,if=RGB24 fbmem=28M"
+            return "video=mxcfb{}:dev=hdmi,1280x720M@60,if=RGB24 fbmem=28M ".format(index)
         elif disp == "hdmi1080p":
-            return "video=mxcfb0:dev=hdmi,1920x1080M@60,if=RGB24 fbmem=28M"
+            return "video=mxcfb{}:dev=hdmi,1920x1080M@60,if=RGB24 fbmem=28M ".format(index)
         elif disp == "hdmi720p":
-            return "video=mxcfb0:dev=hdmi,1280x720M@60,if=RGB24 fbmem=28M"
+            return "video=mxcfb{}:dev=hdmi,1280x720M@60,if=RGB24 fbmem=28M ".format(index)
         elif disp == "lcd":
-            return "video=mxcfb0:dev=lcd,800x480@60,if=RGB24"
+            return "video=mxcfb{}:dev=lcd,800x480@60,if=RGB24 ".format(index)
         elif disp == "lvds10":
-            return "video=mxcfb0:dev=ldb,1280x800@60,if=RGB24"
+            return "video=mxcfb{}:dev=ldb,1280x800@60,if=RGB24 ".format(index)
         elif disp == "lvds15":
-            return "video=mxcfb0:dev=ldb,1368x768@60,if=RGB24"
+            return "video=mxcfb{}:dev=ldb,1366x768@60,if=RGB24 ".format(index)
         elif disp == "lvds7":
-            return "video=mxcfb0:dev=ldb,1024x600@60,if=RGB24"
+            return "video=mxcfb{}:dev=ldb,1024x600@60,if=RGB24 ".format(index)
         elif disp == "lvds7_hdmi720p":
             return "video=mxcfb0:dev=hdmi,1280x720M@60,if=RGB24 video=mxcfb1:dev=ldb,1024x600@60,if=RGB24"
         elif disp == "mipi5":
@@ -69,11 +69,13 @@ python do_setuenv() {
         return None
 
     def parse_display(mach, bboard, disp):
+        # tek/tep-imx6 dual display with 15inch + hdmi: video=mxcfb0:dev=ldb,1366x768@60,if=RGB24,bpp=32 video=mxcfb1:dev=hdmi,1920x1080M@60,if=RGB24,bpp=32 28M
         supported_displays = {"pico-imx6": ("lcd", "lvds7", "lvds10", "lvds15", \
                                             "hdmi", "hdmi720p", "hdmi1080p", \
                                             "lvds7_hdmi720p", "custom"), \
-                              "edm-imx6": ("lcd", "lvds7", "hdmi", "hdmi720p", \
+                              "edm-imx6": ("lcd", "lvds7", "lvds10", "hdmi", "hdmi720p", \
                                            "lvds7_hdmi720p", "custom"), \
+                              "tek-imx6": ("lvds10", "lvds15", "hdmi", "hdmi720p", "hdmi1080p"), \
                               "pico-imx7": ("lcd", "custom"), \
                               "pico-imx8mq": ("mipi5", "hdmi", "custom"), \
                               "pico-imx8mm": ("mipi5", "custom"), \
@@ -82,16 +84,24 @@ python do_setuenv() {
                               "axon-imx6": ("hdmi", "custom")}
         default_displays = {"tc0700": "lvds7", \
                             "tc1000": "lvds10", \
+                            "tep5": "lvds10", \
                             "pico-imx6": "hdmi720p", \
                             "edm-imx6": "hdmi720p", \
                             "axon-imx6": "hdmi720p"}
-        if mach in supported_displays.keys():
-            if disp in supported_displays[mach]:
-                return gen_videoarg(disp)
+        # output string
+        videoarg = ""
+        for i, d in enumerate(disp, start=0):
+            bb.note("index: {}, display: {}".format(i, d))
+            if mach in supported_displays.keys():
+                if d in supported_displays[mach]:
+                    videoarg += gen_videoarg(i, d)
+        if len(videoarg) > 0:
+            return videoarg
+
         if bboard in default_displays.keys():
-            return gen_videoarg(default_displays[bboard])
+            return gen_videoarg(0, default_displays[bboard])
         if mach in default_displays.keys():
-            return gen_videoarg(default_displays[mach])
+            return gen_videoarg(0, default_displays[mach])
         return None
 
     def parse_radio(radios):
@@ -111,7 +121,7 @@ python do_setuenv() {
         envfile = "{}/uEnv.txt".format(d.getVar("S"))
         machine = d.getVar("MACHINE")
         board = d.getVar("BASE_BOARD")
-        display = d.getVar("DISPLAY_INFO")
+        display = d.getVar("DISPLAY_INFO").split(" ")
         radios = d.getVar("RF_FIRMWARES")
         panel = d.getVar("DISPLAY_PANEL")
         alt_fdt = d.getVar("ALT_FDTNAME")
@@ -128,12 +138,14 @@ python do_setuenv() {
             if baseboard is not None:
                 f.write("baseboard={}\n".format(baseboard))
             if displayinfo is not None:
+                if machine in ["pico-imx6ul", "axon-imx6", "edm-imx6", "pico-imx6", "tek-imx6"]:
+                    f.write("display_autodetect=off\n")
                 f.write("displayinfo={}\n".format(displayinfo))
+                f.write("mmcargs=setenv bootargs console=${console},${baudrate} root=${mmcroot} ${displayinfo}\n")
             if wifi_module is not None:
                 f.write("wifi_module={}\n".format(wifi_module))
-            if panel is not None:
+            if panel is not None and len(panel) > 0:
                 f.write("panel={}\n".format(panel))
-            f.write("mmcargs=setenv bootargs console=${console},${baudrate} root=${mmcroot} ${displayinfo}\n")
             f.write("bootcmd_mmc=run loadimage;run mmcboot;\n")
             if alt_fdt is not None:
                 f.write("alt_fdtname={}\n".format(alt_fdt))
@@ -148,6 +160,13 @@ python do_setuenv() {
 }
 
 addtask setuenv after do_configure before do_compile
+
+do_compile_append_rescue() {
+	if [ -f "${S}/uEnv.txt" ]; then
+		sed -e 's|^bootcmd_mmc.*||g' -i ${S}/uEnv.txt
+		sed -e 's|run bootcmd_mmc;||g' -i ${S}/uEnv.txt
+	fi
+}
 
 do_deploy() {
 	install -d ${DEPLOYDIR}
