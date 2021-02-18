@@ -30,7 +30,7 @@ IMAGE_INSTALL = "\
 	tn-container-service \
 	"
 
-IMAGE_INSTALL_append_virtualization = " ${@'' if ('container' in (d.getVar('WKS_FILE', True))) else 'docker-disk'}"
+IMAGE_INSTALL_append_virtualization = " ${@'docker-disk' if ('container' in (d.getVar('WKS_FILE', True))) else ''}"
 
 # Select Image Features
 IMAGE_FEATURES += " \
