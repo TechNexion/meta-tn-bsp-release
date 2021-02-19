@@ -1,0 +1,360 @@
+From 90e7df124914966350e87fac08fe8bc754775b5c Mon Sep 17 00:00:00 2001
+From: Po Cheng <po.cheng@technexion.com>
+Date: Mon, 27 Jul 2020 17:57:48 +0800
+Subject: [PATCH 2/2] Examples: Ensure to pass in device id
+
+Signed-off-by: Po Cheng <po.cheng@technexion.com>
+---
+ examples/Flexconnect/FlexConnect.cpp      | 13 ++++++------
+ examples/I2C_Bridging/i2c_bridging.cpp    | 33 ++++++++++++++++-------------
+ examples/OTPProgrammer/OTP_Programmer.cpp | 15 +++++++------
+ examples/SPI_Bridging/spi_bridging.cpp    | 35 +++++++++++++++++--------------
+ examples/gpio/gpio.cpp                    | 23 ++++++++++----------
+ examples/register_rw/register_rw.cpp      | 23 +++++++++++---------
+ 6 files changed, 78 insertions(+), 64 deletions(-)
+
+diff --git a/examples/Flexconnect/FlexConnect.cpp b/examples/Flexconnect/FlexConnect.cpp
+index 4f3a3ab..9288a0e 100644
+--- a/examples/Flexconnect/FlexConnect.cpp
++++ b/examples/Flexconnect/FlexConnect.cpp
+@@ -48,7 +48,7 @@ int main (int argc, char* argv[])
+ 	CHAR sztext[2048];
+ 	UINT hubindex = 0 ;
+ 	DWORD dwError = 0;
+-	WORD vendor_id  = 0x0424, product_id =0x2734,wFlexValue = 0x8041; // USB 4604 and USB 84604 pid is 0x2734
++	WORD vendor_id  = 0x0424, product_id =0x2734,wFlexValue = 0x8041, device_id=0; // USB 4604 and USB 84604 pid is 0x2734
+ 	HANDLE hDevice =  INVALID_HANDLE_VALUE;
+ 	int cnt = 0,error=0;
+ 	libusb_device **devs;
+@@ -73,8 +73,8 @@ int main (int argc, char* argv[])
+     }
+     else if((0 == strcmp(argv[1],"--help")) || (0 == strcmp(argv[1],"/?")))
+     {
+-        printf("Usage :./flexconnect VID(Hex) PID(Hex) FlexValue(Hex) \n");
+-        printf("Example :./flexconnect 0x0424 0x2734 0x8041 \n\n");
++        printf("Usage :./flexconnect VID(Hex) PID(Hex) DID(Int) FlexValue(Hex) \n");
++        printf("Example :./flexconnect 0x0424 0x2734 22 0x8041 \n\n");
+         return -1;
+         
+     }
+@@ -82,12 +82,13 @@ int main (int argc, char* argv[])
+ 	{
+ 		vendor_id = strtol (argv[1], NULL, 0) ;
+ 		product_id = strtol (argv[2], NULL, 0) ;
+-        wFlexValue = strtol (argv[3],NULL,0);
++		device_id = strtol (argv[3], NULL, 0) ;
++        wFlexValue = strtol (argv[4],NULL,0);
+ 	}
+ 
+-	printf ("VID:PID %04x:%04x\n", vendor_id, product_id);	
++	printf ("VID:PID %04x:%04x(DID:%d)\n", vendor_id, product_id, device_id);
+ 	
+-	hDevice = MchpUsbOpenID(vendor_id,product_id);
++	hDevice = MchpUsbOpenID(vendor_id,product_id,device_id);
+ 
+ 	if(INVALID_HANDLE_VALUE == hDevice) 
+ 	{
+diff --git a/examples/I2C_Bridging/i2c_bridging.cpp b/examples/I2C_Bridging/i2c_bridging.cpp
+index 6658088..574f373 100644
+--- a/examples/I2C_Bridging/i2c_bridging.cpp
++++ b/examples/I2C_Bridging/i2c_bridging.cpp
+@@ -46,7 +46,7 @@ int main (int argc, char* argv[])
+ 	CHAR sztext[2048];
+ 	CHAR chText[256];
+ 	DWORD dwError = 0;
+-	WORD vendor_id = 0x424 ,product_id= 0x2734;
++	WORD vendor_id = 0x424 ,product_id= 0x2734, device_id = 0;
+ 	BYTE bySlaveAddr,byStartAddr,byOperation;
+ 	HANDLE hDevice =  INVALID_HANDLE_VALUE;
+ 	INT iLength,iClockRate;
+@@ -92,17 +92,17 @@ int main (int argc, char* argv[])
+ 		printf("Nack		: 1 - Generates NACK condition for the last byte of the transfer\n");
+ 		printf("		: 0 - Does not generate NACK condition \n\n");
+ 		printf("Operation 	: Write \n");
+-		printf("Usage		: ./i2cBridging VID(Hex) PID(Hex) Operation(0x01) SlaveAddr ClockRate StartAddr Length Data \n");
+-		printf("Example		: ./i2cBridging 0x0424 0x2734 0x01 0x50 1 0x00 4 0x11 0x22 0x33 0x44 \n \n");
++		printf("Usage		: ./i2cBridging VID(Hex) PID(Hex) DID(Int) Operation(0x01) SlaveAddr ClockRate StartAddr Length Data \n");
++		printf("Example		: ./i2cBridging 0x0424 0x2734 22 0x01 0x50 1 0x00 4 0x11 0x22 0x33 0x44 \n \n");
+ 		printf("Operation 	: Read \n");
+-		printf("Usage		: ./i2cBridging VID(Hex) PID(Hex) Operation(0x00) SlaveAddr ClockRate StartAddr Length \n");
+-		printf("Example		: ./i2cBridging 0x0424 0x2734 0x00 0x50 1 0x00 4 \n\n");
++		printf("Usage		: ./i2cBridging VID(Hex) PID(Hex) DID(Int) Operation(0x00) SlaveAddr ClockRate StartAddr Length \n");
++		printf("Example		: ./i2cBridging 0x0424 0x2734 22 0x00 0x50 1 0x00 4 \n\n");
+ 		printf("Operation	: Transfer: Write \n");
+-		printf("Usage		: ./i2cBridging VID(Hex) PID(Hex) Operation(0x03) SlaveAddr ClockRate StartAddr Length Start(0/1) Stop(0/1) Nack(0/1) Data\n");
+-		printf("Example		: ./i2cBridging 0x0424 0x2734 0x03 0x50 1 0x00 4 1 1 0 0x11 0x22 0x33 0x44 \n \n");
++		printf("Usage		: ./i2cBridging VID(Hex) PID(Hex) DID(Int) Operation(0x03) SlaveAddr ClockRate StartAddr Length Start(0/1) Stop(0/1) Nack(0/1) Data\n");
++		printf("Example		: ./i2cBridging 0x0424 0x2734 22 0x03 0x50 1 0x00 4 1 1 0 0x11 0x22 0x33 0x44 \n \n");
+ 		printf("Operation	: Transfer: Read \n");
+-		printf("Usage		: ./i2cBridging VID(Hex) PID(Hex) Operation(0x04) SlaveAddr ClockRate StartAddr Length Start(0/1) Stop(0/1) Nack(0/1)\n");
+-		printf("Example		: ./i2cBridging 0x0424 0x2734 0x04 0x50 1 0x00 4 1 1 1\n \n");
++		printf("Usage		: ./i2cBridging VID(Hex) PID(Hex) DID(Int) Operation(0x04) SlaveAddr ClockRate StartAddr Length Start(0/1) Stop(0/1) Nack(0/1)\n");
++		printf("Example		: ./i2cBridging 0x0424 0x2734 22 0x04 0x50 1 0x00 4 1 1 1\n \n");
+ 
+ 		return -1;
+ 
+@@ -111,11 +111,12 @@ int main (int argc, char* argv[])
+ 	{
+ 		vendor_id  =  strtol (argv[1], NULL, 0) ;
+ 		product_id =  strtol (argv[2], NULL, 0) ;
+-		byOperation=  strtol (argv[3], NULL, 0) ;
+-		bySlaveAddr=  strtol (argv[4], NULL, 0) ;
+-		iClockRate =  strtol (argv[5], NULL, 0) ;
+-		byStartAddr=  strtol (argv[6], NULL, 0) ;
+-		iLength	   =  strtol (argv[7], NULL, 0) ;
++		device_id =   strtol (argv[3], NULL, 0) ;
++		byOperation=  strtol (argv[4], NULL, 0) ;
++		bySlaveAddr=  strtol (argv[5], NULL, 0) ;
++		iClockRate =  strtol (argv[6], NULL, 0) ;
++		byStartAddr=  strtol (argv[7], NULL, 0) ;
++		iLength	   =  strtol (argv[8], NULL, 0) ;
+ 		byWriteData[0]= byStartAddr;
+ 		if(byOperation == 0x01) //Write
+ 		{
+@@ -138,8 +139,10 @@ int main (int argc, char* argv[])
+ 			}
+ 		}	
+ 	}
++
++	printf ("VID:PID %04x:%04x(DID:%d) I2C_ADDR=%04x\n", vendor_id, product_id, device_id, bySlaveAddr);
+ 	
+-	hDevice = MchpUsbOpenID(vendor_id,product_id);
++	hDevice = MchpUsbOpenID(vendor_id,product_id,device_id);
+ 
+ 	if(INVALID_HANDLE_VALUE == hDevice) 
+ 	{
+diff --git a/examples/OTPProgrammer/OTP_Programmer.cpp b/examples/OTPProgrammer/OTP_Programmer.cpp
+index b7f4273..fb477a2 100644
+--- a/examples/OTPProgrammer/OTP_Programmer.cpp
++++ b/examples/OTPProgrammer/OTP_Programmer.cpp
+@@ -41,7 +41,7 @@ int main (int argc, char* argv[])
+ {
+ 	HANDLE hDevice;
+ 	DWORD dwError = 0;
+-	WORD vendor_id = 0x424 ,product_id= 0x2734;
++	WORD vendor_id = 0x424 ,product_id= 0x2734, device_id=0;
+ 	
+ 	if(argc<1)
+ 	{
+@@ -51,20 +51,23 @@ int main (int argc, char* argv[])
+ 	}
+ 	else if((0 == strcmp(argv[1],"--help")) || (0 == strcmp(argv[1],"/?")))
+ 	{
+-		printf("Usage: ./OTP_Program VID(Hex) PID(Hex) ConfigFile \n");
+-		printf("Example: ./OTP_Program 0x0424 0x2734 myConfig.bin \n \n");
++		printf("Usage: ./OTP_Program VID(Hex) PID(Hex) DID(Int) ConfigFile \n");
++		printf("Example: ./OTP_Program 0x0424 0x2734 22 myConfig.bin \n \n");
+ 		return -1;
+ 	}
+ 	else
+ 	{
+ 		vendor_id  =  strtol (argv[1], NULL, 0) ;
+ 		product_id =  strtol (argv[2], NULL, 0) ;
++		device_id  =  strtol (argv[3], NULL, 0) ;
+ 	}
+-	
++
++	printf ("VID:PID %04x:%04x(DID:%d)\n", vendor_id, product_id, device_id);
++
+ 	/*
+ 	* 1. Open handle to the connected USB2530 device 
+ 	*/
+-	hDevice = MchpUsbOpenID(vendor_id,product_id);
++	hDevice = MchpUsbOpenID(vendor_id,product_id,device_id);
+ 	if(INVALID_HANDLE_VALUE == hDevice) 
+ 	{
+ 		printf ("\nError: MchpUsbOpenID Failed:\n");
+@@ -73,7 +76,7 @@ int main (int argc, char* argv[])
+ 	
+ 	printf ("MchpUsbOpenID successful... \n");
+ 
+-	if(FALSE == MchpProgramFile(hDevice ,argv[3]))
++	if(FALSE == MchpProgramFile(hDevice ,argv[4]))
+ 	{
+ 		printf("Programming Failed \n");
+ 		dwError = MchpUsbGetLastErr(hDevice);
+diff --git a/examples/SPI_Bridging/spi_bridging.cpp b/examples/SPI_Bridging/spi_bridging.cpp
+index 4ab63c5..43ec45e 100644
+--- a/examples/SPI_Bridging/spi_bridging.cpp
++++ b/examples/SPI_Bridging/spi_bridging.cpp
+@@ -48,7 +48,7 @@ int main (int argc, char* argv[])
+ 	CHAR sztext[2048];
+ 	CHAR chText[256];
+ 	DWORD dwError = 0;
+-	WORD vendor_id = 0x424 ,product_id= 0x2734;
++	WORD vendor_id = 0x424 ,product_id= 0x2734, device_id=0;
+ 	BYTE byStartAddr =0x00,byOperation =0x00;
+ 	HANDLE hDevice =  INVALID_HANDLE_VALUE;
+ 	UINT8 byLength = 1;
+@@ -83,14 +83,14 @@ int main (int argc, char* argv[])
+ 	else if((0 == strcmp(argv[1],"--help")) || (0 == strcmp(argv[1],"/?")))
+ 	{
+ 		printf("Operation : Write \n");
+-		printf("Usage: ./spiBridging VID(Hex) PID(Hex) Operation(0x01) FirmwareFile \n");
+-		printf("Example: ./spiBridging 0x0424 0x2734 0x01 USB5734_SPI_V1.23.bin \n \n");
++		printf("Usage: ./spiBridging VID(Hex) PID(Hex) DID(Int) Operation(0x01) FirmwareFile \n");
++		printf("Example: ./spiBridging 0x0424 0x2734 22 0x01 USB5734_SPI_V1.23.bin \n \n");
+ 		printf("Operation : Read \n");
+-		printf("Usage: ./spiBridging VID(Hex) PID(Hex) Operation(0x00) StartAddress Length \n");
+-		printf("Example: ./spiBridging 0x0424 0x2734 0x00 0x00 4 \n\n");
++		printf("Usage: ./spiBridging VID(Hex) PID(Hex) DID(Int) Operation(0x00) StartAddress Length \n");
++		printf("Example: ./spiBridging 0x0424 0x2734 22 0x00 0x00 4 \n\n");
+ 		printf("Operation : Transfer\n");
+-		printf("Usage: ./spibridging VID(Hex) PID(Hex) Operation(0x03) Command DataLength TotalLength\n");
+-		printf("Example: ./spibridging 0x0424 0x2734 0x03 0x9f 1 4 \n\n");
++		printf("Usage: ./spibridging VID(Hex) PID(Hex) DID(Int) Operation(0x03) Command DataLength TotalLength\n");
++		printf("Example: ./spibridging 0x0424 0x2734 22 0x03 0x9f 1 4 \n\n");
+ 		return -1;
+ 
+ 	}
+@@ -98,26 +98,29 @@ int main (int argc, char* argv[])
+ 	{
+ 		vendor_id  =  strtol (argv[1], NULL, 0) ;
+ 		product_id =  strtol (argv[2], NULL, 0) ;
+-		byOperation=  strtol (argv[3], NULL, 0) ;
++		device_id  =  strtol (argv[3], NULL, 0) ;
++		byOperation=  strtol (argv[4], NULL, 0) ;
+ 		if(byOperation == 0x00) // Read.
+ 		{
+-			byStartAddr=  strtol (argv[4], NULL, 0) ;
+-			byLength   =  strtol (argv[5], NULL, 0) ;
++			byStartAddr=  strtol (argv[5], NULL, 0) ;
++			byLength   =  strtol (argv[6], NULL, 0) ;
+ 		}
+ 		else if(byOperation == 0x01) //Write
+ 		{
+-			sFirmwareFile = argv[4];
++			sFirmwareFile = argv[5];
+ 		}
+ 		else if(byOperation == 0x03) //Transfer
+ 		{
+-			byBuffer = strtol (argv[4],NULL,0);
+-			DataLen	 = strtol (argv[5],NULL,0);
+-			wTotalLen = strtol (argv[6],NULL,0);
++			byBuffer = strtol (argv[5],NULL,0);
++			DataLen	 = strtol (argv[6],NULL,0);
++			wTotalLen = strtol (argv[7],NULL,0);
+ 		}
+ 
+ 	}
+-	
+-	hDevice = MchpUsbOpenID(vendor_id,product_id);
++
++	printf ("VID:PID %04x:%04x(DID:%d)\n", vendor_id, product_id, device_id);
++
++	hDevice = MchpUsbOpenID(vendor_id,product_id,device_id);
+ 
+ 	if(INVALID_HANDLE_VALUE == hDevice) 
+ 	{
+diff --git a/examples/gpio/gpio.cpp b/examples/gpio/gpio.cpp
+index 562073d..c2b71e0 100644
+--- a/examples/gpio/gpio.cpp
++++ b/examples/gpio/gpio.cpp
+@@ -45,7 +45,7 @@ int main (int argc, char* argv[])
+ {
+ 	CHAR sztext[2048];
+ 	DWORD dwError = 0;
+-	WORD vendor_id = 0x424 ,product_id= 0x2734;
++	WORD vendor_id = 0x424 ,product_id= 0x2734, device_id = 0;
+ 	HANDLE hDevice =  INVALID_HANDLE_VALUE;
+ 	int PIONumber=10;
+    	int PINState=1;
+@@ -71,28 +71,29 @@ int main (int argc, char* argv[])
+ 	else if((0 == strcmp(argv[1],"--help")) || (0 == strcmp(argv[1],"/?")))
+ 	{
+ 		printf("Operation : Get PIO PinState \n");
+-		printf("Usage :./gpio VID(Hex) PID(Hex) Operation(0x00) PIONumber \n");
+-		printf("Example :./gpio 0x0424 0x2734 0x00 10 \n\n");
++		printf("Usage :./gpio VID(Hex) PID(Hex) DID(Int) Operation(0x00) PIONumber \n");
++		printf("Example :./gpio 0x0424 0x2734 22 0x00 10 \n\n");
+ 		printf("Operation : Set PIO PinState \n");
+-		printf("Usage :./gpio VID(Hex) PID(Hex) Operation(0x01) PIONumber PIOPinState\n");
+-		printf("Example :./gpio 0x0424 0x2734 0x01 10 0 \n\n");
++		printf("Usage :./gpio VID(Hex) PID(Hex) 22 Operation(0x01) PIONumber PIOPinState\n");
++		printf("Example :./gpio 0x0424 0x2734 22 0x01 10 0 \n\n");
+ 		exit(1);
+ 	}
+ 	else
+ 	{
+ 		vendor_id  =  strtol (argv[1], NULL, 0) ;
+ 		product_id =  strtol (argv[2], NULL, 0) ;
+-		byOperation  =  strtol (argv[3], NULL, 0) ;
+-		PIONumber  = strtol (argv[4], NULL, 0) ;
++		device_id =   strtol (argv[3], NULL, 0) ;
++		byOperation  =  strtol (argv[4], NULL, 0) ;
++		PIONumber  = strtol (argv[5], NULL, 0) ;
+ 		if(byOperation == 0x01) //set
+ 		{
+-			PINState = strtol (argv[5], NULL, 0);
++			PINState = strtol (argv[6], NULL, 0);
+ 		}
+ 	}
+ 
+-	printf ("VID:PID %04x:%04x PIO=%d\n", vendor_id, product_id, PIONumber);	
+-	
+-	hDevice = MchpUsbOpenID(vendor_id,product_id);
++	printf ("VID:PID %04x:%04x(DID:%d) GPIO=%d\n", vendor_id, product_id, device_id, PIONumber);
++
++	hDevice = MchpUsbOpenID(vendor_id,product_id,device_id);
+ 
+ 	if(INVALID_HANDLE_VALUE == hDevice) 
+ 	{
+diff --git a/examples/register_rw/register_rw.cpp b/examples/register_rw/register_rw.cpp
+index fb25f59..cfa226b 100644
+--- a/examples/register_rw/register_rw.cpp
++++ b/examples/register_rw/register_rw.cpp
+@@ -46,7 +46,7 @@ int main (int argc, char* argv[])
+ 	CHAR sztext[2048];
+ 	CHAR chText[256];
+ 	DWORD dwError = 0;
+-	WORD vendor_id = 0x424 ,product_id= 0x2734, wAddr=0x413c;
++	WORD vendor_id = 0x424 ,product_id= 0x2734, wAddr=0x413c, device_id=0;
+ 	BYTE byReadData[256] = "\0", byWriteData[256] = "\0";
+ 	BYTE byOp = 0x00;
+ 	int iLen =0,i=0;
+@@ -75,30 +75,33 @@ int main (int argc, char* argv[])
+ 	else if((0 == strcmp(argv[1],"--help")) || (0 == strcmp(argv[1],"/?")))
+ 	{
+ 		printf("Op	: Write \n");
+-		printf("Usage	: ./register_rw VID(Hex) PID(Hex) Operation(0x01) XDATAAddr Length Data \n");
+-		printf("Example	: ./register_rw 0x0424 0x2734 0x01 0x3004 2 0x12 0x34 \n\n");
++		printf("Usage	: ./register_rw VID(Hex) PID(Hex) DID(Int) Operation(0x01) XDATAAddr Length Data \n");
++		printf("Example	: ./register_rw 0x0424 0x2734 22 0x01 0x3004 2 0x12 0x34 \n\n");
+ 		printf("Op	: Read \n");
+-		printf("Usage	: ./register_rw VID(Hex) PID(Hex) Operation(0x00) XDATAAddr Length\n");
+-		printf("Example	: ./register_rw 0x0424 0x2734 0x00 0x3004 2 \n");
++		printf("Usage	: ./register_rw VID(Hex) PID(Hex) DID(Int) Operation(0x00) XDATAAddr Length\n");
++		printf("Example	: ./register_rw 0x0424 0x2734 22 0x00 0x3004 2 \n");
+ 		return -1;
+ 	}
+ 	else
+ 	{
+ 		vendor_id  =  strtol (argv[1], NULL, 0) ;
+ 		product_id =  strtol (argv[2], NULL, 0) ;
+-		byOp  	   =  strtol (argv[3], NULL, 0) ;
+-		wAddr	   =  strtol (argv[4], NULL, 0) ;
+-		iLen	   =  strtol (argv[5], NULL, 0) ;
++		device_id  =  strtol (argv[3], NULL, 0) ;
++		byOp  	   =  strtol (argv[4], NULL, 0) ;
++		wAddr	   =  strtol (argv[5], NULL, 0) ;
++		iLen	   =  strtol (argv[6], NULL, 0) ;
+ 		if(0x01 == byOp)
+ 		{
+ 			for(i=0; i<iLen; i++)
+ 			{
+-				byWriteData[i] = strtol (argv[6+i], NULL, 0) ;
++				byWriteData[i] = strtol (argv[7+i], NULL, 0) ;
+ 			}
+ 		}
+ 	}
+ 
+-	hDevice = MchpUsbOpenID(vendor_id,product_id);
++	printf ("VID:PID %04x:%04x(DID:%d) REG_ADDR=%04x\n", vendor_id, product_id, device_id, wAddr);
++
++	hDevice = MchpUsbOpenID(vendor_id,product_id,device_id);
+ 
+ 	if(INVALID_HANDLE_VALUE == hDevice) 
+ 	{
+-- 
+2.7.4
+

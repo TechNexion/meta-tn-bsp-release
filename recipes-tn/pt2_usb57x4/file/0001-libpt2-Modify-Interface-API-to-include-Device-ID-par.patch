@@ -1,0 +1,176 @@
+From 715f975186d8829b9e806f88cf802fb5881ea1b0 Mon Sep 17 00:00:00 2001
+From: Po Cheng <po.cheng@technexion.com>
+Date: Mon, 27 Jul 2020 17:17:19 +0800
+Subject: [PATCH 1/2] libpt2: Modify Interface API to include Device ID
+ parameter
+
+Signed-off-by: Po Cheng <po.cheng@technexion.com>
+---
+ libpt2/MchpUSBInterface.cpp | 42 ++++++++++++++++++++++++------------------
+ libpt2/MchpUSBInterface.h   |  8 +++++---
+ libpt2/USB2740_SpiFlash.cpp |  2 +-
+ 3 files changed, 30 insertions(+), 22 deletions(-)
+
+diff --git a/libpt2/MchpUSBInterface.cpp b/libpt2/MchpUSBInterface.cpp
+index 83ef134..52597be 100644
+--- a/libpt2/MchpUSBInterface.cpp
++++ b/libpt2/MchpUSBInterface.cpp
+@@ -229,7 +229,7 @@ UINT32 MchpUsbGetLastErr (HANDLE DevID)
+ 	return errno;
+ }
+  
+-HANDLE  MchpUsbOpenID ( UINT16 wVID, UINT16 wPID)
++HANDLE  MchpUsbOpenID ( UINT16 wVID, UINT16 wPID, UINT16 wDID)
+ {
+ 	int error = 0, hub_cnt=0, hub_index=0;
+ 	int restart_count=5;	
+@@ -241,7 +241,10 @@ HANDLE  MchpUsbOpenID ( UINT16 wVID, UINT16 wPID)
+ 	{
+ 		if((gasHubInfo[hub_index].wVID == wVID) && (gasHubInfo[hub_index].wPID == wPID))
+ 		{
+-			bhub_found = true;
++			if(gasHubInfo[hub_index].wDID == wDID) {
++				bhub_found = true;
++				break;
++			}
+ 		}
+ 	
+ 	}
+@@ -1176,7 +1179,7 @@ BOOL MchpProgramFile( HANDLE DevID, PCHAR InputFileName)
+ /*----------------------- Helper functions -----------------------------------*/
+ static int usb_get_hubs(PHINFO pHubInfoList) 
+ {
+-	int cnt = 0, hubcnt = 0, i = 0, error=0;
++	int cnt = 0, hubcnt = 0, i = 0, j = 0, error=0;
+ 	libusb_device **devs;
+ 	libusb_device_descriptor desc;
+ 	libusb_device_handle *handle;
+@@ -1289,7 +1292,8 @@ static int usb_get_hubs(PHINFO pHubInfoList)
+ 
+ 			pHubInfoList->wVID	 	= desc.idVendor;
+ 			pHubInfoList->wPID 		= desc.idProduct;
+-			
++			pHubInfoList->wDID		= libusb_get_device_address(device);
++
+ 			pHubInfoList++;
+ 			hubcnt++;
+ 		}
+@@ -1334,8 +1338,9 @@ static int usb_open_HCE_device(uint8_t hub_index)
+ 	libusb_device_descriptor desc;
+ 
+ 	int dRetval = 0;
++	int dMatch = 0;
+ 	ssize_t devCnt = 0, port_cnt = 0;
+-	ssize_t i = 0;
++	ssize_t i = 0, j = 0;
+ 	uint8_t port_list[7];
+ 
+ 	devCnt = libusb_get_device_list(ctx, &devices);
+@@ -1374,36 +1379,37 @@ static int usb_open_HCE_device(uint8_t hub_index)
+ 				break;
+ 			}
+ 
++			dMatch = 0;
+ 			//Match with the hub port list
+-			for(i = 0; i < gasHubInfo[hub_index].port_max; i++)
++			for(j = 0; j < gasHubInfo[hub_index].port_max; j++)
+ 			{
+-				if(gasHubInfo[hub_index].port_list[i] != port_list[i]) 
++				if(gasHubInfo[hub_index].port_list[j] != port_list[j]) 
+ 				{
+ 					DEBUGPRINT("Hub port match failed \n");
+-					dRetval = -1;
++					dMatch = -1;
+ 					break;
+ 				}
+ 			}
+-			
+-			if(dRetval == -1)
++
++			if(dMatch == -1)
+ 			{
+-				break;
++				// We need to continue the (i < devCnt) loop to find the next match
++				continue;
+ 			}
+ 
+-			printf("Enabled VID:PID = %04x:%04x ", desc.idVendor, desc.idProduct);
+-			for(i = 0; i < port_cnt; i++)
++			printf("Enabled VID:PID = %04x:%04x(", desc.idVendor, desc.idProduct);
++			for(j = 0; j < port_cnt; j++)
+ 			{
+-				printf(":%d", (unsigned int)(port_list[i]));
++				printf(":%d", (unsigned int)(port_list[j]));
+ 			}
+-			printf("\n");
+-		
++			printf(") DID = %d\n", libusb_get_device_address(dev));
+ 
+ 			if(libusb_kernel_driver_active(handle, 0) == 1)
+ 			{
+ 				//DEBUGPRINT("Kernel has attached a driver, detaching it \n");
+ 				if(libusb_detach_kernel_driver(handle, 0) != 0)
+ 				{
+-					DEBUGPRINT("Cannot detach kerenl driver. USB device may not respond \n");
++					DEBUGPRINT("Cannot detach kernel driver. USB device may not respond \n");
+ 					break;
+ 				}
+ 			}
+@@ -1412,7 +1418,7 @@ static int usb_open_HCE_device(uint8_t hub_index)
+ 
+ 			if(dRetval < 0)
+ 			{
+-				DEBUGPRINT("cannot claim intterface \n");
++				DEBUGPRINT("cannot claim interface \n");
+ 				dRetval = -1;
+ 				break;
+ 			}
+diff --git a/libpt2/MchpUSBInterface.h b/libpt2/MchpUSBInterface.h
+index 04bf294..1561c1c 100644
+--- a/libpt2/MchpUSBInterface.h
++++ b/libpt2/MchpUSBInterface.h
+@@ -226,7 +226,7 @@ extern HINFO gasHubInfo [MAX_HUBS];
+ 
+ /*********************************************************************************************************
+   Function:
+-    HANDLE  MchpUsbOpenID ( UINT16 wVID, UINT16 wPID);
++    HANDLE  MchpUsbOpenID ( UINT16 wVID, UINT16 wPID, UINT16 wDID);
+     
+  Summary:
+     Open the device handle.
+@@ -239,7 +239,9 @@ extern HINFO gasHubInfo [MAX_HUBS];
+ 
+   Input:
+     wVID -    Vendor ID(VID) of the Hub.
+-	wPID -    Product ID(PID) of the Hub.
++    wPID -    Product ID(PID) of the Hub.
++    wDID -    Device ID(DID) of the Hub.
++
+   Return:
+     HANDLE of the Vendor ID and Product ID matched hub - for success
+     
+@@ -269,7 +271,7 @@ extern HINFO gasHubInfo [MAX_HUBS];
+     None                                                                                                  
+   *********************************************************************************************************/
+ 
+- HANDLE  MchpUsbOpenID ( UINT16 wVID, UINT16 wPID);
++ HANDLE  MchpUsbOpenID ( UINT16 wVID, UINT16 wPID, UINT16 wDID);
+ 
+ /******************************************************************************************************
+   Function:
+diff --git a/libpt2/USB2740_SpiFlash.cpp b/libpt2/USB2740_SpiFlash.cpp
+index 009fcbc..89b3c91 100644
+--- a/libpt2/USB2740_SpiFlash.cpp
++++ b/libpt2/USB2740_SpiFlash.cpp
+@@ -549,7 +549,7 @@ BOOL WriteSPIFlash(int DevID,BYTE *byWriteData,int iRestartDelay,BOOL bErasePseu
+ 		/// to be determined
+ 		bReturn = MchpUsbClose(DevID);
+ 		sleep(5);	
+-		hDevice = MchpUsbOpenID(MCHP_ROM_VID,gwPID);
++		hDevice = MchpUsbOpenID(MCHP_ROM_VID,gwPID,gasHubInfo[DevID].wDID);
+ 		DevID = hDevice;
+ 		
+ 	}
+-- 
+2.7.4
+
