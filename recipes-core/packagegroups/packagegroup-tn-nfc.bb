@@ -8,4 +8,4 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425
 inherit packagegroup
 
 # Extra Kernel Driver/Firmware for technexion's nfc
-RDEPENDS_${PN}_append_nfc = " nxp-nfc-bin kernel-module-nxp-pn5xx"
+RDEPENDS_${PN}_append_nfc = " nxp-nfc-bin kernel-module-nxp-pn5xx ntag-i2c-tool"
