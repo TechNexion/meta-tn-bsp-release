@@ -40,7 +40,7 @@ TN_STORAGE_DRIVER ?= "overlay2"
 TN_CONTAINER_IMAGE_TYPE ??= "tar.gz"
 
 # TechNexion docker containers with specific CPU architectures
-TN_DOCKER_REPOSITORY_aarch64 ?= "technexion/debian-buster-wayland-hw"
+TN_DOCKER_REPOSITORY ?= "technexion/debian-buster-wayland"
 TN_DOCKER_TAG ?= "latest"
 TN_CONTAINER_IMAGE ?= "tn-container-image-lighttpd"
 TN_DOCKER_CONTAINER_IMAGE ?= "${TN_CONTAINER_IMAGE}-tn-container.${TN_CONTAINER_IMAGE_TYPE}"

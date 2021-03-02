@@ -195,7 +195,6 @@ if grep -q "tn-setup-mender" <<< $CALLER; then
     if grep -q "BBMULTICONFIG.*container" conf/local.conf; then
       echo -e "\n# Setup additional local.conf settings for mender virtualization." | tee -a conf/local.conf
       echo "BBMASK += \"meta-boot2qt/meta-boot2qt-distro/recipes-qt/qt5/ogl-runtime_git.bbappend\"" >> conf/local.conf
-      echo "TN_DOCKER_PARTITION_MOUNT_mender-disk = \"/data/docker\"" >> conf/local.conf
     fi
     echo "IMAGE_FSTYPES_remove = \"wic wic.xz\"" >> conf/local.conf
     echo "IMAGE_FSTYPES_append_tn = \" sdimg.gz\"" >> conf/local.conf

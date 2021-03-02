@@ -6,7 +6,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 SRC_URI = "file://tn-container.service"
 
-TN_DOCKER_REPOSITORY_aarch64 ?= "technexion/debian-buster-wayland-hw"
+TN_DOCKER_REPOSITORY ?= "technexion/debian-buster-wayland"
 TN_DOCKER_TAG ?= "latest"
 TN_DOCKER_APPLICATION ?= "glmark2-es2-wayland"
 
