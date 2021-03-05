@@ -1,0 +1,26 @@
+From 37f123e156571674fc184ef2c9170e52f1d36337 Mon Sep 17 00:00:00 2001
+From: Po Cheng <po.cheng@technexion.com>
+Date: Fri, 5 Mar 2021 13:22:16 +0800
+Subject: [PATCH] systemd: disable getty@.service in 90-systemd.preset
+
+Signed-off-by: Po Cheng <po.cheng@technexion.com>
+---
+ presets/90-systemd.preset | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/presets/90-systemd.preset b/presets/90-systemd.preset
+index 4009cbb..6dc3d0d 100644
+--- a/presets/90-systemd.preset
++++ b/presets/90-systemd.preset
+@@ -15,7 +15,7 @@ enable remote-fs.target
+ enable remote-cryptsetup.target
+ enable machines.target
+ 
+-enable getty@.service
++disable getty@.service
+ enable systemd-timesyncd.service
+ enable systemd-networkd.service
+ enable systemd-resolved.service
+-- 
+2.7.4
+
