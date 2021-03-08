@@ -182,7 +182,7 @@ do_deploy () {
 	if [ -f ${B}/${TN_DOCKER_PARTITION_IMAGE} ]; then
 		install -m 644 ${B}/${TN_DOCKER_PARTITION_IMAGE} ${DEPLOY_DIR_IMAGE}/${TN_DOCKER_PARTITION_IMAGE}
 	else
-		bbfatal "${B}/${TN_DOCKER_PARTITION_IMAGE} not found. Please ensure docker-disk exported docker container images correctly."
+		bbfatal "${B}/${TN_DOCKER_PARTITION_IMAGE} not found. Please ensure docker-disk exported docker container images correctly. (Please also check your DOCKER_SHAREDIR setting is accessible for both build and dind container environments"
 	fi
 	if [ -f ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ]; then
 		install -m 644 ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ${DEPLOY_DIR_IMAGE}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE}
@@ -199,7 +199,7 @@ fakeroot do_install_append() {
 		if [ -f ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ]; then
 			tar zxf ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} -C ${D}${TN_DOCKER_PARTITION_MOUNT}
 		else
-			bbfatal "${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} not found. Please ensure docker-disk exported docker containers directory as tar.gz file correctly."
+			bbfatal "${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} not found. Please ensure docker-disk exported docker containers directory as tar.gz file correctly. (Please also check your DOCKER_SHAREDIR setting is accessible for both build and dind container environment)"
 		fi
 	fi
 }
