@@ -114,7 +114,7 @@ do_postfetch () {
 		mkdir -p ${S}/container
 		install -m 644 ${TOPDIR}/tmp-container/deploy/images/tn-container/${TN_DOCKER_CONTAINER_IMAGE} ${S}/container/${TN_DOCKER_CONTAINER_IMAGE}
 	else
-		bbwarn "${TOPDIR}/tmp-container/deploy/images/tn-container/${TN_DOCKER_CONTAINER_IMAGE} not found. For yocto version earlier than warrior, please build ${TN_DOCKER_CONTAINER_IMAGE} separately with the following command:\n\tbitbake mc:${MACHINE}:container:${TN_CONTAINER_IMAGE}"
+		bbwarn "${TOPDIR}/tmp-container/deploy/images/tn-container/${TN_DOCKER_CONTAINER_IMAGE} not found. For yocto version earlier than warrior, please build ${TN_DOCKER_CONTAINER_IMAGE} separately with the following command:\n\tbitbake mc:container:${TN_CONTAINER_IMAGE}"
 	fi
 }
 addtask postfetch before do_compile and after do_fetch
