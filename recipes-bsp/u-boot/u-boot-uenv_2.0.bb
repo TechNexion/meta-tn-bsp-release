@@ -113,8 +113,6 @@ python do_setuenv() {
         return None
 
     def parse_uenvcmd(mach):
-        if mach in ("pico-imx6", "edm-imx6"):
-            return "if test -n ${som} && test ${som} = imx6solo; then setenv som imx6dl; fi; "
         return None
 
     def gen_uenvtxt(d):
