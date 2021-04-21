@@ -14,6 +14,7 @@ RDEPENDS_${PN} = " \
     alsa-tools \
     bash \
     bashtop \
+    bc \
     coreutils \
     create-ap \
     cpulimit \
