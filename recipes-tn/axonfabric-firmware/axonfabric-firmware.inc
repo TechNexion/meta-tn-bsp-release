@@ -9,8 +9,6 @@ FWDIR = "/lib/firmware/axonfabric"
 
 do_install() {
     install -d ${D}${FWDIR}
-    install -m 0755 ${S}/${SRCBRANCH}/axon_fabric_imx6_f01-${SRCBRANCH}.jed ${D}${FWDIR}
-	install -m 0755 ${S}/${SRCBRANCH}/axon_fabric_imx6_f03-${SRCBRANCH}.jed ${D}${FWDIR}
 	install -m 0755 ${S}/${SRCBRANCH}/axon_fabric_imx8mm_f01-${SRCBRANCH}.jed ${D}${FWDIR}
 	install -m 0755 ${S}/${SRCBRANCH}/axon_fabric_imx8mm_f03-${SRCBRANCH}.jed ${D}${FWDIR}
 }
