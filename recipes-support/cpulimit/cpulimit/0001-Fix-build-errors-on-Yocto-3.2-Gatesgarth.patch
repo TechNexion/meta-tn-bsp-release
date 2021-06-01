@@ -1,0 +1,21 @@
+From be49bad3e96250a849973fb47fa8cf02333134a6 Mon Sep 17 00:00:00 2001
+From: Richard Hu <richard.hu@technexion.com>
+Date: Tue, 1 Jun 2021 07:30:07 +0000
+Subject: [PATCH] Fix build errors on Yocto 3.2 Gatesgarth
+
+---
+ src/cpulimit.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/src/cpulimit.c b/src/cpulimit.c
+index 50eabea..5b0ec49 100644
+--- a/src/cpulimit.c
++++ b/src/cpulimit.c
+@@ -38,7 +38,6 @@
+ #include <string.h>
+ #include <sys/stat.h>
+ #include <sys/time.h>
+-#include <sys/sysctl.h>
+ #include <sys/resource.h>
+ #include <sys/types.h>
+ #include <sys/wait.h>
