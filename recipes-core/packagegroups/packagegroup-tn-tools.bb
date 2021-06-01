@@ -18,7 +18,6 @@ RDEPENDS_${PN} = " \
     coreutils \
     create-ap \
     cpulimit \
-    dnf \
     dnsmasq \
     dtc \
     e2fsprogs-mke2fs \
