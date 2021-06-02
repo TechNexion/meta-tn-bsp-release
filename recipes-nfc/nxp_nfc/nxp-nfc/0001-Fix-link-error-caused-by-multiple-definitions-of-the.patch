@@ -1,0 +1,35 @@
+From 401340fc6a0ef6289b72e93d17eaf1cfdec7a294 Mon Sep 17 00:00:00 2001
+From: Richard Hu <richard.hu@technexion.com>
+Date: Tue, 1 Jun 2021 15:12:37 +0000
+Subject: [PATCH] Fix link error caused by multiple definitions of the same
+ variable
+
+GCC 10 defaults to -fno-common, which means a linker error will now be reported.
+---
+ src/halimpl/pn54x/tml/i2c/phTmlNfc_i2c.h            | 2 +-
+ src/service/extns/src/mifare/phNxpExtns_MifareStd.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/halimpl/pn54x/tml/i2c/phTmlNfc_i2c.h b/src/halimpl/pn54x/tml/i2c/phTmlNfc_i2c.h
+index 724a2bd..dd1ed8f 100644
+--- a/src/halimpl/pn54x/tml/i2c/phTmlNfc_i2c.h
++++ b/src/halimpl/pn54x/tml/i2c/phTmlNfc_i2c.h
+@@ -29,4 +29,4 @@ int phTmlNfc_i2c_read(void *pDevHandle, uint8_t * pBuffer, int nNbBytesToRead);
+ int phTmlNfc_i2c_write(void *pDevHandle,uint8_t * pBuffer, int nNbBytesToWrite);
+ int phTmlNfc_i2c_reset(void *pDevHandle,long level);
+ bool_t getDownloadFlag(void);
+-phTmlNfc_i2cfragmentation_t fragmentation_enabled;
++extern phTmlNfc_i2cfragmentation_t fragmentation_enabled;
+diff --git a/src/service/extns/src/mifare/phNxpExtns_MifareStd.c b/src/service/extns/src/mifare/phNxpExtns_MifareStd.c
+index 6cd6aaf..f45236c 100644
+--- a/src/service/extns/src/mifare/phNxpExtns_MifareStd.c
++++ b/src/service/extns/src/mifare/phNxpExtns_MifareStd.c
+@@ -20,7 +20,7 @@
+ #include <phNxpLog.h>
+ #include <phNxpExtns_MifareStd.h>
+ 
+-phNxpExtns_Context_t       gphNxpExtns_Context;
++extern phNxpExtns_Context_t       gphNxpExtns_Context;
+ phNciNfc_TransceiveInfo_t  tNciTranscvInfo;
+ phFriNfc_sNdefSmtCrdFmt_t  *NdefSmtCrdFmt = NULL;
+ phFriNfc_NdefMap_t         *NdefMap = NULL;
