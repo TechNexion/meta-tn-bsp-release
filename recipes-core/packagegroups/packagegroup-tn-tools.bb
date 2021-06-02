@@ -26,7 +26,6 @@ RDEPENDS_${PN} = " \
     ethtool \
     fbset \
     fb-test \
-    fbida \
     fio \
     glmark2 \
     haveged \
@@ -54,7 +53,7 @@ RDEPENDS_${PN} = " \
     sysbench \
     v4l-utils \
     wireless-tools \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'v4l-utils gtk+3-demo', '', d)} \
+    ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'v4l-utils gtk+3-demo fbida', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)} \
 "
 
