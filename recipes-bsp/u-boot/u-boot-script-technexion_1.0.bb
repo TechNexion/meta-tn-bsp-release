@@ -26,6 +26,9 @@ do_compile () {
 do_compile_append_rescue () {
 	sed -e 's,@FIT_ADDR@,'${UBOOT_FIT_LOADADDRESS}',g' -i ${S}/boot.scr.tsl
 	sed -e 's,@FIT_PREFIX@,'${UBOOT_FIT_PREFIX}',g' -i ${S}/boot.scr.tsl
+	if [ "${MACHINE}" = "edm-g-imx8mm" ]; then
+		sed -e '2 i\setenv dtoverlay imx8mm-edm-g-wb-sn65dsi84-vl10112880.dtbo' -i ${S}/boot.scr.tsl
+	fi
 	mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
 		-n "TechNexion boot script" -d ${S}/boot.scr.tsl \
 		${S}/boot.scr.uimg
