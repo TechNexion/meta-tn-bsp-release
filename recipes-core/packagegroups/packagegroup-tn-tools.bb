@@ -46,6 +46,7 @@ RDEPENDS_${PN} = " \
     openssh-sftp-server \
     picocom \
     ramsmp \
+    read-edid \
     rsync \
     spidev-test \
     stress-ng \
