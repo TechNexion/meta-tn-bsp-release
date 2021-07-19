@@ -15,7 +15,7 @@ RDEPENDS_${PN} += "libcrypto"
 
 S = "${WORKDIR}/simw-top"
 
-SRC_URI = "https://github.com/Scott31393/recipes-se050/raw/main/se050/files/SE-PLUG-TRUST-MW.zip;md5sum=c4f56dc6a67d5e40e724358bb6a141e4 \
+SRC_URI = "https://github.com/TechNexion-customization/se050-tools/raw/master/SE-PLUG-TRUST-MW.zip;md5sum=a367e7cee3fd238d108a427e137c3ed7 \
            "
 EXTRA_OECMAKE += "\
     -DCMAKE_BUILD_TYPE=Debug \
