@@ -34,6 +34,7 @@ python do_setuenv() {
                           "edm-imx8mq": "wizard", \
                           "tep1-imx7": None, \
                           "tep1-imx6ul": None, \
+                          "wandboard-imx6": None, \
                           "tek-imx6": None, \
                           "tek3-imx6ul": None}
         if mach in supported_boards.keys():
@@ -81,11 +82,13 @@ python do_setuenv() {
                               "pico-imx8mm": ("mipi5", "custom"), \
                               "flex-imx8mm": ("mipi5", "custom"), \
                               "edm-imx8mq": ("mipi5", "hdmi", "custom"), \
+                              "wandboard-imx6": ("hdmi", "hdmi720p", "custom"), \
                               "axon-imx6": ("hdmi", "custom")}
         default_displays = {"tc0700": "lvds7", \
                             "tc1000": "lvds10", \
                             "tep5": "lvds10", \
                             "pico-imx6": "hdmi720p", \
+                            "wandboard-imx6": "hdmi720p", \
                             "edm-imx6": "hdmi720p", \
                             "axon-imx6": "hdmi720p"}
         # output string
