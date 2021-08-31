@@ -16,7 +16,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
 DEPENDS += "lzop-native bc-native"
 
-KERNEL_BRANCH ?= "tn-imx_5.10.9_1.0.0-next"
+KERNEL_BRANCH ?= "tn-imx_5.10.35_2.0.0-next"
 LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KERNEL_BRANCH', True).split('_')[2:]).lower()}"
 KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
@@ -24,9 +24,9 @@ SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
 
 SRC_URI_append_virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
 
-SRCREV = "30f42827d169ecba521276d01a8b3f7c4137fe3e"
+SRCREV = "e8ee4a54f969a14eff82573cc63c74772e5bbaa8"
 
-LINUX_VERSION = "5.10.9"
+LINUX_VERSION = "5.10.35"
 
 FILES_${KERNEL_PACKAGE_NAME}-base += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
 
@@ -53,7 +53,7 @@ KBUILD_DEFCONFIG_mx8= "${IMX_KERNEL_CONFIG_AARCH64}"
 # Use a verbatim copy of the defconfig from the linux-imx repo.
 # IMPORTANT: This task effectively disables kernel config fragments
 # since the config fragments applied in do_kernel_configme are replaced.
-addtask copy_defconfig after do_kernel_configme before do_preconfigure
+addtask copy_defconfig after do_kernel_configme before do_kernel_localversion
 do_copy_defconfig () {
     install -d ${B}
     if [ ${DO_CONFIG_V7_COPY} = "yes" ]; then
@@ -88,7 +88,7 @@ do_merge_delta_config() {
     done
     cp .config ${WORKDIR}/defconfig
 }
-addtask merge_delta_config before do_preconfigure after do_copy_defconfig
+addtask merge_delta_config before do_kernel_localversion after do_copy_defconfig
 
 KERNEL_VERSION_SANITY_SKIP="1"
 COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"
