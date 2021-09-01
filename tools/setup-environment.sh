@@ -130,14 +130,15 @@ if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
       hook_in_layer meta-imx/meta-bsp
       hook_in_layer meta-imx/meta-sdk
       hook_in_layer meta-imx/meta-ml
+      hook_in_layer meta-imx/meta-v2x
+
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-nxp-demo-experience \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-gnome \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-networking \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-filesystems \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-python2 \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-browser \"" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-browser/meta-chromium \"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-clang \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-rust\"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-qt5 \"" >> $PWD/conf/bblayers.conf
     fi
   fi
