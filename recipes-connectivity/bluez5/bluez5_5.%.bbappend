@@ -11,7 +11,7 @@ SRC_URI += " \
 "
 
 # As this package is tied to systemd, only build it when we're also building systemd.
-inherit distro_features_check
+inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd"
 
 do_install_append() {
