@@ -1,0 +1,59 @@
+#!/bin/bash
+#################################################################################
+# Copyright 2020 Technexion Ltd.
+# Copyright (c) Fathi Boudra <fathi.boudra@linaro.org>
+# 
+# Author: Wig Cheng <wig.cheng@technexion.com>
+#         Richard Hu <richard.hu@technexion.com>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#################################################################################
+
+# find root device
+ROOT_DEVICE=$(findmnt / -o source -n)
+# prune root device (for example UUID)
+ROOT_DEVICE=$(realpath "${ROOT_DEVICE}")
+# get the partition number and type
+ROOT_PART_NAME=$(echo "$ROOT_DEVICE" | cut -d "/" -f 3)
+DEVICE_NAME=$(echo /sys/block/*/"${ROOT_PART_NAME}" | cut -d "/" -f 4)
+MMC_DEV="/dev/${DEVICE_NAME}"
+PART_ENTRY_NUMBER=$(cat "/sys/block/${DEVICE_NAME}/${ROOT_PART_NAME}/partition")
+NOTIFICATION="/etc/xdg/weston/tn-standby.jpg"
+WESTON_INI="/etc/xdg/weston/weston.ini"
+
+if [ -f ${NOTIFICATION} ] && [ -f ${WESTON_INI} ]; then
+  if [ -z "$XDG_RUNTIME_DIR" ]; then
+    XDG_RUNTIME_DIR="/run/user/$(id -u)"
+    export XDG_RUNTIME_DIR
+  fi
+  # wait for weston
+  i=30
+  while [ ! -e  "$XDG_RUNTIME_DIR"/wayland-0 ] && [ $i -ne 0 ]; do sleep 0.1; i=$((i-1)); done
+  sleep 1
+
+  weston-image ${NOTIFICATION} &
+fi
+
+echo -e '\033[36m\n***********************************'
+echo 'Resizing storage at first boot.....'
+echo -e '***********************************\033[0m'
+
+growpart "${MMC_DEV}" "${PART_ENTRY_NUMBER}"
+if [ $? -eq 0 ]; then
+  resize2fs "${ROOT_DEVICE}"
+  mount -o remount,ro /
+  sleep 1
+  fsck -y "${ROOT_DEVICE}"
+  sync
+  mount -o remount,rw /
+  echo -e '\033[36m\n***********************************'
+  echo 'Resizing task completes. Please reboot.....'
+  echo -e '***********************************\033[0m'
+  sleep 5
+else
+  echo -e '\033[36m\n***********************************'
+  echo 'Resizing task does not complete.'
+  echo -e '***********************************\033[0m'
+fi

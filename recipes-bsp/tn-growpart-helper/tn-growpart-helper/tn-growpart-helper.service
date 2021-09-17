@@ -1,0 +1,16 @@
+[Unit]
+Description=Resize root filesystem to fit available disk space
+After=systemd-remount-fs.service weston@root.service
+Wants=weston@root.service
+DefaultDependencies=no
+Before=shutdown.target
+
+[Service]
+Type=oneshot
+StandardOutput=journal+console
+ExecStart=-/usr/sbin/tn-growpart-helper
+ExecStartPost=/bin/systemctl disable tn-growpart-helper.service
+ExecStop=/sbin/reboot
+
+[Install]
+WantedBy=multi-user.target
