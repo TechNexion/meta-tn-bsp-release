@@ -26,8 +26,8 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=d32239bcb673463ab874e80d47fae504"
 
 SRC_URI = "https://launchpad.net/cloud-utils/trunk/${PV}/+download/cloud-utils-${PV}.tar.gz"
 
-SRC_URI[md5sum] = "73be1c4ac3f00044459269ed1778e7f3"
-SRC_URI[sha256sum] = "9ea1b66f5a4798c8d6eeca48d908e11169a38e943efa433b7ec5dffa907e257c"
+SRC_URI[md5sum] = "9b256ff2dbfabaaaf2298d0052eaa5ae"
+SRC_URI[sha256sum] = "132255cbda774834695e2912e09b9058d3281a94874be57e48f2f04f4b89ad77"
 
 S = "${WORKDIR}/cloud-utils-${PV}"
 
