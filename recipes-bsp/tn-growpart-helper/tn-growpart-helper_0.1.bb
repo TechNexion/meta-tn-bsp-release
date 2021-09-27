@@ -15,9 +15,9 @@ S = "${WORKDIR}"
 inherit systemd allarch
 
 do_install () {
-    # add the jpg to /etc/xdg/weston/
-    install -d ${D}${sysconfdir}/xdg/weston/
-    install -m 0644 ${S}/tn-standby.jpg ${D}${sysconfdir}/xdg/weston/
+    # add the jpg to /usr/share/technexion/
+    install -d ${D}${datadir}/technexion
+    install -m 0644 ${S}/tn-standby.jpg ${D}${datadir}/technexion
 
     install -d ${D}${systemd_unitdir}/system
     install -m 0644 ${S}/tn-growpart-helper.service ${D}${systemd_unitdir}/system
@@ -26,6 +26,9 @@ do_install () {
     install -m 0755 ${S}/tn-growpart-helper ${D}${sbindir}
 }
 
+FILES_${PN} = "${datadir}/technexion/tn-standby.jpg \
+               ${sbindir}/tn-growpart-helper"
+
+
 SYSTEMD_SERVICE_${PN} = "tn-growpart-helper.service"
-#RDEPENDS_${PN} += "e2fsprogs-resize2fs gptfdisk parted util-linux udev"
 RDEPENDS_${PN} += "bash util-linux e2fsprogs"
