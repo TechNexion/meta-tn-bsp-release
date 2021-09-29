@@ -22,8 +22,10 @@ MMC_DEV="/dev/${DEVICE_NAME}"
 PART_ENTRY_NUMBER=$(cat "/sys/block/${DEVICE_NAME}/${ROOT_PART_NAME}/partition")
 NOTIFICATION="/usr/share/technexion/tn-standby.jpg"
 WESTON_INI="/etc/xdg/weston/weston.ini"
+XORG_CONF="/etc/X11/xorg.conf"
 
 if [ -f ${NOTIFICATION} ] && [ -f ${WESTON_INI} ]; then
+#Under wayland environment
   if [ -z "$XDG_RUNTIME_DIR" ]; then
     XDG_RUNTIME_DIR="/run/user/$(id -u)"
     export XDG_RUNTIME_DIR
@@ -34,6 +36,13 @@ if [ -f ${NOTIFICATION} ] && [ -f ${WESTON_INI} ]; then
   sleep 1
 
   weston-image ${NOTIFICATION} &
+elif [ -f ${NOTIFICATION} ] && [ -f ${XORG_CONF} ]; then
+#Under X11 environment
+  i=30
+  while [ ! -S /tmp/.X11-unix/X0 ] && [ $i -ne 0 ]; do sleep 0.1; i=$((i-1)); done
+  export DISPLAY=:0
+  sleep 3
+  fbi -T 1 ${NOTIFICATION}
 fi
 
 echo -e '\033[36m\n***********************************'
