@@ -286,6 +286,9 @@ fi
 if [ "$DISTRO" = "imx-desktop-xwayland" ]; then
     if [ -f conf/local.conf ]; then
         echo ""                                                                       >> conf/local.conf
+        echo "# Include ubuntu environment and packages settings"                     >> conf/local.conf
+        echo "require conf/machine/include/ubuntubasics.inc"                          >> conf/local.conf
+        echo ""                                                                       >> conf/local.conf
         echo "# Switch to rpm packaging to avoid rootfs build break"                  >> conf/local.conf
         echo "PACKAGE_CLASSES = \"package_rpm\""                                      >> conf/local.conf
         echo ""                                                                       >> conf/local.conf
