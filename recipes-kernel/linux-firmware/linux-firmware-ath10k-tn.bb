@@ -22,17 +22,17 @@ do_compile() {
 }
 
 do_install() {
-    install -d ${D}/lib/firmware/ath10k/QCA9377/hw1.0
+    install -d ${D}${nonarch_base_libdir}/firmware/ath10k/QCA9377/hw1.0
 
     #Install QCA9377 wifi firmware
-    install -m 0755 ${S}/QCA9377/hw1.0/board-2.bin ${D}/lib/firmware/ath10k/QCA9377/hw1.0
-    install -m 0755 ${S}/QCA9377/hw1.0/board.bin ${D}/lib/firmware/ath10k/QCA9377/hw1.0
-    install -m 0755 ${S}/LICENSE.qca_firmware ${D}/lib/firmware/ath10k/QCA9377/hw1.0
+    install -m 0755 ${S}/QCA9377/hw1.0/board-2.bin ${D}${nonarch_base_libdir}/firmware/ath10k/QCA9377/hw1.0
+    install -m 0755 ${S}/QCA9377/hw1.0/board.bin ${D}${nonarch_base_libdir}/firmware/ath10k/QCA9377/hw1.0
+    install -m 0755 ${S}/LICENSE.qca_firmware ${D}${nonarch_base_libdir}/firmware/ath10k/QCA9377/hw1.0
 
-    install -m 0755 ${S}/QCA9377/hw1.0/CNSS.TF.1.0/firmware-5.bin_CNSS.TF.1.0-00267-QCATFSWPZ-1 ${D}/lib/firmware/ath10k/QCA9377/hw1.0/firmware-5.bin
+    install -m 0755 ${S}/QCA9377/hw1.0/CNSS.TF.1.0/firmware-5.bin_CNSS.TF.1.0-00267-QCATFSWPZ-1 ${D}${nonarch_base_libdir}/firmware/ath10k/QCA9377/hw1.0/firmware-5.bin
 }
 
-FILES_${PN}-dbg += "/lib/firmware/.debug"
-FILES_${PN} += "/lib/firmware/"
+FILES_${PN}-dbg += "${nonarch_base_libdir}/firmware/.debug"
+FILES_${PN} += "${nonarch_base_libdir}/firmware/"
 
 COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"
