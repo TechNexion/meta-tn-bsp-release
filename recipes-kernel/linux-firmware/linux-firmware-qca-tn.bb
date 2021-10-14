@@ -51,28 +51,28 @@ python do_pre_fetch() {
 addtask pre_fetch before do_fetch
 
 do_install() {
-    install -d ${D}/lib/firmware/qca9377/
-    install -m 0755 ${S}/qca9377/bdwlan30.bin ${D}/lib/firmware/qca9377/
-    install -m 0755 ${S}/qca9377/otp30.bin ${D}/lib/firmware/qca9377/
-    install -m 0755 ${S}/qca9377/qwlan30.bin ${D}/lib/firmware/qca9377/
-    install -m 0755 ${S}/qca9377/utf30.bin ${D}/lib/firmware/qca9377/
-    install -d ${D}/lib/firmware/qca6174/
-    install -m 0755 ${S}/qca6174/bdwlan30.bin ${D}/lib/firmware/qca6174/
-    install -m 0755 ${S}/qca6174/otp30.bin ${D}/lib/firmware/qca6174/
-    install -m 0755 ${S}/qca6174/qwlan30.bin ${D}/lib/firmware/qca6174/
-    install -m 0755 ${S}/qca6174/utf30.bin ${D}/lib/firmware/qca6174/
-    install -d ${D}/lib/firmware/wlan/qca9377/
-    install -d ${D}/lib/firmware/wlan/qca6174/
-    install -m 0755 ${S}/wlan/cfg.dat ${D}/lib/firmware/wlan/
-    install -m 0755 ${S}/wlan/qca9377/qcom_cfg.ini ${D}/lib/firmware/wlan/qca9377/
-    install -m 0755 ${S}/wlan/qca6174/qcom_cfg.ini ${D}/lib/firmware/wlan/qca6174/
-    install -d ${D}/lib/firmware/qca
-    install -m 0755 ${S}/qca/nvm_tlv_3.2.bin ${D}/lib/firmware/qca
-    install -m 0755 ${S}/qca/rampatch_tlv_3.2.tlv ${D}/lib/firmware/qca
+    install -d ${D}${nonarch_base_libdir}/firmware/qca9377/
+    install -m 0755 ${S}/qca9377/bdwlan30.bin ${D}${nonarch_base_libdir}/firmware/qca9377/
+    install -m 0755 ${S}/qca9377/otp30.bin ${D}${nonarch_base_libdir}/firmware/qca9377/
+    install -m 0755 ${S}/qca9377/qwlan30.bin ${D}${nonarch_base_libdir}/firmware/qca9377/
+    install -m 0755 ${S}/qca9377/utf30.bin ${D}${nonarch_base_libdir}/firmware/qca9377/
+    install -d ${D}${nonarch_base_libdir}/firmware/qca6174/
+    install -m 0755 ${S}/qca6174/bdwlan30.bin ${D}${nonarch_base_libdir}/firmware/qca6174/
+    install -m 0755 ${S}/qca6174/otp30.bin ${D}${nonarch_base_libdir}/firmware/qca6174/
+    install -m 0755 ${S}/qca6174/qwlan30.bin ${D}${nonarch_base_libdir}/firmware/qca6174/
+    install -m 0755 ${S}/qca6174/utf30.bin ${D}${nonarch_base_libdir}/firmware/qca6174/
+    install -d ${D}${nonarch_base_libdir}/firmware/wlan/qca9377/
+    install -d ${D}${nonarch_base_libdir}/firmware/wlan/qca6174/
+    install -m 0755 ${S}/wlan/cfg.dat ${D}${nonarch_base_libdir}/firmware/wlan/
+    install -m 0755 ${S}/wlan/qca9377/qcom_cfg.ini ${D}${nonarch_base_libdir}/firmware/wlan/qca9377/
+    install -m 0755 ${S}/wlan/qca6174/qcom_cfg.ini ${D}${nonarch_base_libdir}/firmware/wlan/qca6174/
+    install -d ${D}${nonarch_base_libdir}/firmware/qca
+    install -m 0755 ${S}/qca/nvm_tlv_3.2.bin ${D}${nonarch_base_libdir}/firmware/qca
+    install -m 0755 ${S}/qca/rampatch_tlv_3.2.tlv ${D}${nonarch_base_libdir}/firmware/qca
 }
 
-FILES_${PN}-dbg += "/lib/firmware/.debug"
-FILES_${PN} += "/lib/firmware/"
+FILES_${PN}-dbg += "${nonarch_base_libdir}/firmware/.debug"
+FILES_${PN} += "${nonarch_base_libdir}/firmware/"
 
 COMPATIBLE_MACHINE = "(mx6|mx6ul|mx7|mx8)"
 
