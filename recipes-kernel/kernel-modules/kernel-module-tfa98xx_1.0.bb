@@ -20,12 +20,12 @@ S = "${WORKDIR}/git"
 EXTRA_OEMAKE += "KDIR='${STAGING_KERNEL_DIR}'"
 
 do_install_append() {
-	install -d -m 0755 ${D}/lib/firmware/tfa98/9912/
-	install -m 0444 ${WORKDIR}/TFA9892N1A_stereo_32FS.cnt ${D}/lib/firmware/tfa98/9912/
-	ln -sf ./tfa98/9912/TFA9892N1A_stereo_32FS.cnt ${D}/lib/firmware/tfa98xx.cnt
+	install -d -m 0755 ${D}${nonarch_base_libdir}/firmware/tfa98/9912/
+	install -m 0444 ${WORKDIR}/TFA9892N1A_stereo_32FS.cnt ${D}${nonarch_base_libdir}/firmware/tfa98/9912/
+	ln -sf ./tfa98/9912/TFA9892N1A_stereo_32FS.cnt ${D}${nonarch_base_libdir}/firmware/tfa98xx.cnt
 }
 
-FILES_${PN} += "/lib/firmware/"
+FILES_${PN} += "${nonarch_base_libdir}/firmware/"
 BBCLASSEXTEND = "native"
 
 KERNEL_MODULE_AUTOLOAD += "snd-soc-tfa98xx"
