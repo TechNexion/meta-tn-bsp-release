@@ -16,7 +16,7 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
 DEPENDS += "lzop-native bc-native"
 
-KERNEL_BRANCH ?= "tn-imx_5.10.35_2.0.0-next"
+KERNEL_BRANCH ?= "tn-imx_5.10.52_2.1.0-next"
 LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KERNEL_BRANCH', True).split('_')[2:]).lower()}"
 KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
@@ -24,9 +24,9 @@ SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
 
 SRC_URI_append_virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
 
-SRCREV = "9638738f69f44d7bc0ca9e5c4455ccb57088df08"
+SRCREV = "87f27ad6449876aa9b93dd38d939ea173833acb2"
 
-LINUX_VERSION = "5.10.35"
+LINUX_VERSION = "5.10.52"
 
 FILES_${KERNEL_PACKAGE_NAME}-base += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
 
