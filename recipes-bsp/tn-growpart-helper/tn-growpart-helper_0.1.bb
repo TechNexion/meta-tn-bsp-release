@@ -9,6 +9,7 @@ SRC_URI += " \
     file://tn-growpart-helper \
     file://tn-growpart-helper_wayland.service \
     file://tn-growpart-helper_xwindow.service \
+    file://tn-growpart-helper_gnome.service \
 "
 
 S = "${WORKDIR}"
@@ -17,6 +18,7 @@ inherit systemd allarch
 
 USE_WL = "${@bb.utils.contains("DISTRO_FEATURES", "wayland", "yes", "no", d)}"
 USE_X11 = "${@bb.utils.contains("DISTRO_FEATURES", "x11", "yes", "no", d)}"
+USE_GNOME = "${@bb.utils.contains("DISTRO", "imx-desktop-xwayland", "yes", "no", d)}"
 
 do_install () {
     # add the jpg to /usr/share/technexion/
@@ -24,7 +26,12 @@ do_install () {
     install -m 0644 ${S}/tn-standby.jpg ${D}${datadir}/technexion
     if [ "${USE_WL}" = "yes" ]; then
         install -d ${D}${systemd_unitdir}/system
-        install -m 0644 ${S}/tn-growpart-helper_wayland.service ${D}${systemd_unitdir}/system/tn-growpart-helper.service
+        if [ "${USE_GNOME}" = "yes" ]; then
+            install -m 0644 ${S}/tn-growpart-helper_gnome.service ${D}${systemd_unitdir}/system/tn-growpart-helper.service
+        else
+            install -m 0644 ${S}/tn-growpart-helper_wayland.service ${D}${systemd_unitdir}/system/tn-growpart-helper.service
+
+        fi
     elif  [ "${USE_X11}" = "yes" ]; then
         install -d ${D}${systemd_unitdir}/system
         install -m 0644 ${S}/tn-growpart-helper_xwindow.service ${D}${systemd_unitdir}/system/tn-growpart-helper.service
