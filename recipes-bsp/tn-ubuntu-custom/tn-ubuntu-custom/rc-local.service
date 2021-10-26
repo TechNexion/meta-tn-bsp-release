@@ -1,0 +1,16 @@
+[Unit]
+Description=/etc/rc.local Compatibility
+After=systemd-remount-fs.service gnome-shell-wayland.service
+Wants=gnome-shell-wayland.service
+ConditionPathExists=/etc/rc.local
+
+[Service]
+Type=oneshot
+PAMName=login
+User=ubuntu
+Slice=user.slice
+ExecStart=/etc/rc.local start
+
+[Install]
+WantedBy=multi-user.target
+

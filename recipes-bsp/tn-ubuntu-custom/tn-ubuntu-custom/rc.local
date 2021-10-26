@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# disable suspend/sleep mode by default setting
+sudo systemctl mask sleep.target suspend.target
+gsettings set org.gnome.desktop.session idle-delay 0
+
+# change to specific default wallpaper
+gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/gnome/Icetwigs.jpg
+
+# alsa layer: default audio card setting
+cat <<END > /home/ubuntu/.asoundrc
+pcm.!default {
+  type plug
+    slave {
+        pcm "hw:1,0"
+          }
+}
+
+ctl.!default {
+  type hw
+    card 1
+}
+END
+
+
+exit 0
