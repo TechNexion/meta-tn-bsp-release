@@ -24,6 +24,7 @@ OVERRIDES_append = "${@'' if (d.getVar('NFC', True) is None or len(d.getVar('NFC
 OVERRIDES_append = "${@bb.utils.contains('BBLAYERS', '${BSPDIR}/sources/meta-virtualization', ':virtualization', '', d)}"
 OVERRIDES_append = "${@':tools' if (d.getVar('DISTRO', True) == 'fsl-imx-xwayland' or d.getVar('DISTRO', True) == 'fsl-imx-wayland' or d.getVar('DISTRO', True) == 'fsl-imx-x11') else ''}"
 OVERRIDES_append = "${@':rescue:bootscr' if (d.getVar('INITRAMFS_IMAGE', True) == 'tn-image-tsl-initramfs') else ''}"
+OVERRIDES_append = "${@':ubuntu' if (d.getVar('DISTRO', True) == 'imx-desktop-xwayland') else ''}"
 
 #
 # Release Info
@@ -99,6 +100,7 @@ IMAGE_INSTALL_append = " packagegroup-tn-wlan"
 IMAGE_INSTALL_append_tools = " packagegroup-tn-tools"
 IMAGE_INSTALL_append_voicehat = " packagegroup-tn-voicehat"
 IMAGE_INSTALL_append_nfc = " packagegroup-tn-nfc"
+IMAGE_INSTALL_append_ubuntu = " tn-growpart-helper glmark2 tn-ubuntu-custom"
 IMAGE_FSTYPES_append = " ext4 wic.md5sum wic.xz"
 LICENSE_FLAGS_WHITELIST += "commercial_qca commercial_brcm commercial_tn"
 MACHINE_FEATURES_BACKFILL_append_simcom = " nmcli"
