@@ -7,6 +7,12 @@ gsettings set org.gnome.desktop.session idle-delay 0
 # change to specific default wallpaper
 gsettings set org.gnome.desktop.background picture-uri file:///usr/share/backgrounds/gnome/Icetwigs.jpg
 
+# disable pulseaudio as default setting
+sudo systemctl disable pulseaudio.socket
+sudo systemctl disable pulseaudio.service
+systemctl --user mask pulseaudio.socket
+systemctl --user mask pulseaudio.service
+
 # alsa layer: default audio card setting
 cat <<END > /home/ubuntu/.asoundrc
 pcm.!default {
