@@ -56,6 +56,7 @@ RDEPENDS_${PN} = " \
     wireless-tools \
     cloud-utils-growpart \
     tn-growpart-helper \
+    udev \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'v4l-utils gtk+3-demo fbida', '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)} \
 "
