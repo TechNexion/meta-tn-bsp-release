@@ -33,7 +33,7 @@ TOKEN = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN'
 SRCSERVER_token = "git://gitlab.com/technexion-imx/qca_firmware.git"
 SRCOPTION_token = ";protocol=https;user=oauth2:${TOKEN}"
 SRCBRANCH_token = "caf-wlan/CNSS.LEA.NRT_3.0"
-SRCREV_token = "${AUTOREV}"
+SRCREV_token = "e095f250346d337d91eacc95393f21e3e58140e2"
 SRC_URI_token = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTION}"
 S_token = "${WORKDIR}/git"
 
