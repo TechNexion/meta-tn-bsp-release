@@ -19,7 +19,7 @@ TECHNEXION_GITHUB_MIRROR ?= "git://github.com/TechNexion/afloader.git"
 # by setting SRCBRANCH_pn-afloader = "<your branch>"
 SRCBRANCH = "master"
 
-SRCREV = "${AUTOREV}"
+SRCREV = "87814f59c55002ec388d5a508d10300bf5b8d140"
 
 SRC_URI = "${TECHNEXION_GITHUB_MIRROR};branch=${SRCBRANCH}"
 
