@@ -27,6 +27,7 @@ SRCREV = "28fabb018f33daada5717b2641200ec0d8c34ed3"
 SRC_URI_append = " file://splash.bmp"
 
 S = "${WORKDIR}/git"
+B = "${WORKDIR}/build"
 
 inherit fsl-u-boot-localversion
 
