@@ -131,15 +131,21 @@ if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
       hook_in_layer meta-imx/meta-sdk
       hook_in_layer meta-imx/meta-ml
       hook_in_layer meta-imx/meta-v2x
+      hook_in_layer meta-nxp-demo-experience
 
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-nxp-demo-experience \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-gnome \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-networking \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-openembedded/meta-filesystems \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-python2 \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-browser/meta-chromium \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-clang \"" >> $PWD/conf/bblayers.conf
-      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-qt5 \"" >> $PWD/conf/bblayers.conf
+      echo "" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-browser/meta-chromium\"" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-clang\"" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-openembedded/meta-gnome\"" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-openembedded/meta-networking\"" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-openembedded/meta-filesystems\"" >> $PWD/conf/bblayers.conf
+
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-qt5\"" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-python2\"" >> $PWD/conf/bblayers.conf
+
+      # Enable docker for mx8 machines
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-virtualization\"" >> conf/bblayers.conf
+
     fi
   fi
   if [ -d ${PWD}/../sources/meta-ivi ]; then
@@ -172,7 +178,8 @@ if [ ${TNCONFIGS} != 0 ] ; then
     fi
   fi
   # add technexion virtualization bsp layers (virtualization/boot2qt) to bblayers.conf
-  if [ -d $PWD/../sources/meta-virtualization ]; then
+  #if [ -d $PWD/../sources/meta-virtualization ]; then
+  if false; then
     # has meta-virtualization
     if ! grep -Fq "meta-virtualization" $PWD/conf/bblayers.conf; then
       echo "" >> $PWD/conf/bblayers.conf
