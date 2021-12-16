@@ -58,8 +58,9 @@ RDEPENDS_${PN} = " \
     tn-growpart-helper \
     udev \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'v4l-utils gtk+3-demo fbida', '', d)} \
-    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)} \
 "
+#    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)}
+
 
 RDEPENDS_${PN}_append_mx7 = " voicehat-test"
 RDEPENDS_${PN}_append_mx8 = " voicehat-test"
