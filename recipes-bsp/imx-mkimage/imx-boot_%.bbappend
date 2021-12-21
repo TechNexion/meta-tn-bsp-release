@@ -14,7 +14,6 @@ compile_mx8m() {
     cp ${DEPLOY_DIR_IMAGE}/signed_hdmi_imx8m.bin             ${BOOT_STAGING}
     cp ${DEPLOY_DIR_IMAGE}/u-boot-spl.bin-${MACHINE}-${UBOOT_CONFIG} \
                                                              ${BOOT_STAGING}/u-boot-spl.bin
-    cp ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/${UBOOT_DTB_NAME}   ${BOOT_STAGING}
 
     for DTB in ${UBOOT_DTB_NAME}; do
 		cp ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/${DTB}   ${BOOT_STAGING}
