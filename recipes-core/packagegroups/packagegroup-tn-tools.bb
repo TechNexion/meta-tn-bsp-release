@@ -38,6 +38,7 @@ RDEPENDS_${PN} = " \
     iproute2 \
     iperf3 \
     libgpiod \
+    libgpiod-tools \
     libsocketcan \
     lmbench \
     memtester \
