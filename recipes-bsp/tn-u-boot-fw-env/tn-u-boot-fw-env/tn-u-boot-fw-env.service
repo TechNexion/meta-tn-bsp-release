@@ -1,0 +1,9 @@
+[Unit]
+Description=Add fw_env.conf by bootdev and arch during first boot.
+
+[Service]
+ExecStart=/bin/sh /usr/sbin/tn-u-boot-fw-env.sh
+ExecStartPost=/bin/systemctl disable tn-u-boot-fw-env.service
+
+[Install]
+WantedBy=multi-user.target
