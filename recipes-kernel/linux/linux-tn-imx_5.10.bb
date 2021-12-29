@@ -24,7 +24,7 @@ SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
 
 SRC_URI_append_virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
 
-SRCREV = "95fecaeb0c8b6470efe91a3980854dd5c99ddbdb"
+SRCREV = "0e6518a70ebe1bc044aedfd610b5c6dd7f52a405"
 
 LINUX_VERSION = "5.10.52"
 
