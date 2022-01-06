@@ -10,12 +10,14 @@ SRC_URI += " \
 
 S = "${WORKDIR}"
 
-do_install () {
-    install -d ${D}/lib/firmware/flesspi_uboot
-    install -m 0755 fspi_u-boot.bin ${D}/lib/firmware/flesspi_uboot/fspi_u-boot.bin
+inherit deploy
+
+do_deploy() {
+    install -d ${DEPLOYDIR}
+    install -m 0755 ${S}/fspi_u-boot.bin ${DEPLOYDIR}/
 }
 
-FILES_${PN} = "/lib/firmware/"
+addtask deploy after do_install
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "(mx8mp)"
