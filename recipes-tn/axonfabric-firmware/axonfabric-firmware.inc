@@ -1,4 +1,4 @@
-TECHNEXION_GITHUB_MIRROR ?= "git://github.com/TechNexion/axonfabric-firmware.git"
+TECHNEXION_GITHUB_MIRROR ?= "https://github.com/TechNexion/axonfabric-firmware.git"
 SRCREV = "136984cd1e8f30543a56342467353d6dabd52bf5"
 
 SRC_URI = "${TECHNEXION_GITHUB_MIRROR};branch=${SRCBRANCH}"

@@ -13,7 +13,7 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
 
 # Override of the main URI can be done in local.conf
 # by setting TECHNEXION_GITHUB_MIRROR_pn-afloader = "<your git url>"
-TECHNEXION_GITHUB_MIRROR ?= "git://github.com/TechNexion/afloader.git"
+TECHNEXION_GITHUB_MIRROR ?= "https://github.com/TechNexion/afloader.git"
 
 # Override of the main URI can be done in local.conf
 # by setting SRCBRANCH_pn-afloader = "<your branch>"
