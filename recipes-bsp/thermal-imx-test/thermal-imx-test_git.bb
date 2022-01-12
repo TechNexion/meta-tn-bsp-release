@@ -7,7 +7,7 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
 
 SRCBRANCH = "yocto_thermal_test"
-THERMAL_IMX_TEST_SRC = "git://github.com/TechNexion-customization/thermal_imx_test.git"
+THERMAL_IMX_TEST_SRC = "git://github.com/TechNexion-customization/thermal_imx_test.git;protocol=https"
 SRC_URI = "${THERMAL_IMX_TEST_SRC};branch=${SRCBRANCH} \
            file://thermal-imx-test.sh \
 "

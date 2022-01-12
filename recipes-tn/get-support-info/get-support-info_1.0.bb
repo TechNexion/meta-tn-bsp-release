@@ -4,7 +4,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 
 RDEPENDS_${PN} += "bash"
 
-SRC_URI = "git://github.com/TechNexion-customization/get-support-info.git"
+SRC_URI = "git://github.com/TechNexion-customization/get-support-info.git;protocol=https"
 SRCREV = "9f05701334f92e169aecf68b718042cf0eb80b85"
 
 S = "${WORKDIR}/git"

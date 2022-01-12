@@ -7,7 +7,7 @@ LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
 
 SRCBRANCH = "yocto_voicehat_test_1.0"
-TN_VOICEHAT_TEST_SRC = "git://github.com/TechNexion-customization/voicehat_test.git"
+TN_VOICEHAT_TEST_SRC = "git://github.com/TechNexion-customization/voicehat_test.git;protocol=https"
 SRC_URI = "${TN_VOICEHAT_TEST_SRC};branch=${SRCBRANCH} \
            file://voicehat-test.sh \
 "

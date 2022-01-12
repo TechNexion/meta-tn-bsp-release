@@ -8,7 +8,7 @@ inherit module
 
 SRCREV = "8bf1e8de411308587f5c0e4567185512e1097753"
 SRCBRANCH = "tn-DIN_v6x"
-SRC_URI = "git://github.com/TechNexion/tfa98xx.git;branch=${SRCBRANCH} \
+SRC_URI = "git://github.com/TechNexion/tfa98xx.git;protocol=https;branch=${SRCBRANCH} \
            https://source.codeaurora.org/external/imxsupport/meta-avs-demos/plain/recipes-kernel/tfa98xx/files/TFA9892N1A_stereo_32FS.cnt?h=imx-alexa-sdk;downloadfilename=TFA9892N1A_stereo_32FS.cnt \
 "
 

@@ -6,7 +6,7 @@ LIC_FILES_CHKSUM = "file://LICENSE;md5=3b83ef96387f14655fc854ddc3c6bd57 \
 
 RDEPENDS_${PN} += "bash grep procps sed gawk lmsensors-sensors"
 
-SRC_URI = "git://github.com/aristocratos/bashtop.git"
+SRC_URI = "git://github.com/aristocratos/bashtop.git;protocol=https"
 SRCREV = "v0.8.29"
 
 S = "${WORKDIR}/git"

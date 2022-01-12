@@ -7,7 +7,7 @@ DEPENDS = "bash"
 SRCREV = "f906559f44afe6397a1775d0d2bc99d1e622b2fd"
 PV	 = "0.2-git${SRCPV}"
 
-SRC_URI  = "git://github.com/oblique/create_ap.git"
+SRC_URI  = "git://github.com/oblique/create_ap.git;protocol=https"
 	    
 S	 = "${WORKDIR}/git"
 
