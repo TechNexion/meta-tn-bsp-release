@@ -56,7 +56,6 @@ RDEPENDS_${PN} = " \
     v4l-utils \
     wireless-tools \
     cloud-utils-growpart \
-    tn-growpart-helper \
     udev \
     libubootenv \
     libubootenv-bin \
