@@ -18,13 +18,4 @@ do_install_append() {
 	install -D -p -m0755 ${WORKDIR}/setup-weston-init.sh ${D}${bindir}
 }
 
-INI_SHELL_SECT = "\\[shell\\]"
-INI_SHELL_SECT_mx8mq = ""
-
-INI_UNCOMMENT_ASSIGNMENTS_append_rescue = " \
-	${INI_SHELL_SECT} \
-	panel-position \
-	background-color \
-"
-
 FILES_${PN} += "${bindir}/setup-weston-init.sh"
