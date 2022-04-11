@@ -1,6 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SUMMARY = "u-boot boot.scr.uimg"
+SUMMARY = "u-boot bootscript for TechNexion specific image"
 DESCRIPTION = "Boot script for launching bootable disk images on TechNexion products"
 SECTION = "base"
 LICENSE = "Proprietary"
@@ -12,31 +12,18 @@ PR = "r0"
 
 COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"
 
-SRC_URI = "file://README file://boot.scr"
-SRC_URI_append_rescue = " file://boot.scr.tsl"
-
+SRC_URI = "file://README \
+		   file://bootscript-tsl-arm64.txt \
+		  "
 S = "${WORKDIR}"
 
-do_compile () {
+do_compile_rescue () {
 	mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
-		-n "TechNexion boot script" -d ${S}/boot.scr \
-		${S}/boot.scr.uimg
+		-n "TechNexion boot script" -d ${S}/bootscript-tsl-arm64.txt \
+		${S}/boot.scr
 }
 
-do_compile_append_rescue () {
-	sed -e 's,@FIT_ADDR@,'${UBOOT_FIT_LOADADDRESS}',g' -i ${S}/boot.scr.tsl
-	sed -e 's,@FIT_PREFIX@,'${UBOOT_FIT_PREFIX}',g' -i ${S}/boot.scr.tsl
-	if [ "${MACHINE}" = "edm-g-imx8mm" ]; then
-		sed -e '2 i\setenv dtoverlay imx8mm-edm-g-wb-sn65dsi84-vl10112880.dtbo' -i ${S}/boot.scr.tsl
-	elif [ "${MACHINE}" = "pico-imx8mm" ]; then
-		sed -e '2 i\setenv dtoverlay imx8mm-pico-pi-ili9881c.dtbo' -i ${S}/boot.scr.tsl
-	fi
-	mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
-		-n "TechNexion boot script" -d ${S}/boot.scr.tsl \
-		${S}/boot.scr.uimg
-}
-
-do_install () {
+do_install_rescue () {
 	install -d ${DEPLOY_DIR_IMAGE}
-	install -m 0644 ${S}/boot.scr.uimg ${DEPLOY_DIR_IMAGE}
+	install -m 0644 ${S}/boot.scr ${DEPLOY_DIR_IMAGE}
 }
