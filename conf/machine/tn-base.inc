@@ -23,7 +23,7 @@ OVERRIDES_append = "${@'' if (d.getVar('SOUNDCARD', True) is None or len(d.getVa
 OVERRIDES_append = "${@'' if (d.getVar('NFC', True) is None or len(d.getVar('NFC', True)) == 0) else ':%s' % d.getVar('NFC', True).lower()}"
 #OVERRIDES_append = "${@bb.utils.contains('BBLAYERS', '${BSPDIR}/sources/meta-virtualization', ':virtualization', '', d)}"
 OVERRIDES_append = "${@':tools' if (d.getVar('DISTRO', True) == 'fsl-imx-xwayland' or d.getVar('DISTRO', True) == 'fsl-imx-wayland' or d.getVar('DISTRO', True) == 'fsl-imx-x11') else ''}"
-OVERRIDES_append = "${@':rescue:bootscr' if (d.getVar('INITRAMFS_IMAGE', True) == 'tn-image-tsl-initramfs') else ''}"
+OVERRIDES_append = "${@':rescue:bootscr' if (d.getVar('INITRAMFS_IMAGE', True) == 'tn-image-loader-initramfs') else ''}"
 OVERRIDES_append = "${@':ubuntu' if (d.getVar('DISTRO', True) == 'imx-desktop-xwayland') else ''}"
 
 #
@@ -39,9 +39,6 @@ IMAGE_BUILDINFO_VARS_append = " RELEASE_NAME"
 #
 PREFERRED_PROVIDER_kernel_tn = "linux-tn-imx"
 PREFERRED_PROVIDER_virtual/kernel_tn = "linux-tn-imx"
-KERNEL_CLASSES_append_rescue = " kernel-fitimage"
-KERNEL_IMAGETYPES_append_rescue = " fitImage"
-RDEPENDS_${KERNEL_PACKAGE_NAME}-base_rescue = ""
 
 #
 # Bootloader Specifics
@@ -74,7 +71,7 @@ BOOT_SCRIPTS_append = " ${SPLASH_FILENAME}:splash.bmp"
 BOOT_SCRIPTS = ""
 UENV_FILENAME_uenv = "uEnv.txt"
 BOOT_SCRIPTS_append_uenv = " ${UENV_FILENAME}:uEnv.txt"
-UENV_SCRNAME_bootscr = "boot.scr.uimg"
+UENV_SCRNAME_bootscr = "boot.scr"
 BOOT_SCRIPTS_append_bootscr = " ${UENV_SCRNAME}:boot.scr"
 
 #
