@@ -1,5 +1,5 @@
 #!/bin/sh
-MMC_TAR=$(cat /proc/cmdline | grep -Poi "mmcblk\d")
+MMC_TAR=$(cat /proc/cmdline | grep -io "mmcblk[[:digit:]]")
 ARCH=$(uname -m)
 
 if [ ${ARCH} == 'aarch64' ];then
