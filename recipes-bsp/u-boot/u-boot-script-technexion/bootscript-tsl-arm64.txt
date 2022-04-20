@@ -1,8 +1,8 @@
-setenv ramdisk_file uramdisk.cpio.gz
+setenv ramdisk_file uramdisk.img
 setexpr ramdisk_addr_r ${fdt_addr} + 0x1F0000
 setenv linux_boot_logo fbcon=logo-count:1 fbcon=logo-pos:center
 setenv loadramdisk 'fatload mmc ${mmcdev}:${mmcpart} ${ramdisk_addr_r} ${ramdisk_file}'
-setenv mmcroot /dev/ram0 rootwait rw ${linux_boot_logo}
+setenv mmcroot ${mmcroot} ${linux_boot_logo}
 run mmcargs
 run loadimage
 run loadfdt
