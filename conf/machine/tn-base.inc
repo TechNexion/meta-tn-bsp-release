@@ -126,7 +126,8 @@ HOSTTOOLS_NONFATAL += "git-lfs"
 #DISTRO_FEATURES_append_virtualization = " virtualization"
 
 # technexion rescue-loader
-DISTRO_FEATURES_remove_rescue = "irda alsa bluetooth wifi nfs 3g nfc ptest bluez bluez5 vulkan optee pulseaudio multiarch"
+DISTRO_FEATURES_remove_rescue = "irda alsa bluetooth wifi nfs 3g nfc ptest bluez bluez5 vulkan optee pulseaudio multiarch \
+                                 acl argp ext2 pcmcia usbgadget xattr zeroconf pci jailhouse virtualization"
 USE_VT_rescue = "0"
 
 RDEPENDS_packagegroup-core-tools-testapps_remove_simcom = "mesa-demos connman-client connman-tools"
