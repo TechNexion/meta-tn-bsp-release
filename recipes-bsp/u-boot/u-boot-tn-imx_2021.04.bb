@@ -25,6 +25,7 @@ SRCBRANCH = "tn-imx_v2021.04_5.10.72_2.2.0-next"
 SRC_URI = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTIONS}"
 SRCREV = "dd83055c2348915626ed6bdbb9c8d372550c6c31"
 SRC_URI_append = " file://splash.bmp"
+SRC_URI_append_rescue += " file://rescue-fragment-uboot.cfg"
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
@@ -62,16 +63,6 @@ do_deploy_append_mx8m () {
         unset  i
     fi
 
-}
-
-do_configure_prepend_rescue() {
-    if [ ! -z "${UBOOT_CONFIG}" ]; then
-        for config in ${UBOOT_MACHINE}; do
-            # Set u-boot boot delay as 0 to shorten boot time
-            sed -i '/CONFIG_BOOTDELAY/d' ${S}/configs/${config}
-            echo "CONFIG_BOOTDELAY=0" >> ${S}/configs/${config}
-        done
-    fi
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
