@@ -64,6 +64,16 @@ do_deploy_append_mx8m () {
 
 }
 
+do_configure_prepend_rescue() {
+    if [ ! -z "${UBOOT_CONFIG}" ]; then
+        for config in ${UBOOT_MACHINE}; do
+            # Set u-boot boot delay as 0 to shorten boot time
+            sed -i '/CONFIG_BOOTDELAY/d' ${S}/configs/${config}
+            echo "CONFIG_BOOTDELAY=0" >> ${S}/configs/${config}
+        done
+    fi
+}
+
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"
 
