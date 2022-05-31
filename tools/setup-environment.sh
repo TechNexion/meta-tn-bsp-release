@@ -140,7 +140,7 @@ if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
       echo "BBLAYERS += \"\${BSPDIR}/sources/meta-openembedded/meta-networking\"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \"\${BSPDIR}/sources/meta-openembedded/meta-filesystems\"" >> $PWD/conf/bblayers.conf
 
-      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-qt5\"" >> $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \"\${BSPDIR}/sources/meta-qt6\"" >> $PWD/conf/bblayers.conf
       echo "BBLAYERS += \"\${BSPDIR}/sources/meta-python2\"" >> $PWD/conf/bblayers.conf
 
       # Enable docker for mx8 machines
