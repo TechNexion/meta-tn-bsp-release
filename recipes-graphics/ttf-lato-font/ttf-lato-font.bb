@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/file:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/file:"
 SUMMARY = "Lato fonts"
 HOMEPAGE = "https://www.latofonts.com/lato-free-fonts/"
 SECTION = "fonts"
@@ -19,5 +19,5 @@ do_install () {
 	done
 }
 
-FILES_${PN} = "/usr/lib/fonts/*.ttf"
+FILES:${PN} = "/usr/lib/fonts/*.ttf"
 

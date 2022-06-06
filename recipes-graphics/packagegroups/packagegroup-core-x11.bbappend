@@ -1,1 +1,1 @@
-RDEPENDS_${PN}-utils_remove = " xinput-calibrator"
+RDEPENDS:${PN}-utils:remove = " xinput-calibrator"
