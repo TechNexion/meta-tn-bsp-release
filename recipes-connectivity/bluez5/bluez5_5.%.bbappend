@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 # Add patches for QCA modules with Qca6174 and Qca9377-3 chips
 SRC_URI += " \
@@ -14,7 +14,7 @@ SRC_URI += " \
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd"
 
-do_install_append() {
+do_install:append() {
     if ${@bb.utils.contains('DISTRO_FEATURES', 'fcc', 'false', 'true', d)}; then
         if [ ! -z "${SERIAL_BLUETOOTH}" ] ; then
                 default_baudrate=`echo "${SERIAL_BLUETOOTH}" | sed 's/\;.*//'`

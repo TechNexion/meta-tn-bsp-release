@@ -1,8 +1,8 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/ofono:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/ofono:"
 
 PV = "1.31"
 
-SRC_URI_remove = "file://use-python3.patch"
+SRC_URI:remove = "file://use-python3.patch"
 SRC_URI += " \
             file://0002-plugins-udevng-add-support-for-Huawei-ME906s.patch \
             file://0003-plugins-udevng-add-support-for-Telit-LE910-EU-V2.patch \

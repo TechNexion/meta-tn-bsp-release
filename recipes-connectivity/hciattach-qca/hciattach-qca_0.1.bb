@@ -11,11 +11,11 @@ SRC_URI = "file://hciattach-qca \
 "
 S = "${WORKDIR}"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 inherit features_check
 REQUIRED_DISTRO_FEATURES = "systemd"
 
-FILES_${PN} = " ${libdir}/systemd/* \
+FILES:${PN} = " ${libdir}/systemd/* \
               ${sysconfdir}/systemd/* \
               ${bindir}/* \
 "
