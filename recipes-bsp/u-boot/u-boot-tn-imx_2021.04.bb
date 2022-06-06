@@ -11,8 +11,8 @@ inherit pythonnative
 
 PROVIDES += "u-boot"
 DEPENDS:append = " python dtc-native flex-native bison-native"
-RDEPENDS_${PN}:append:uenv = " u-boot-uenv"
-RDEPENDS_${PN}:append:bootscr = " u-boot-script-technexion"
+RDEPENDS:${PN}:append:uenv = " u-boot-uenv"
+RDEPENDS:${PN}:append:bootscr = " u-boot-script-technexion"
 
 
 LICENSE = "GPLv2+"
