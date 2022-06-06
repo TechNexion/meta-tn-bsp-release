@@ -22,7 +22,7 @@ do_install() {
 	cp ${S}/bash_completion ${D}${datadir}/bash-completion/completions/create_ap
 }
 
-RDEPENDS_${PN} = "bash"
+RDEPENDS:${PN} = "bash"
 
-FILES_${PN}-dbg += "${datadir}/bash-completion/completions/.debug"
-FILES_${PN} += "${datadir}/bash-completion/completions/"
+FILES:${PN}-dbg += "${datadir}/bash-completion/completions/.debug"
+FILES:${PN} += "${datadir}/bash-completion/completions/"

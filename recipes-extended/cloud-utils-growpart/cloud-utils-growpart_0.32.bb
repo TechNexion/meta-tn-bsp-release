@@ -36,7 +36,7 @@ do_install() {
     install -m 0755 ${S}/bin/growpart ${D}${bindir}
 }
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     gawk \
     util-linux \
 "
