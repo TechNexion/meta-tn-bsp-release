@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 inherit packagegroup
 
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     alsa-utils \
     alsa-tools \
     bash \
@@ -65,5 +65,5 @@ RDEPENDS_${PN} = " \
 #    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)}
 
 
-RDEPENDS_${PN}_append_mx7 = " voicehat-test"
-RDEPENDS_${PN}_append_mx8 = " voicehat-test"
+RDEPENDS:${PN}:append:mx7 = " voicehat-test"
+RDEPENDS:${PN}:append:mx8 = " voicehat-test"

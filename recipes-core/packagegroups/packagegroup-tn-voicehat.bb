@@ -8,5 +8,5 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0-only;md5=801f80980d171d
 inherit packagegroup
 
 # Extra Kernel Driver/Firmware for technexion's voicehat
-RDEPENDS_${PN}_append_voicehat = " kernel-module-tfa98xx"
+RDEPENDS:${PN}:append:voicehat = " kernel-module-tfa98xx"
 

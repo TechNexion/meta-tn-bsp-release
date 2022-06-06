@@ -8,8 +8,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 inherit packagegroup
 
 # dfu
-RDEPENDS_${PN} += "mender-dfu dfu-util"
+RDEPENDS:${PN} += "mender-dfu dfu-util"
 # dir-overlay
-RDEPENDS_${PN} += "mender-dir-overlay"
+RDEPENDS:${PN} += "mender-dir-overlay"
 # ipk
-RDEPENDS_${PN} += "${@bb.utils.contains('PACKAGE_CLASSES', 'package_ipk', 'mender-ipk', '', d)}"
+RDEPENDS:${PN} += "${@bb.utils.contains('PACKAGE_CLASSES', 'package_ipk', 'mender-ipk', '', d)}"

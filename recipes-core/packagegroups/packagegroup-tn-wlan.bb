@@ -9,17 +9,17 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 inherit packagegroup
 
 # QCA
-PACKAGES_remove_qca = "linux-firmware-qca"
-RDEPENDS_${PN}_append_qca = " linux-firmware-qca-tn"
+PACKAGES:remove:qca = "linux-firmware-qca"
+RDEPENDS:${PN}:append:qca = " linux-firmware-qca-tn"
 # BRCM
-PACKAGES_remove_brcm = "linux-firmware-brcm"
-RDEPENDS_${PN}_append_brcm = " linux-firmware-brcm-tn"
+PACKAGES:remove:brcm = "linux-firmware-brcm"
+RDEPENDS:${PN}:append:brcm = " linux-firmware-brcm-tn"
 # ATH10K
-PACKAGES_remove_ath-pci = "linux-firmware-ath10k"
-RDEPENDS_${PN}_append_ath-pci = " linux-firmware-ath10k-tn"
+PACKAGES:remove:ath-pci = "linux-firmware-ath10k"
+RDEPENDS:${PN}:append:ath-pci = " linux-firmware-ath10k-tn"
 
 # Extra Kernel Modules
-RDEPENDS_${PN}_append = " ${@bb.utils.contains('COMBINED_FEATURES', 'wifi', 'kernel-module-qcacld-tn', '', d)}"
+RDEPENDS:${PN}:append = " ${@bb.utils.contains('COMBINED_FEATURES', 'wifi', 'kernel-module-qcacld-tn', '', d)}"
 
 CONNMAN_UTILS = "connman-tools connman-tests connman-client"
 NETWORKMANAGER_UTILS = "networkmanager"
@@ -30,10 +30,10 @@ NETWORKMANAGER_UTILS = "networkmanager"
 
 WIFITOOLS = "${@bb.utils.contains('MACHINE_FEATURES', 'nmcli', "${NETWORKMANAGER_UTILS}", "${CONNMAN_UTILS}", d)}"
 
-RDEPENDS_${PN}_append = "\
+RDEPENDS:${PN}:append = "\
     ${WIFITOOLS} \
     ${@bb.utils.contains('DISTRO_FEATURES', '3g', "${3GTOOLS}", '', d)} \
     ${@bb.utils.contains('DISTRO_FEATURES', 'nmcli', "${5GTOOLS}", '', d)} \
     "
 #It would cause package conflict to install networkmanager/connman in ubuntu image
-RDEPENDS_${PN}_remove_ubuntu = "${WIFITOOLS}"
+RDEPENDS:${PN}:remove:ubuntu = "${WIFITOOLS}"

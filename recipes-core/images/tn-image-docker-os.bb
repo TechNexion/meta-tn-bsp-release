@@ -30,7 +30,7 @@ IMAGE_INSTALL = "\
 	"
 #	tn-container-service
 
-IMAGE_INSTALL_append_virtualization = " ${@'docker-disk' if ('container' in (d.getVar('WKS_FILE', True))) else ''}"
+IMAGE_INSTALL:append:virtualization = " ${@'docker-disk' if ('container' in (d.getVar('WKS_FILE', True))) else ''}"
 
 # Select Image Features
 IMAGE_FEATURES += " \
@@ -52,13 +52,13 @@ QT5_IMAGE_INSTALL_common = " \
     ${@bb.utils.contains('DISTRO_FEATURES', 'wayland', 'qtwayland qtwayland-plugins', '', d)}\
 "
 
-QT5_IMAGE_INSTALL_imxgpu2d = "${@bb.utils.contains('DISTRO_FEATURES', 'x11','${QT5_IMAGE_INSTALL_common}', \
+QT5_IMAGE_INSTALL:imxgpu2d = "${@bb.utils.contains('DISTRO_FEATURES', 'x11','${QT5_IMAGE_INSTALL_common}', \
     'qtbase qtbase-plugins', d)}"
 
-QT5_IMAGE_INSTALL_imxpxp = "${@bb.utils.contains('DISTRO_FEATURES', 'x11','${QT5_IMAGE_INSTALL_common}', \
+QT5_IMAGE_INSTALL:imxpxp = "${@bb.utils.contains('DISTRO_FEATURES', 'x11','${QT5_IMAGE_INSTALL_common}', \
     'qtbase qtbase-examples qtbase-plugins', d)}"
 
-QT5_IMAGE_INSTALL_imxgpu3d = " \
+QT5_IMAGE_INSTALL:imxgpu3d = " \
     ${QT5_IMAGE_INSTALL_common} \
     gstreamer1.0-plugins-good-qt"
 
@@ -71,10 +71,10 @@ CORE_IMAGE_EXTRA_INSTALL += " \
 
 IMAGE_ROOTFS_SIZE ?= "8192"
 IMAGE_ROOTFS_EXTRA_SPACE = "4096"
-IMAGE_ROOTFS_EXTRA_SPACE_append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "", d)}"
+IMAGE_ROOTFS_EXTRA_SPACE:append = "${@bb.utils.contains("DISTRO_FEATURES", "systemd", " + 4096", "", d)}"
 
 WKS_FILE = "${@bb.utils.contains("DISTRO_FEATURES", "virtualization", "tn-spl-rootfs-container.wks.in", "tn-spl-bootpart-rootfs.wks.in", d)}"
-WKS_FILE_mx8 = "${@bb.utils.contains("DISTRO_FEATURES", "virtualization", "tn-imx8-imxboot-rootfs-container.wks.in", "tn-imx8-imxboot-bootpart-rootfs.wks.in", d)}"
+WKS_FILE:mx8 = "${@bb.utils.contains("DISTRO_FEATURES", "virtualization", "tn-imx8-imxboot-rootfs-container.wks.in", "tn-imx8-imxboot-bootpart-rootfs.wks.in", d)}"
 
 EXTRA_USERS_PARAMS = " \
 useradd -P technexion technexion; \
@@ -85,12 +85,12 @@ inherit core-image extrausers
 inherit distro_features_check ${@bb.utils.contains('BBFILE_COLLECTIONS', 'qt5-layer', 'populate_sdk_qt5', '', d)}
 
 
-IMAGE_FEATURES_append_mender-image = " package-management "
-IMAGE_INSTALL_append_mender-image += " packagegroup-mender-update-modules mender-connect"
-DEPENDS_append_mender-image = " docker-disk"
+IMAGE_FEATURES:append:mender-image = " package-management "
+IMAGE_INSTALL:append:mender-image += " packagegroup-mender-update-modules mender-connect"
+DEPENDS:append:mender-image = " docker-disk"
 MOUNT_PREFIX = ""
-MOUNT_PREFIX_mender-image = "/data"
-IMAGE_CMD_dataimg_prepend_mender-image () {
+MOUNT_PREFIX:mender-image = "/data"
+IMAGE_CMD_dataimg:prepend:mender-image () {
   if [ -f ${DEPLOY_DIR_IMAGE}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ]; then
     mkdir -p ${IMAGE_ROOTFS}${MOUNT_PREFIX}${TN_DOCKER_PARTITION_MOUNT}
     bbwarn "Extract ${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} to ${IMAGE_ROOTFS}${MOUNT_PREFIX}${TN_DOCKER_PARTITION_MOUNT}, please ensure docker.service start with --data-root set to ${MOUNT_PREFIX}${TN_DOCKER_PARTITION_MOUNT} directory"

@@ -12,7 +12,7 @@ IMAGE_OVERHEAD_FACTOR = "2.3"
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 ROOTFS_BOOTSTRAP_INSTALL = ""
 
-IMAGE_TYPEDEP_container += "${TN_CONTAINER_IMAGE_TYPE}"
+IMAGE_TYPEDEP:container += "${TN_CONTAINER_IMAGE_TYPE}"
 
 IMAGE_FEATURES = ""
 IMAGE_LINGUAS = ""
@@ -28,8 +28,8 @@ IMAGE_INSTALL = " \
 	lighttpd-module-access \
 	lighttpd-module-accesslog \
 "
-IMAGE_INSTALL_remove = "kernel-image kernel-devicetree u-boot-fw-utils mender mender-client"
-EXTRA_IMAGEDEPENDS_remove = "u-boot"
+IMAGE_INSTALL:remove = "kernel-image kernel-devicetree u-boot-fw-utils mender mender-client"
+EXTRA_IMAGEDEPENDS:remove = "u-boot"
 
 # Workaround /var/volatile for now
 ROOTFS_POSTPROCESS_COMMAND += "rootfs_fixup_var_volatile ; "

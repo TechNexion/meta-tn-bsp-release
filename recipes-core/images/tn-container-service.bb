@@ -2,7 +2,7 @@ SUMMARY = "Package a systemd tn-container.service for docker containers in the p
 LICENSE = "MIT"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda2f7b4f302"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI = "file://tn-container.service"
 
@@ -26,6 +26,6 @@ do_install () {
 	ln -sf ${systemd_unitdir}/system/tn-container.service ${D}${sysconfdir}/systemd/system/multi-user.target.wants/tn-container.service
 }
 
-FILES_${PN} += "/lib/systemd/system/"
+FILES:${PN} += "/lib/systemd/system/"
 
-RDEPENDS_${PN} += "systemd-container"
+RDEPENDS:${PN} += "systemd-container"
