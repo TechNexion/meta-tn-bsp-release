@@ -162,7 +162,7 @@ python do_setuenv() {
 
 addtask setuenv after do_configure before do_compile
 
-do_compile_append_rescue() {
+do_compile:append:rescue() {
 	if [ -f "${S}/uEnv.txt" ]; then
 		sed -e 's|^bootcmd_mmc.*||g' -i ${S}/uEnv.txt
 		sed -e 's|run bootcmd_mmc;||g' -i ${S}/uEnv.txt

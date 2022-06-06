@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SUMMARY = "u-boot bootscript for TechNexion specific image"
 DESCRIPTION = "Boot script for launching bootable disk images on TechNexion products"
@@ -17,13 +17,13 @@ SRC_URI = "file://README \
 		  "
 S = "${WORKDIR}"
 
-do_compile_rescue () {
+do_compile:rescue () {
 	mkimage -A arm -O linux -T script -C none -a 0 -e 0 \
 		-n "TechNexion boot script" -d ${S}/bootscript-tsl-arm64.txt \
 		${S}/boot.scr
 }
 
-do_install_rescue () {
+do_install:rescue () {
 	install -d ${DEPLOY_DIR_IMAGE}
 	install -m 0644 ${S}/boot.scr ${DEPLOY_DIR_IMAGE}
 }
