@@ -10,9 +10,9 @@ require recipes-bsp/u-boot/u-boot.inc
 inherit pythonnative
 
 PROVIDES += "u-boot"
-DEPENDS_append = " python dtc-native flex-native bison-native"
-RDEPENDS_${PN}_append_uenv = " u-boot-uenv"
-RDEPENDS_${PN}_append_bootscr = " u-boot-script-technexion"
+DEPENDS:append = " python dtc-native flex-native bison-native"
+RDEPENDS_${PN}:append:uenv = " u-boot-uenv"
+RDEPENDS_${PN}:append:bootscr = " u-boot-script-technexion"
 
 
 LICENSE = "GPLv2+"
@@ -21,11 +21,11 @@ LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a
 PR = "r0"
 SRCSERVER = "git://github.com/TechNexion/u-boot-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
-SRCBRANCH = "tn-imx_v2021.04_5.10.72_2.2.0-next"
+SRCBRANCH = "tn-imx_v2021.04_5.15.5_1.0.0-next"
 SRC_URI = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTIONS}"
-SRCREV = "c1b947360fba5ce47fadfa85576a2372ce9e7d7b"
-SRC_URI_append = " file://splash.bmp"
-SRC_URI_append_rescue += " file://rescue-fragment-uboot.cfg"
+SRCREV = "4c4f0116bd43632ac8e1fdb60c0d2d394dac603d"
+SRC_URI:append = " file://splash.bmp"
+SRC_URI:append:rescue += " file://rescue-fragment-uboot.cfg"
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"
@@ -36,12 +36,12 @@ LOCALVERSION ?= "-${SRCREV}"
 
 BOOT_TOOLS = "imx-boot-tools"
 
-do_deploy_append () {
+do_deploy:append () {
 	install -d ${DEPLOYDIR}
 	install ${WORKDIR}/splash.bmp ${DEPLOYDIR}/splash.bmp
 }
 
-do_deploy_append_mx8m () {
+do_deploy:append:mx8m () {
     # Deploy u-boot-nodtb.bin and fsl-imx8mq-XX.dtb, to be packaged in boot binary by imx-boot
     if [ -n "${UBOOT_CONFIG}" ]
     then
@@ -68,6 +68,6 @@ do_deploy_append_mx8m () {
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"
 
-UBOOT_NAME_mx6 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
-UBOOT_NAME_mx7 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
-UBOOT_NAME_mx8 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
+UBOOT_NAME:mx6 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
+UBOOT_NAME:mx7 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
+UBOOT_NAME:mx8 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
