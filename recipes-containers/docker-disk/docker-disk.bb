@@ -193,7 +193,7 @@ addtask deploy before do_package after do_install
 
 do_install[fakeroot] = "1"
 
-fakeroot do_install_append() {
+fakeroot do_install:append() {
 	if [ -n "${TN_DOCKER_PARTITION_MOUNT}" ]; then
 		install -d ${D}${TN_DOCKER_PARTITION_MOUNT}
 		if [ -f ${B}/${TN_DOCKER_PARTITION_IMAGE}.${TN_CONTAINER_IMAGE_TYPE} ]; then
@@ -204,4 +204,4 @@ fakeroot do_install_append() {
 	fi
 }
 
-FILES_${PN} += "${TN_DOCKER_PARTITION_MOUNT}"
+FILES:${PN} += "${TN_DOCKER_PARTITION_MOUNT}"
