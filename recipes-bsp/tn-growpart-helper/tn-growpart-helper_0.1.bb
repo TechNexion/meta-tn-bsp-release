@@ -40,9 +40,9 @@ do_install () {
     install -m 0755 ${S}/tn-growpart-helper ${D}${sbindir}
 }
 
-FILES_${PN} = "${datadir}/technexion/tn-standby.jpg \
+FILES:${PN} = "${datadir}/technexion/tn-standby.jpg \
                ${sbindir}/tn-growpart-helper"
 
 
-SYSTEMD_SERVICE_${PN} = "tn-growpart-helper.service"
-RDEPENDS_${PN} += "bash util-linux e2fsprogs"
+SYSTEMD_SERVICE:${PN} = "tn-growpart-helper.service"
+RDEPENDS:${PN} += "bash util-linux e2fsprogs"

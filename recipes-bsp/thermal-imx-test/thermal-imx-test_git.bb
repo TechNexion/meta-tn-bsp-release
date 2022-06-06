@@ -24,7 +24,7 @@ do_install() {
     #install -m 0755 ${WORKDIR}/thermal-imx-test.sh ${D}${sysconfdir}/profile.d/
 }
 
-FILES_${PN} += "/opt/${PN}"
-RDEPENDS_${PN} = "bash iperf3 stress-ng glmark2 memtester cpulimit rsync"
+FILES:${PN} += "/opt/${PN}"
+RDEPENDS:${PN} = "bash iperf3 stress-ng glmark2 memtester cpulimit rsync"
 
-FILES_${PN}-dbg += "/opt/${PN}/.debug"
+FILES:${PN}-dbg += "/opt/${PN}/.debug"

@@ -19,7 +19,7 @@ do_install () {
     install -m 0755 ${S}/tn-u-boot-fw-env.sh ${D}${sbindir}
 }
 
-FILES_${PN} = "${sbindir}/tn-u-boot-fw-env.sh"
+FILES:${PN} = "${sbindir}/tn-u-boot-fw-env.sh"
 
-SYSTEMD_SERVICE_${PN} = "tn-u-boot-fw-env.service"
-RDEPENDS_${PN} += "bash util-linux e2fsprogs"
+SYSTEMD_SERVICE:${PN} = "tn-u-boot-fw-env.service"
+RDEPENDS:${PN} += "bash util-linux e2fsprogs"

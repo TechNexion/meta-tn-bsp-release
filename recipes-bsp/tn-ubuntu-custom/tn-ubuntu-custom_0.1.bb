@@ -23,7 +23,7 @@ do_install () {
     install -m 0755 ${S}/rc.local ${D}${sysconfdir}
 }
 
-FILES_${PN} = "${sysconfdir}/rc.local"
+FILES:${PN} = "${sysconfdir}/rc.local"
 
-SYSTEMD_SERVICE_${PN} = "rc-local.service"
-RDEPENDS_${PN} += "bash"
+SYSTEMD_SERVICE:${PN} = "rc-local.service"
+RDEPENDS:${PN} += "bash"
