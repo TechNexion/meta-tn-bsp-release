@@ -32,7 +32,7 @@ do_install() {
     install -m 0755 ${S}/QCA9377/hw1.0/CNSS.TF.1.0/firmware-5.bin_CNSS.TF.1.0-00267-QCATFSWPZ-1 ${D}${nonarch_base_libdir}/firmware/ath10k/QCA9377/hw1.0/firmware-5.bin
 }
 
-FILES_${PN}-dbg += "${nonarch_base_libdir}/firmware/.debug"
-FILES_${PN} += "${nonarch_base_libdir}/firmware/"
+FILES:${PN}-dbg += "${nonarch_base_libdir}/firmware/.debug"
+FILES:${PN} += "${nonarch_base_libdir}/firmware/"
 
 COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"

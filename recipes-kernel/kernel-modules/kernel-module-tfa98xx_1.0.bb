@@ -2,7 +2,7 @@ SUMMARY = "External Linux kernel module for audio codec tfa98xx on voicehat"
 LICENSE = "GPLv2"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=d2f18c7c8390c6dc7f1db6b14bbb1f0a"
 
-FILESEXTRAPATHS_prepend := "$THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "$THISDIR}/${PN}:"
 
 inherit module
 
@@ -19,13 +19,13 @@ S = "${WORKDIR}/git"
 
 EXTRA_OEMAKE += "KDIR='${STAGING_KERNEL_DIR}'"
 
-do_install_append() {
+do_install:append() {
 	install -d -m 0755 ${D}${nonarch_base_libdir}/firmware/tfa98/9912/
 	install -m 0444 ${WORKDIR}/TFA9892N1A_stereo_32FS.cnt ${D}${nonarch_base_libdir}/firmware/tfa98/9912/
 	ln -sf ./tfa98/9912/TFA9892N1A_stereo_32FS.cnt ${D}${nonarch_base_libdir}/firmware/tfa98xx.cnt
 }
 
-FILES_${PN} += "${nonarch_base_libdir}/firmware/"
+FILES:${PN} += "${nonarch_base_libdir}/firmware/"
 BBCLASSEXTEND = "native"
 
 KERNEL_MODULE_AUTOLOAD += "snd-soc-tfa98xx"

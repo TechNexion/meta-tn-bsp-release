@@ -20,14 +20,14 @@ SRC_URI += " \
 S = "${WORKDIR}"
 
 # Gitlab Personal Access Token: e.g. SbtQ_mC4fvJRA88_9jB7
-OVERRIDES_append = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else ':token'}"
+OVERRIDES:append = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else ':token'}"
 TOKEN = "${@'' if (d.getVar('PA_TOKEN', True) is None or len(d.getVar('PA_TOKEN', True)) == 0) else '%s' % d.getVar('PA_TOKEN', True)}"
-SRCSERVER_token = "git://gitlab.com/technexion-imx/brcm_firmware.git"
-SRCOPTION_token = ";protocol=https;user=oauth2:${TOKEN}"
-SRCBRANCH_token = "ampak_4.2"
-SRCREV_token = "${AUTOREV}"
-SRC_URI_token = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTION}"
-S_token = "${WORKDIR}/git"
+SRCSERVER:token = "git://gitlab.com/technexion-imx/brcm_firmware.git"
+SRCOPTION:token = ";protocol=https;user=oauth2:${TOKEN}"
+SRCBRANCH:token = "ampak_4.2"
+SRCREV:token = "${AUTOREV}"
+SRC_URI:token = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTION}"
+S:token = "${WORKDIR}/git"
 
 python do_pre_fetch() {
     # check for existing qca firmware files and use them if available
@@ -58,7 +58,7 @@ do_install() {
     install -m 0755 ${S}/AP6212_4.2/BT/bcm43438a0.hcd ${D}/lib/firmware/brcm
 }
 
-FILES_${PN}-dbg += "/lib/firmware/.debug"
-FILES_${PN} += "/lib/firmware/"
+FILES:${PN}-dbg += "/lib/firmware/.debug"
+FILES:${PN} += "/lib/firmware/"
 
 COMPATIBLE_MACHINE = "(mx6|mx6ul|mx7)"
