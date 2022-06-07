@@ -1,4 +1,1 @@
-FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
-
-SRC_URI += "file://0001-Fix-link-error-caused-by-multiple-definitions-of-the.patch"
-
+LIC_FILES_CHKSUM = "file://src/include/linux_nfc_api.h;md5=79206fdb1d51ebc2e7b92b621a303cc6"
