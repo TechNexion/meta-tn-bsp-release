@@ -3,7 +3,7 @@
 # Copyright 2020 TechNexion Ltd.
 # Released under the MIT license (see COPYING.MIT for the terms)
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/file:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/file:"
 
 SUMMARY = "Linux Kernel provided and supported by NXP"
 DESCRIPTION = "Linux Kernel provided and supported by NXP with focus on \
@@ -16,38 +16,38 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
 DEPENDS += "lzop-native bc-native"
 
-KERNEL_BRANCH ?= "tn-imx_5.10.72_2.2.0-next"
+KERNEL_BRANCH ?= "tn-imx_5.15.5_1.0.0-next"
 LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KERNEL_BRANCH', True).split('_')[2:]).lower()}"
 KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
 SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
 
-SRC_URI_append_virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
+SRC_URI:append:virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
 
-SRCREV = "26db8a9ef7ed2f911706322d496b216f7cf46819"
+SRCREV = "539e9f4741b1844f0f23e63a5a4efb48341dd820"
 
-LINUX_VERSION = "5.10.72"
+LINUX_VERSION = "5.15.5"
 
 FILES_${KERNEL_PACKAGE_NAME}-base += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
 
 KERNEL_CONFIG_COMMAND = "oe_runmake_call -C ${S} CC="${KERNEL_CC}" O=${B} olddefconfig"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 DEFAULT_PREFERENCE = "1"
 
 DO_CONFIG_V7_COPY = "no"
-DO_CONFIG_V7_COPY_mx6 = "yes"
-DO_CONFIG_V7_COPY_mx7 = "yes"
-DO_CONFIG_V7_COPY_mx8 = "no"
+DO_CONFIG_V7_COPY:mx6 = "yes"
+DO_CONFIG_V7_COPY:mx7 = "yes"
+DO_CONFIG_V7_COPY:mx8 = "no"
 
 # Add setting for LF Mainline build
 IMX_KERNEL_CONFIG_AARCH32 = "tn_imx_defconfig"
 IMX_KERNEL_CONFIG_AARCH64 = "tn_imx8_defconfig"
 KBUILD_DEFCONFIG ?= ""
-KBUILD_DEFCONFIG_mx6= "${IMX_KERNEL_CONFIG_AARCH32}"
-KBUILD_DEFCONFIG_mx7= "${IMX_KERNEL_CONFIG_AARCH32}"
-KBUILD_DEFCONFIG_mx8= "${IMX_KERNEL_CONFIG_AARCH64}"
+KBUILD_DEFCONFIG:mx6= "${IMX_KERNEL_CONFIG_AARCH32}"
+KBUILD_DEFCONFIG:mx7= "${IMX_KERNEL_CONFIG_AARCH32}"
+KBUILD_DEFCONFIG:mx8= "${IMX_KERNEL_CONFIG_AARCH64}"
 
 
 # Use a verbatim copy of the defconfig from the linux-imx repo.
@@ -68,7 +68,7 @@ do_copy_defconfig () {
 }
 
 DELTA_KERNEL_DEFCONFIG ?= ""
-#DELTA_KERNEL_DEFCONFIG_mx8 = "imx.config"
+#DELTA_KERNEL_DEFCONFIG:mx8 = "imx.config"
 
 do_merge_delta_config[dirs] = "${B}"
 do_merge_delta_config[depends] += " \
