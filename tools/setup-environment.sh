@@ -191,7 +191,7 @@ if [ ${TNCONFIGS} != 0 ] ; then
       cat > $PWD/conf/multiconfig/container.conf << EOF
 MACHINE = "tn-container"
 DISTRO = "fsl-imx-xwayland"
-DISTRO_FEATURES_append = " virtualization"
+DISTRO_FEATURES:append = " virtualization"
 TMPDIR = "\${TOPDIR}/tmp-container"
 TN_CONTAINER_IMAGE_TYPE ?= "tar.gz"
 EOF

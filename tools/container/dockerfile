@@ -29,8 +29,8 @@ RUN apt-get -q update &&\
 	libgl1-mesa-dev libglu1-mesa-dev mercurial autoconf automake \
 	groff curl lzop asciidoc u-boot-tools libreoffice-writer \
 	sshpass ssh-askpass zip xz-utils kpartx qemu bison flex device-tree-compiler bc rsync \
-        cmake libusb-1.0.0-dev libzip-dev libbz2-dev pkg-config libssl-dev manpages-posix-dev \
-	vim screen sudo libncurses5 &&\
+	cmake libusb-1.0.0-dev libzip-dev libbz2-dev pkg-config libssl-dev manpages-posix-dev \
+	vim screen sudo libncurses5 zstd liblz4-tool &&\
     apt-get -q autoremove &&\
     apt-get -q clean -y && rm -rf /var/lib/apt/lists/* && rm -f /var/cache/apt/*.bin
 
@@ -46,7 +46,7 @@ RUN apt-get -q update &&\
 
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo && \
     chmod a+x /usr/bin/repo 
-    
+
 
 # Set user $USR to the image
 RUN useradd -m -d $USR_HOME -s /bin/sh $USR &&\
@@ -58,7 +58,8 @@ RUN usermod -a -Gsudo $USR
 # Setup repo
 RUN mkdir $USR_HOME/bin &&\
     curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > $USR_HOME/bin/repo &&\
-    chmod a+x $USR_HOME/bin/repo
+    chmod a+x $USR_HOME/bin/repo &&\
+    chown -R "$USR:$USR" $USR_HOME/bin
 
 ENV LANG en_US.UTF-8
 RUN locale-gen $LANG && update-locale

@@ -186,23 +186,23 @@ if grep -q "tn-setup-mender" <<< $CALLER; then
   if [ -f conf/local.conf ]; then
     if grep -q "DISTRO.*b2qt" conf/local.conf; then
       echo -e "\n# Setup additional local.conf settings for mender boot2qt." | tee -a conf/local.conf
-      echo "QBSP_IMAGE_CONTENT_remove = \"\${IMAGE_LINK_NAME}.img\"" >> conf/local.conf
-      echo "QBSP_IMAGE_CONTENT_prepend = \"\${IMAGE_LINK_NAME}.sdimg\"" >> conf/local.conf
-      echo "IMAGE_CLASSES_remove = \"deploy-conf\"" >> conf/local.conf
-      echo "IMAGE_CLASSES_append = \" deploy-conf-b2qt\"" >> conf/local.conf
+      echo "QBSP_IMAGE_CONTENT:remove = \"\${IMAGE_LINK_NAME}.img\"" >> conf/local.conf
+      echo "QBSP_IMAGE_CONTENT:prepend = \"\${IMAGE_LINK_NAME}.sdimg\"" >> conf/local.conf
+      echo "IMAGE_CLASSES:remove = \"deploy-conf\"" >> conf/local.conf
+      echo "IMAGE_CLASSES:append = \" deploy-conf-b2qt\"" >> conf/local.conf
       echo "BBMASK += \"meta-tn-imx-bsp/recipes-tn/images/tn-image-multimedia-full.bb\"" >> conf/local.conf
     fi
     if grep -q "BBMULTICONFIG.*container" conf/local.conf; then
       echo -e "\n# Setup additional local.conf settings for mender virtualization." | tee -a conf/local.conf
       echo "BBMASK += \"meta-boot2qt/meta-boot2qt-distro/recipes-qt/qt5/ogl-runtime_git.bbappend\"" >> conf/local.conf
     fi
-    echo "IMAGE_FSTYPES_remove = \"wic wic.xz\"" >> conf/local.conf
-    echo "IMAGE_FSTYPES_append_tn = \" sdimg.gz\"" >> conf/local.conf
-    echo "MENDER_UBOOT_STORAGE_DEVICE_tn = \"2\"" >> conf/local.conf
-    echo "MENDER_BOOT_PART_NUMBER_tn = \"2\"" >> conf/local.conf
-    echo "MENDER_STORAGE_TOTAL_SIZE_MB_tn = \"8176\"" >> conf/local.conf
-    echo "MENDER_DATA_PART_SIZE_MB_tn = \"2048\"" >> conf/local.conf
-    echo "IMAGE_ROOTFS_MAXSIZE_tn = \"25165824\"" >> conf/local.conf
+    echo "IMAGE_FSTYPES:remove = \"wic wic.xz\"" >> conf/local.conf
+    echo "IMAGE_FSTYPES:append:tn = \" sdimg.gz\"" >> conf/local.conf
+    echo "MENDER_UBOOT_STORAGE_DEVICE:tn = \"2\"" >> conf/local.conf
+    echo "MENDER_BOOT_PART_NUMBER:tn = \"2\"" >> conf/local.conf
+    echo "MENDER_STORAGE_TOTAL_SIZE_MB:tn = \"8176\"" >> conf/local.conf
+    echo "MENDER_DATA_PART_SIZE_MB:tn = \"2048\"" >> conf/local.conf
+    echo "IMAGE_ROOTFS_MAXSIZE:tn = \"25165824\"" >> conf/local.conf
   fi
 fi
 
@@ -336,4 +336,3 @@ fi
 
 cd $BUILD_DIR
 clean_up
-
