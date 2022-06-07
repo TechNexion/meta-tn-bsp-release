@@ -10,7 +10,7 @@ SRC_URI = "file://ntag-i2c-tool.cpp \
            file://i2c-dev.h \
 "
 
-INSANE_SKIP_${PN} = "ldflags"
+INSANE_SKIP:${PN} = "ldflags"
 S = "${WORKDIR}"
 
 do_compile() {
