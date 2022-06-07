@@ -11,7 +11,7 @@ PACKAGE_ARCH = "${MACHINE_ARCH}"
 inherit packagegroup
 
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     parted \
     e2fsprogs-resize2fs \
 "

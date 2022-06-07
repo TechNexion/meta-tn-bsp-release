@@ -28,7 +28,7 @@ PACKAGE_INSTALL = " \
 	"
 
 # remove unneeded technexion packagegroups
-IMAGE_INSTALL_remove = "packagegroup-tn-tools packagegroup-tn-nfc packagegroup-tn-voicehat"
+IMAGE_INSTALL:remove = "packagegroup-tn-tools packagegroup-tn-nfc packagegroup-tn-voicehat"
 
 # Do not pollute the initrd image with rootfs features
 IMAGE_FEATURES = "empty-root-password"
@@ -37,7 +37,7 @@ NO_RECOMMENDATIONS = "1"
 LICENSE = "MIT"
 
 IMAGE_FSTYPES = "${INITRAMFS_FSTYPES}"
-IMAGE_FSTYPES_remove = "ext4 sdcard.xz sdcard.md5sum wic wic.gz wic.md5sum"
+IMAGE_FSTYPES:remove = "ext4 sdcard.xz sdcard.md5sum wic wic.gz wic.md5sum"
 
 inherit core-image
 

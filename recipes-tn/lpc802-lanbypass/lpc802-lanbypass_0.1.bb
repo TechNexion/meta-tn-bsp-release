@@ -15,5 +15,5 @@ do_install () {
     install -m 0755 ${S}/lanbypass_on.sh ${D}${sbindir}
 }
 
-FILES_${PN} = "${sbindir}/lanbypass_on.sh"
-RDEPENDS_${PN} += "bash util-linux"
+FILES:${PN} = "${sbindir}/lanbypass_on.sh"
+RDEPENDS:${PN} += "bash util-linux"

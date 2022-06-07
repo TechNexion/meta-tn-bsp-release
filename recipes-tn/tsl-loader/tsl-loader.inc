@@ -8,7 +8,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/LGPL-2.1;md5=1a6d268fd218675ffe
 SRC_URI = "${SRCSERVER};branch=${SRCBRANCH}"
 S = "${WORKDIR}/git"
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
 	bash \
 	cairo \
 	libudev \
@@ -36,7 +36,7 @@ REQUIRED_DISTRO_FEATURES = "systemd"
 
 BBCLASSEXTEND = "nativesdk"
 
-do_install_append() {
+do_install:append() {
 	install -d ${D}${systemd_unitdir}/system/
 	install -d ${D}${systemd_unitdir}/system/dbus.target.wants/
 	install -d ${D}${systemd_unitdir}/system/sockets.target.wants/
@@ -87,7 +87,7 @@ do_install_append() {
 	install -m 0755 ${S}/tsl/dbus-export.sh ${D}${sysconfdir}/profile.d/dbus-export.sh
 }
 
-FILES_${PN} += " \
+FILES:${PN} += " \
 	${sbindir}/guiclientd.sh \
 	${sysconfdir}/installer.xml \
 	${systemd_unitdir}/system/installerd.service \

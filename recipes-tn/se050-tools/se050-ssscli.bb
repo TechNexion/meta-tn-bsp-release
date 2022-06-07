@@ -11,7 +11,7 @@ inherit setuptools3 pypi
 BBCLASSEXTEND = "nativesdk"
 DEPENDS += "python3 python3-click python3-cryptography (= 2.6.1) python3-setuptools python3-cffi se050-tools"
 
-RDEPENDS_${PN} = "se050-tools"
+RDEPENDS:${PN} = "se050-tools"
 S = "${WORKDIR}/simw-top/pycli/src"
 
 SRC_URI = "file://SE-PLUG-TRUST-MW.zip"

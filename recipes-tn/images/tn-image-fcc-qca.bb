@@ -5,7 +5,7 @@
 #
 # 1. Configuration example for setup script:
 # TOKEN=XXXxxxXXXX WIFI_FIRMWARE=y DISTRO=fsl-imx-wayland MACHINE=pico-imx8mm source edm-setup-release.sh -b build-wayland-imx8mm
-# 2. Add DISTRO_FEATURES_append = " fcc" into conf/local.conf
+# 2. Add DISTRO_FEATURES:append = " fcc" into conf/local.conf
 # 3. bitbake tn-image-fcc-qca
 #
 
@@ -29,14 +29,14 @@ IMAGE_FEATURES += " \
     ssh-server-dropbear \
 "
 
-IMAGE_INSTALL_remove += " \
+IMAGE_INSTALL:remove += " \
     packagegroup-tn-nfc \
     packagegroup-tn-tools \
     packagegroup-tn-voicehat \
     packagegroup-tn-wlan \
 "
 
-IMAGE_INSTALL_append += " packagegroup-tn-fcc-qca-wlan"
+IMAGE_INSTALL:append += " packagegroup-tn-fcc-qca-wlan"
 
 CORE_IMAGE_EXTRA_INSTALL += " \
     fcc-qca-btdiag \

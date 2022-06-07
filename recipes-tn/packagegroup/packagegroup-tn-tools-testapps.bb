@@ -13,7 +13,7 @@ inherit packagegroup
 
 SOC_TOOLS_TEST = ""
 
-RDEPENDS_${PN} = " \
+RDEPENDS:${PN} = " \
     alsa-utils \
     alsa-tools \
     dosfstools \
@@ -44,7 +44,7 @@ RDEPENDS_${PN} = " \
 # FIXME: i.MX6SL cannot use mesa for Graphics and it lacks GL support,
 #        so for now we skip it.
 RDEPENDS_IMX_TO_REMOVE = ""
-RDEPENDS_IMX_TO_REMOVE_imxgpu2d = "clutter-1.0-examples"
-RDEPENDS_IMX_TO_REMOVE_imxgpu3d = ""
+RDEPENDS_IMX_TO_REMOVE:imxgpu2d = "clutter-1.0-examples"
+RDEPENDS_IMX_TO_REMOVE:imxgpu3d = ""
 
-RDEPENDS_${PN}_remove = "${RDEPENDS_IMX_TO_REMOVE}"
+RDEPENDS_${PN}:remove = "${RDEPENDS_IMX_TO_REMOVE}"

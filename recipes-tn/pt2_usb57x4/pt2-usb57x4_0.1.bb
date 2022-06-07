@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/file:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/file:"
 
 SUMMARY = "This script creates a usb util to control microchip USB5734"
 HOMEPAGE = "https://www.microchip.com/SWLibraryWeb/product.aspx?product=PT2_USB57X4_Linux_SDK"
@@ -8,13 +8,13 @@ LIC_FILES_CHKSUM = "file://libpt2/README;md5=ba82e2d248e9d829eea1a0c90254022a"
 inherit pkgconfig
 
 DEPENDS += "libusb1"
-RDEPENDS_${PN} += "libusb1"
-RDEPENDS_${PN}_append_tools = " bash"
+RDEPENDS:${PN} += "libusb1"
+RDEPENDS:${PN}:append:tools = " bash"
 
 SRC_URI = "file://pt2_usb57x4_linux_sdk_1.0.zip \
            file://0001-libpt2-Modify-Interface-API-to-include-Device-ID-par.patch \
            file://0002-Examples-Ensure-to-pass-in-device-id.patch "
-SRC_URI_append_tools = " file://power-cycle.sh file://det-gpio.sh file://pt2usb-util.sh"
+SRC_URI:append:tools = " file://power-cycle.sh file://det-gpio.sh file://pt2usb-util.sh"
 
 S = "${WORKDIR}"
 
@@ -46,7 +46,7 @@ do_install() {
     done
 }
 
-do_install_append_tools() {
+do_install:append:tools() {
     install -m 0755 ${S}/power-cycle.sh ${D}${sbindir}
     install -m 0755 ${S}/det-gpio.sh ${D}${sbindir}
     install -m 0755 ${S}/pt2usb-util.sh ${D}${sbindir}
@@ -54,6 +54,6 @@ do_install_append_tools() {
 
 INSANE_SKIP_${PN} = "ldflags"
 
-FILES_${PN} += "${libdir}/*.so.*"
-FILES_${PN}-staticdev += "${libdir}/*.a"
-FILES_${PN}-dev += "${libdir}/*.so ${libdir}/*.la"
+FILES:${PN} += "${libdir}/*.so.*"
+FILES:${PN}-staticdev += "${libdir}/*.a"
+FILES:${PN}-dev += "${libdir}/*.so ${libdir}/*.la"

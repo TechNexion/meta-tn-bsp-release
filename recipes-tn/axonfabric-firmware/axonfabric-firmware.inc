@@ -13,5 +13,5 @@ do_install() {
 	install -m 0755 ${S}/${SRCBRANCH}/axon_fabric_imx8mm_f03-${SRCBRANCH}.jed ${D}${FWDIR}
 }
 
-FILES_${PN}-dbg += "${FWDIR}/.debug"
-FILES_${PN} += "${FWDIR}/"
+FILES:${PN}-dbg += "${FWDIR}/.debug"
+FILES:${PN} += "${FWDIR}/"
