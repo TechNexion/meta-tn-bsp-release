@@ -12,6 +12,8 @@ SRCREV = "c76573ac7dd08cf08fbd576768efb151fcbadb6c"
 
 S = "${WORKDIR}/git"
 
+CLEANBROKEN = "1" 
+
 do_configuration[noexec] = "1"
 do_compile[noexec] = "1"
 
