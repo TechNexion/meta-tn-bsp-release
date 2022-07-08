@@ -1,7 +1,7 @@
 [Unit]
 Description=Resize root filesystem to fit available disk space
-After=systemd-remount-fs.service weston@root.service
-Wants=weston@root.service
+After=systemd-remount-fs.service weston.service
+Wants=weston.service
 DefaultDependencies=no
 Before=shutdown.target
 
