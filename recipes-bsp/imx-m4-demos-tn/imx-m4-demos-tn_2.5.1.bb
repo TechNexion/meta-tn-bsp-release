@@ -21,4 +21,4 @@ do_deploy() {
 addtask deploy after do_install
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "(mx8)"
+COMPATIBLE_MACHINE = "(mx8-nxp-bsp)"
