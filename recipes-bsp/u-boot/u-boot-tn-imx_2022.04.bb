@@ -7,10 +7,8 @@ HOMEPAGE = "http://www.denx.de/wiki/U-Boot/WebHome"
 SECTION = "bootloaders"
 
 require recipes-bsp/u-boot/u-boot.inc
-inherit pythonnative
 
-PROVIDES += "u-boot"
-DEPENDS:append = " python dtc-native flex-native bison-native"
+DEPENDS += "flex-native bison-native bc-native dtc-native gnutls-native"
 RDEPENDS:${PN}:append:uenv = " u-boot-uenv"
 RDEPENDS:${PN}:append:bootscr = " u-boot-script-technexion"
 
@@ -21,9 +19,9 @@ LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a
 PR = "r0"
 SRCSERVER = "git://github.com/TechNexion/u-boot-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
-SRCBRANCH = "tn-imx_v2021.04_5.15.5_1.0.0-next"
+SRCBRANCH = "tn-imx_v2022.04_5.15.32_2.0.0-next"
 SRC_URI = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTIONS}"
-SRCREV = "4c4f0116bd43632ac8e1fdb60c0d2d394dac603d"
+SRCREV = "2ed389bdca169fae4d08f2dfb781aed1b486ee1e"
 SRC_URI:append = " file://splash.bmp"
 SRC_URI:append:rescue += " file://rescue-fragment-uboot.cfg"
 
@@ -36,12 +34,26 @@ LOCALVERSION ?= "-${SRCREV}"
 
 BOOT_TOOLS = "imx-boot-tools"
 
+###############################################################
+# require recipes-bsp/u-boot/u-boot-imx-common_${PV}.inc
+
+PROVIDES += "u-boot"
+
+inherit uuu_bootloader_tag
+
+UUU_BOOTLOADER            = ""
+UUU_BOOTLOADER:mx6-nxp-bsp        = "${UBOOT_BINARY}"
+UUU_BOOTLOADER:mx7-nxp-bsp        = "${UBOOT_BINARY}"
+UUU_BOOTLOADER_TAGGED     = ""
+UUU_BOOTLOADER_TAGGED:mx6-nxp-bsp = "u-boot-tagged.${UBOOT_SUFFIX}"
+UUU_BOOTLOADER_TAGGED:mx7-nxp-bsp = "u-boot-tagged.${UBOOT_SUFFIX}"
+
 do_deploy:append () {
 	install -d ${DEPLOYDIR}
 	install ${WORKDIR}/splash.bmp ${DEPLOYDIR}/splash.bmp
 }
 
-do_deploy:append:mx8m () {
+do_deploy:append:mx8m-nxp-bsp() {
     # Deploy u-boot-nodtb.bin and fsl-imx8mq-XX.dtb, to be packaged in boot binary by imx-boot
     if [ -n "${UBOOT_CONFIG}" ]
     then
@@ -66,8 +78,4 @@ do_deploy:append:mx8m () {
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "(mx6|mx7|mx8)"
-
-UBOOT_NAME:mx6 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
-UBOOT_NAME:mx7 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
-UBOOT_NAME:mx8 = "u-boot-${MACHINE}.bin-${UBOOT_CONFIG}"
+COMPATIBLE_MACHINE = "(mx6-generic-bsp|mx7-generic-bsp|mx8-generic-bsp)"
