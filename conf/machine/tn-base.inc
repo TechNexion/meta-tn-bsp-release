@@ -48,19 +48,19 @@ PREFERRED_PROVIDER_virtual/bootloader:tn = "u-boot-tn-imx"
 PREFERRED_PROVIDER_u-boot-fw-utils = "u-boot-tn-imx"
 PREFERRED_RPROVIDER_u-boot-fw-utils = "u-boot-tn-imx"
 PREFERRED_RPROVIDER_u-boot-default-env = "u-boot-tn-imx"
-UBOOT_CONFIG:mx8 ??= "sd"
+UBOOT_CONFIG:mx8-nxp-bsp ??= "sd"
 SPL_BINARY = "SPL"
-SPL_BINARY:mx8 = "spl/u-boot-spl.bin"
+SPL_BINARY:mx8-nxp-bsp = "spl/u-boot-spl.bin"
 UBOOT_SUFFIX = "img"
-UBOOT_SUFFIX:mx8 = "bin"
+UBOOT_SUFFIX:mx8-nxp-bsp = "bin"
 UBOOT_MAKE_TARGET = ""
 # UBOOT_SEEK is for dd u-boot.imx to the raw sectors,
 # and it should be specified and the same in u-boot c-codes.
 UBOOT_SEEK = "69"
-BOOT_SPACE:mx6 = "16384"
-BOOT_SPACE:mx7 = "16384"
-BOOT_SPACE:mx8 = "32768"
-LOADADDR:mx8 = ""
+BOOT_SPACE:mx6-nxp-bsp = "16384"
+BOOT_SPACE:mx-nxp-bsp = "16384"
+BOOT_SPACE:mx8-nxp-bsp = "32768"
+LOADADDR:mx8-nxp-bsp = ""
 # u-boot splash file
 SPLASH_FILENAME = "splash.bmp"
 BOOT_SCRIPTS:append = " ${SPLASH_FILENAME}:splash.bmp"
@@ -77,24 +77,24 @@ BOOT_SCRIPTS:append:bootscr = " ${UENV_SCRNAME}:boot.scr"
 #
 # DDR Firmware Name (NXP firmwares)
 #
-DDR_FIRMWARE_NAME:mx8 = "lpddr4_pmu_train_1d_imem.bin lpddr4_pmu_train_1d_dmem.bin lpddr4_pmu_train_2d_imem.bin lpddr4_pmu_train_2d_dmem.bin"
+DDR_FIRMWARE_NAME:mx8-nxp-bsp = "lpddr4_pmu_train_1d_imem.bin lpddr4_pmu_train_1d_dmem.bin lpddr4_pmu_train_2d_imem.bin lpddr4_pmu_train_2d_dmem.bin"
 
 #
 # IMX-BOOT specifics (NXP u-boot packaged binary, i.e. a.k.a flash.bin)
 #
 IMXBOOT_TARGETS = "flash_evk"
-IMXBOOT_TARGETS:mx8mm = "flash_evk_no_hdmi"
-IMAGE_BOOTLOADER:mx8 = "imx-boot"
+#IMXBOOT_TARGETS:mx8mm = "flash_evk_no_hdmi"
+IMAGE_BOOTLOADER:mx8-nxp-bsp = "imx-boot"
 IMX_BOOT_SEEK = "1"
-IMX_BOOT_SEEK:mx8 = "33"
-OPTEE_BIN_EXT:mx8mm = "8mm"
+IMX_BOOT_SEEK:mx8-nxp-bsp = "33"
+#OPTEE_BIN_EXT:mx8mm = "8mm"
 
 #
 # Extra Stuff for TechNexion
 #
-MACHINE_FIRMWARE:remove:mx8 = "linux-firmware-ath10k"
+MACHINE_FIRMWARE:remove:mx8-nxp-bsp = "linux-firmware-ath10k"
 MACHINE_FEATURES:append = " pci wifi bluetooth touchscreen"
-MACHINE_FEATURES:remove:mx8 = "touchscreen"
+MACHINE_FEATURES:remove:mx8-nxp-bsp = "touchscreen"
 IMAGE_INSTALL:append = " get-support-info"
 IMAGE_INSTALL:append = " packagegroup-tn-wlan"
 IMAGE_INSTALL:append:tools = " packagegroup-tn-tools"
@@ -102,15 +102,15 @@ IMAGE_INSTALL:append:tools = " packagegroup-tn-tools"
 IMAGE_INSTALL:append:nfc = " packagegroup-tn-nfc"
 IMAGE_INSTALL:append:ubuntu = " hciattach-qca tn-growpart-helper glmark2 tn-ubuntu-custom"
 IMAGE_FSTYPES:append = " ext4 wic.md5sum wic.xz"
-LICENSE_FLAGS_WHITELIST += "commercial_qca commercial_brcm commercial_tn"
+LICENSE_FLAGS_ACCEPTED += "commercial_qca commercial_brcm commercial_tn"
 MACHINE_FEATURES_BACKFILL:append:simcom = " nmcli"
 DISTRO_FEATURES_BACKFILL:append:simcom = " nmcli"
 
 # wic (sdcard) image
 WKS_FILE = "imx-uboot-spl-bootpart.wks.in"
-WKS_FILE:mx8 = "imx-imx-boot-bootpart.wks.in"
+WKS_FILE:mx8-nxp-bsp = "imx-imx-boot-bootpart.wks.in"
 WKS_FILE_DEPENDS += "u-boot-tn-imx"
-WKS_FILE_DEPENDS:mx8 += "imx-boot"
+WKS_FILE_DEPENDS:mx8-nxp-bsp += "imx-boot"
 IMAGE_BOOT_FILES:append = " ${SPLASH_FILENAME}"
 IMAGE_BOOT_FILES:append:uenv = " ${UENV_FILENAME}"
 IMAGE_BOOT_FILES:append:bootscr = " ${UENV_SCRNAME};boot.scr"
