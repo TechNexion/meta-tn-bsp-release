@@ -5,7 +5,7 @@ LIC_FILES_CHKSUM = "file://${S}/CORE/HDD/src/wlan_hdd_main.c;beginline=1;endline
 
 inherit module
 
-SRCREV = "2090c864fb1f66646a05811d6bc0f321b99c59c1"
+SRCREV = "dd5084dc2f997d231f9188556fc7cbe4b3d2eb56"
 
 SRC_URI = "git://github.com/TechNexion/qcacld-2.0.git;protocol=https;branch=${SRCBRANCH} \
 "
@@ -15,4 +15,4 @@ S = "${WORKDIR}/git"
 
 EXTRA_OEMAKE:append= " CONFIG_CLD_HL_SDIO_CORE=y TARGET_BUILD_VARIANT=user CONFIG_P2P_INTERFACE=y"
 
-COMPATIBLE_MACHINE = "mx6|mx7|mx8"
+COMPATIBLE_MACHINE = "mx6-nxp-bsp|mx7-nxp-bsp|mx8-nxp-bsp"
