@@ -10,4 +10,4 @@ require axonfabric-firmware.inc
 
 SRCBRANCH = "21.05.02"
 
-COMPATIBLE_MACHINE = "(mx6|mx8)"
+COMPATIBLE_MACHINE = "(mx6-nxp-bsp|mx8-nxp-bsp)"
