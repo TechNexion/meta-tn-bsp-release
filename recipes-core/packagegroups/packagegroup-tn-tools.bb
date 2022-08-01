@@ -65,5 +65,5 @@ RDEPENDS:${PN} = " \
 #    ${@bb.utils.contains('DISTRO_FEATURES', 'virtualization', 'sudo net-tools opencv packagegroup-core-ssh-openssh wpa-supplicant bluez5 firmware-imx-sdma', '', d)}
 
 
-RDEPENDS:${PN}:append:mx7 = " voicehat-test"
-RDEPENDS:${PN}:append:mx8 = " voicehat-test"
+RDEPENDS:${PN}:append:mx7-nxp-bsp = " voicehat-test"
+RDEPENDS:${PN}:append:mx8-nxp-bsp = " voicehat-test"
