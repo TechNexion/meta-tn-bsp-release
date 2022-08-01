@@ -31,4 +31,4 @@ BBCLASSEXTEND = "native"
 KERNEL_MODULE_AUTOLOAD += "snd-soc-tfa98xx"
 RPROVIDES_${PN} += "kernel-module-tfa98xx"
 
-COMPATIBLE_MACHINE = "mx6|mx7|mx8"
+COMPATIBLE_MACHINE = "mx6-nxp-bsp|mx7-nxp-bsp|mx8-nxp-bsp"

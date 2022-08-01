@@ -61,4 +61,4 @@ do_install() {
 FILES:${PN}-dbg += "/lib/firmware/.debug"
 FILES:${PN} += "/lib/firmware/"
 
-COMPATIBLE_MACHINE = "(mx6|mx6ul|mx7)"
+COMPATIBLE_MACHINE = "(mx6-nxp-bsp|mx6ul-nxp-bsp|mx7-nxp-bsp)"
