@@ -206,38 +206,38 @@ if grep -q "tn-setup-mender" <<< $CALLER; then
   fi
 fi
 
-# extra variables for BB_ENV_EXTRAWHITE
+# extra variables for BB_ENV_PASSTHROUGH_ADDITIONS
 if [ -n "$TOKEN" ]; then
   echo "Specified PA_TOKEN: $TOKEN"
   export PA_TOKEN=$TOKEN
-  if ! grep -qF "PA_TOKEN" <<< $BB_ENV_EXTRAWHITE; then
-    echo "Export PA_TOKEN=$TOKEN to yocto via BB_ENV_EXTRAWHITE"
-    export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE PA_TOKEN"
+  if ! grep -qF "PA_TOKEN" <<< $BB_ENV_PASSTHROUGH_ADDITIONS; then
+    echo "Export PA_TOKEN=$TOKEN to yocto via BB_ENV_PASSTHROUGH_ADDITIONS"
+    export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS PA_TOKEN"
   fi
 fi
 if [ -n "$DISPLAY" ]; then
   echo "Specified DISPLAY_INFO: $DISPLAY"
   export DISPLAY_INFO=$DISPLAY
-  if ! grep -qF "DISPLAY_INFO" <<< $BB_ENV_EXTRAWHITE; then
-    echo "Export DISPLAY_INFO=$DISPLAY to yocto via BB_ENV_EXTRAWHITE"
-    export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE DISPLAY_INFO"
+  if ! grep -qF "DISPLAY_INFO" <<< $BB_ENV_PASSTHROUGH_ADDITIONS; then
+    echo "Export DISPLAY_INFO=$DISPLAY to yocto via BB_ENV_PASSTHROUGH_ADDITIONS"
+    export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS DISPLAY_INFO"
   fi
 fi
 if [ -n "$PANEL" ]; then
     export DISPLAY_PANEL=$PANEL
-    export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE DISPLAY_PANEL"
+    export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS DISPLAY_PANEL"
 fi
 if [ -n "$BASEBOARD" ]; then
   echo "Specified BASE_BOARD: $BASEBOARD"
   export BASE_BOARD=$BASEBOARD
-  if ! grep -qF "BASE_BOARD" <<< $BB_ENV_EXTRAWHITE; then
-    echo "Export BASE_BOARD=$BASEBOARD to yocto via BB_ENV_EXTRAWHITE"
-    export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE BASE_BOARD"
+  if ! grep -qF "BASE_BOARD" <<< $BB_ENV_PASSTHROUGH_ADDITIONS; then
+    echo "Export BASE_BOARD=$BASEBOARD to yocto via BB_ENV_PASSTHROUGH_ADDITIONS"
+    export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS BASE_BOARD"
   fi
 fi
 if [ -n "$FDTNAME" ]; then
     export ALT_FDTNAME=$FDTNAME
-    export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE ALT_FDTNAME"
+    export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS ALT_FDTNAME"
 fi
 
 # corresponding firmware package for different WLAN (QCA or BRCM), e.g. 'linux-firmware-brcm-tn' or 'linux-firmware-qca-tn'
@@ -277,9 +277,9 @@ fi
 if [ -n "$RF_FIRMWARES" ]; then
   echo "Specified wifi firmwares: $RF_FIRMWARES"
   export RF_FIRMWARES=$RF_FIRMWARES
-  if ! grep -qF "RF_FIRMWARES" <<< $BB_ENV_EXTRAWHITE; then
-    echo "Export RF_FIRMWARES=$RF_FIRMWARES to yocto via BB_ENV_EXTRAWHITE"
-    export BB_ENV_EXTRAWHITE="$BB_ENV_EXTRAWHITE RF_FIRMWARES"
+  if ! grep -qF "RF_FIRMWARES" <<< $BB_ENV_PASSTHROUGH_ADDITIONS; then
+    echo "Export RF_FIRMWARES=$RF_FIRMWARES to yocto via BB_ENV_PASSTHROUGH_ADDITIONS"
+    export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS RF_FIRMWARES"
   fi
 fi
 # Include meta-nxp-desktop for building imx-image-desktop
