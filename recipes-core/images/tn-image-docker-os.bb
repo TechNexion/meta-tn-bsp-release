@@ -86,7 +86,7 @@ inherit distro_features_check ${@bb.utils.contains('BBFILE_COLLECTIONS', 'qt5-la
 
 
 IMAGE_FEATURES:append:mender-image = " package-management "
-IMAGE_INSTALL:append:mender-image += " packagegroup-mender-update-modules mender-connect"
+IMAGE_INSTALL:append:mender-image = " packagegroup-mender-update-modules mender-connect"
 DEPENDS:append:mender-image = " docker-disk"
 MOUNT_PREFIX = ""
 MOUNT_PREFIX:mender-image = "/data"

@@ -23,7 +23,7 @@ SRCBRANCH = "tn-imx_v2022.04_5.15.32_2.0.0-next"
 SRC_URI = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTIONS}"
 SRCREV = "2ed389bdca169fae4d08f2dfb781aed1b486ee1e"
 SRC_URI:append = " file://splash.bmp"
-SRC_URI:append:rescue += " file://rescue-fragment-uboot.cfg"
+SRC_URI:append:rescue = " file://rescue-fragment-uboot.cfg"
 
 S = "${WORKDIR}/git"
 B = "${WORKDIR}/build"

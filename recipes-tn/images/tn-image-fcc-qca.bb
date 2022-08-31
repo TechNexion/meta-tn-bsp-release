@@ -29,14 +29,14 @@ IMAGE_FEATURES += " \
     ssh-server-dropbear \
 "
 
-IMAGE_INSTALL:remove += " \
+IMAGE_INSTALL:remove = " \
     packagegroup-tn-nfc \
     packagegroup-tn-tools \
     packagegroup-tn-voicehat \
     packagegroup-tn-wlan \
 "
 
-IMAGE_INSTALL:append += " packagegroup-tn-fcc-qca-wlan"
+IMAGE_INSTALL:append = " packagegroup-tn-fcc-qca-wlan"
 
 CORE_IMAGE_EXTRA_INSTALL += " \
     fcc-qca-btdiag \
