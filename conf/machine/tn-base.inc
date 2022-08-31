@@ -40,6 +40,8 @@ IMAGE_BUILDINFO_VARS:append = " RELEASE_NAME"
 PREFERRED_PROVIDER_kernel:tn = "linux-tn-imx"
 PREFERRED_PROVIDER_virtual/kernel:tn = "linux-tn-imx"
 
+PREFERRED_PROVIDER_linux-imx-mfgtool:remove = "linux-imx-mfgtool"
+
 #
 # Bootloader Specifics
 #
