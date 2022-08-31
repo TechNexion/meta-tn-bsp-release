@@ -1,7 +1,7 @@
 SUMMARY = "flexspi u-boot image"
 SECTION = "devel"
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://fspi_u-boot.bin;md5=36b7f209b4d799b6435176ee8670b340"
 
 SRC_URI += " \

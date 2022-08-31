@@ -1,7 +1,7 @@
 SUMMARY = "SystemD service to expand partition size for TechNexion products"
 SECTION = "devel"
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://tn-standby.jpg;md5=bbe6e85d1751df4073252a3cdabc80f9"
 
 SRC_URI += " \

@@ -1,7 +1,7 @@
 SUMMARY = "SystemD service to expand partition size for TechNexion products"
 SECTION = "devel"
 
-LICENSE = "GPLv2+"
+LICENSE = "GPL-2.0-or-later"
 LIC_FILES_CHKSUM = "file://lanbypass_on.sh;md5=a7aff4c370a4af5a924f3aa6a4f4d298"
 
 SRC_URI += " \

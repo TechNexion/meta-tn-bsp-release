@@ -20,7 +20,7 @@ primarily used in cloud images in conjunction with the dracut-modules-growroot \
 package to grow the root partition on first boot. \
 "
 HOMEPAGE = "https://launchpad.net/cloud-utils"
-LICENSE = "GPLv3"
+LICENSE = "GPL-3.0-only"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=d32239bcb673463ab874e80d47fae504"
 

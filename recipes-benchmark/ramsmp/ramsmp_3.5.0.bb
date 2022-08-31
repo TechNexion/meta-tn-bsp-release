@@ -2,7 +2,7 @@ DESCRIPTION = "RAMSMP Benchmark Program"
 PR = "r0"
 PRIORITY = "optional"
 SECTION = "console/utils"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 
 LIC_FILES_CHKSUM = "file://LICENCE;md5=92cffec6695a20eab8d0e4770f4e9353"
 

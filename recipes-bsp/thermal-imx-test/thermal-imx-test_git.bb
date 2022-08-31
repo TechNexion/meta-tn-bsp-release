@@ -3,7 +3,7 @@
 SUMMARY = "i.MX thermal test suite"
 DESCRIPTION = "Bruning test for i.mx SOC"
 SECTION = "app"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://${COREBASE}/meta/files/common-licenses/GPL-2.0-only;md5=801f80980d171dd6425610833a22dbe6"
 
 SRCBRANCH = "yocto_thermal_test"

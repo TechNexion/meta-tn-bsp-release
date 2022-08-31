@@ -1,7 +1,7 @@
 SUMMARY  = "TechNexion Rescue Loader Python Scripts"
 DESCRIPTION = "Python scripts to run on target board to download sdcard image and program the eMMC"
 HOMEPAGE = "https://github.com/TechNexion-customization/rescue-loader"
-LICENSE = "LGPLv2.1"
+LICENSE = "LGPL-2.1-only"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/LGPL-2.1;md5=1a6d268fd218675ffea8be556788b780"
 
 

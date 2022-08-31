@@ -1,5 +1,5 @@
 SUMMARY = "External Linux kernel module for audio codec tfa98xx on voicehat"
-LICENSE = "GPLv2"
+LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://LICENSE.txt;md5=d2f18c7c8390c6dc7f1db6b14bbb1f0a"
 
 FILESEXTRAPATHS:prepend := "$THISDIR}/${PN}:"
