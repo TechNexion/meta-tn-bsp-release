@@ -4,7 +4,7 @@ LICENSE = "GPL-2.0-only"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=86c1c0d961a437e529db93aa3bb32dc4"
 SRCREV ?= "f4d2682804931e7aea02a869137344bb5452a3cd"
 
-SRC_URI = "git://git@github.com/opsengine/cpulimit.git;protocol=https"
+SRC_URI = "git://git@github.com/opsengine/cpulimit.git;protocol=https;branch=master"
 
 S = "${WORKDIR}/git"
 

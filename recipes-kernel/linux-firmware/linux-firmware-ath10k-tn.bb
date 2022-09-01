@@ -9,7 +9,7 @@ LIC_FILES_CHKSUM = "file://LICENSE.qca_firmware;md5=35657eea665397848d5e3c6d8fa6
 
 SRCREV = "2dd48ff50858e2561d020bc72887efbb8cff77bf"
 
-SRC_URI = "git://github.com/kvalo/ath10k-firmware.git"
+SRC_URI = "git://github.com/kvalo/ath10k-firmware.git;protocol=https;branch=master"
 
 S = "${WORKDIR}/git"
 
