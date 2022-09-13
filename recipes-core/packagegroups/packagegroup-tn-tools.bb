@@ -37,9 +37,7 @@ RDEPENDS:${PN} = " \
     iptables \
     iproute2 \
     iperf3 \
-    libgpiod \
     libgpiod-tools \
-    libsocketcan \
     linux-serial-test \
     lmbench \
     memtester \
@@ -58,7 +56,6 @@ RDEPENDS:${PN} = " \
     wireless-tools \
     cloud-utils-growpart \
     udev \
-    libubootenv \
     libubootenv-bin \
     tn-u-boot-fw-env \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'v4l-utils gtk+3-demo fbida', '', d)} \
