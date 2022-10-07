@@ -1,0 +1,1 @@
+SRC_URI = "git://github.com/alsa-project/tinycompress.git;protocol=https;branch=master"
