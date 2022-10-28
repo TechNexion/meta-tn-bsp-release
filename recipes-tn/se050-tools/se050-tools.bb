@@ -24,7 +24,6 @@ EXTRA_OECMAKE += "\
     -DPTMW_SMCOM=T1oI2C \
     -DSE05X_Auth=None \
     -DIOT=None \
-    -DPTMW_Applet=SE05X_A \
     "
 
 FILES:${PN} = "${datadir}/se05x \
