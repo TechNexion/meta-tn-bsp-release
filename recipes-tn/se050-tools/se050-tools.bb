@@ -10,21 +10,21 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 inherit cmake dos2unix pkgconfig
 
-DEPENDS += "python systemd openssl"
+DEPENDS += "python3 systemd openssl"
 RDEPENDS:${PN} += "libcrypto"
 
 S = "${WORKDIR}/simw-top"
 
-SRC_URI = "https://github.com/TechNexion-customization/se050-tools/raw/master/SE-PLUG-TRUST-MW.zip;md5sum=a367e7cee3fd238d108a427e137c3ed7 \
+SRC_URI = "https://github.com/TechNexion-customization/se050-tools/raw/master/SE05x_MW.zip;md5sum=1046c81bb2ff215dafbbcb16ee5cbf18 \
            "
 EXTRA_OECMAKE += "\
     -DCMAKE_BUILD_TYPE=Debug \
-    -DHost=iMXLinux \
-    -DHostCrypto=OPENSSL \
-    -DSMCOM=T1oI2C \
+    -DPTMW_Host=iMXLinux \
+    -DPTMW_HostCrypto=OPENSSL \
+    -DPTMW_SMCOM=T1oI2C \
     -DSE05X_Auth=None \
     -DIOT=None \
-    -DApplet=SE05X_A \
+    -DPTMW_Applet=SE05X_A \
     "
 
 FILES:${PN} = "${datadir}/se05x \
