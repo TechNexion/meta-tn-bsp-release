@@ -13,8 +13,5 @@ ExecStart=/usr/bin/hciattach -t 30 /dev/%I qca @BAUDRATE@ flow -
 Restart=on-failure
 RestartSec=10
 
-[Timer]
-OnBootSec=5
-
 [Install]
 WantedBy=multi-user.target

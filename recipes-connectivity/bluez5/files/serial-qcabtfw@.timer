@@ -1,0 +1,8 @@
+[Unit]
+Description=Timer for QCA Bluetooth firmware service on %I
+
+[Timer]
+OnStartupSec=3
+
+[Install]
+WantedBy=timers.target
