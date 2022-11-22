@@ -159,7 +159,7 @@ if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
 fi
 
 # technexion MACHINE configs
-if [ ${TNCONFIGS} != 0 ] ; then
+if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ] ; then
   # add technexion bsp layers to bblayers.conf
   if [ -d $PWD/../sources/meta-tn-imx-bsp ]; then
     if ! grep -Fq "meta-tn-imx-bsp" $PWD/conf/bblayers.conf; then
