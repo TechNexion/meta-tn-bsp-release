@@ -281,3 +281,4 @@ SOUNDCARD ?= "voicehat"
 NFC ?= "nfc"
 PA_TOKEN ?= "SbtQ_mC4fvJRA88_9jB7"
 
+include ${BSPDIR}/sources/meta-tn-imx-bsp/conf/machine/${MACHINE}-extra.conf
