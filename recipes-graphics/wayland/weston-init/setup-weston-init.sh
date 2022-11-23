@@ -10,6 +10,10 @@ get_mode () {
 for card in /sys/class/drm/card?-*
 do
   get_mode $card
+
+  # filter out HDMI monitor, HDMI display doesn't need to change orientation
+  [[ "$IFNAME" =~ ^card.*-HDMI-.* ]] && continue
+
   if [ -f /etc/xdg/weston/weston.ini -a -n $RESOL ]; then
     # check existing core section for cardX
     if grep -q "^drm-device=" /etc/xdg/weston/weston.ini; then
