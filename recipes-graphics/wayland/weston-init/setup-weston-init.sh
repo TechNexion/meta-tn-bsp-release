@@ -11,10 +11,8 @@ for card in /sys/class/drm/card?-*
 do
   get_mode $card
 
-  # filter out HDMI monitor, HDMI display doesn't need to change orientation
-  [[ "$IFNAME" =~ ^card.*-HDMI-.* ]] && continue
-
-  if [ -f /etc/xdg/weston/weston.ini -a -n $RESOL ]; then
+  # Only excute auto-rotation when display output is MIPI-DSI
+  if [ -f /etc/xdg/weston/weston.ini -a -n $RESOL ] && [[ "$IFNAME" =~ ^card.*-DSI-.* ]]; then
     # check existing core section for cardX
     if grep -q "^drm-device=" /etc/xdg/weston/weston.ini; then
       sed -e 's,drm-device.*,drm-device='${IFNAME%%-*}',g' -i /etc/xdg/weston/weston.ini
@@ -26,7 +24,8 @@ do
 
         # clear [output] display section
         sed -i '/^\[output\]/,/^$/d' /etc/xdg/weston/weston.ini
-
+        # remove blank lines from the end of a file
+        sed -i -e :a -e '/^\n*$/{$d;N;ba' -e '}' /etc/xdg/weston/weston.ini
         # enable cardX output section
         echo >> /etc/xdg/weston/weston.ini
         echo -e "[output]" >> /etc/xdg/weston/weston.ini
