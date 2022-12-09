@@ -1,0 +1,67 @@
+yocto-4.0 Kirkstone 2023Q1 TechNexion BSP Release Notes
+
+======================================
+
+Please refer to 'TechNexion developer portal' for detailed support list and demo images:
+https://developer.technexion.com/docs/release-notes-yp40-2023q1
+
+Release Name: tn-kirkstone_5.15.52-2.1.0
+
+Release Revision: 20221212
+
+
+Supported TechNexion products:
+
+ARM64:
+
+EDM-G-IMX8MP (DRAM 1/2/4/8 GB) with WB/WIZARD
+
+EDM-G-IMX8MM (DRAM 1/2/4/8 GB) with WB/WIZARD
+
+EDM-G-IMX8MN (DRAM 2GB) with WB/WIZARD
+
+PICO-IMX8MQ (DRAM 1/2/4 GB) with PI-8M/WIZARD
+
+PICO-IMX8MM (DRAM 1/2/4 GB) with PI-8M/WIZARD
+
+AXON-IMX8MP (DRAM 2/4/8 GB) with WIZARD
+
+TEK3-IMX8MP (DRAM 2/4/8 GB)
+
+
+ARM32:
+
+PICO-IMX6 with Nymph/PI
+
+PICO-IMX7D with PI
+
+PICO-IMX6UL with PI
+
+PICO-IMX6ULL with PI
+
+EDM-IMX6 with Fairy/TC0700
+
+TEP1-IMX7(TEP0500-IMX7 / TEP0700-IMX7)
+
+
+New feature:
+
+
+
+Bug fix: bug tracing number
+
+
+
+Known issue:
+
+
+
+BSP version:
+
+Tag name on github: tn-kirkstone_5.15.52-2.1.0_20221212
+
+u-boot-tn-imx: 518c758b67f3259c53a8544f0962940cf2b53c24
+
+linux-tn-imx: ae16e871463d24a710c25236065e82722a8f111d
+
+meta-tn-imx-bsp: a02877ca5c83dbcded96929faf7e1cc8df5eb11f
