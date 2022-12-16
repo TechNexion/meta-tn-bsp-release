@@ -71,4 +71,4 @@ u-boot-tn-imx: 5d163adfa874ddfa25dac787eb2d38a8bd72a56b
 
 linux-tn-imx: d6c58d2ff21ecd73a6b263c515b5a0eb6eb2b343
 
-meta-tn-imx-bsp: 7b9cd7ffb218e0e19b098392b070921f25ea988b
+meta-tn-imx-bsp: 72793ef061fe845ee4e647d491042a1fb03e6ca3
