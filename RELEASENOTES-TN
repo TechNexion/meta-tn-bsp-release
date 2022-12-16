@@ -7,9 +7,10 @@ https://developer.technexion.com/docs/release-notes-yp40-2023q1
 
 Release Name: tn-kirkstone_5.15.52-2.1.0
 
-Release Revision: 20221214
+Release Revision: 20221217
 
 
+----
 Supported TechNexion products:
 
 ARM64:
@@ -44,24 +45,30 @@ EDM-IMX6 with Fairy/TC0700
 TEP1-IMX7(TEP0500-IMX7 / TEP0700-IMX7)
 
 
+----
 New feature:
 
+    TEVI-AR series and vizionlink support on 8MPLUSLPD4-EVK
+    https://developer.technexion.com/docs/tevi-ar-cam-on-nxp-8mpluslpd4-evk-board
 
 
+----
 Bug fix: bug tracing number
 
 
 
+----
 Known issue:
 
 
 
+----
 BSP version:
 
-Tag name on github: tn-kirkstone_5.15.52-2.1.0_20221214
+Tag name on github: tn-kirkstone_5.15.52-2.1.0_20221217
 
-u-boot-tn-imx:
+u-boot-tn-imx: 5d163adfa874ddfa25dac787eb2d38a8bd72a56b
 
-linux-tn-imx:
+linux-tn-imx: d6c58d2ff21ecd73a6b263c515b5a0eb6eb2b343
 
-meta-tn-imx-bsp:
+meta-tn-imx-bsp: 7b9cd7ffb218e0e19b098392b070921f25ea988b
