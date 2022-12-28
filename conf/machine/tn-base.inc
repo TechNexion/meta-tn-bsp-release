@@ -108,9 +108,10 @@ IMAGE_INSTALL:append:tools = " packagegroup-tn-tools"
 IMAGE_INSTALL:append:nfc = " packagegroup-tn-nfc"
 IMAGE_INSTALL:append:ubuntu = " hciattach-qca tn-growpart-helper glmark2 tn-ubuntu-custom"
 IMAGE_FSTYPES:append = " ext4 wic.md5sum wic.xz wic.bz2"
-LICENSE_FLAGS_ACCEPTED += "commercial_qca commercial_brcm commercial_tn"
+LICENSE_FLAGS_ACCEPTED:append = " commercial_qca commercial_brcm commercial_tn"
 MACHINE_FEATURES_BACKFILL:append:simcom = " nmcli"
 DISTRO_FEATURES_BACKFILL:append:simcom = " nmcli"
+RDEPENDS:tn-growpart-helper:remove:ubuntu = "util-linux e2fsprogs"
 
 # wic (sdcard) image
 WKS_FILE = "imx-uboot-spl-bootpart.wks.in"
