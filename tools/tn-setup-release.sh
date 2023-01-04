@@ -299,13 +299,15 @@ if [ "$DISTRO" = "imx-desktop-xwayland" ]; then
         echo "#ENV_HOST_PROXIES = \"http_proxy=\""                                    >> conf/local.conf
         echo ""                                                                       >> conf/local.conf
         echo "# Set user account and password"                                        >> conf/local.conf
-        echo "#APTGET_ADD_USER = \"user:password:shell\""                             >> conf/local.conf
+        echo "#APTGET_ADD_USERS = \"user:password:shell\""                            >> conf/local.conf
         echo "#  format 'name:password:shell'."                                       >> conf/local.conf
         echo "#    'name' is the user name."                                          >> conf/local.conf
         echo "#    'password' is an encrypted password (e.g. generated with"          >> conf/local.conf
         echo "#    \`echo \"P4sSw0rD\" \| openssl passwd -stdin\`)."                  >> conf/local.conf
         echo "#    If empty or missing, they'll get an empty password."               >> conf/local.conf
         echo "#    'shell' is the default shell (if empty, default is /bin/sh)."      >> conf/local.conf
+        echo -e "\n# Change the default user to 'ubuntu'"                             >> conf/local.conf
+        echo "APTGET_ADD_USERS = \"ubuntu:xA5hQLsgw2DlE:/bin/bash\""                  >> conf/local.conf
 
         echo "BBLAYERS += \"\${BSPDIR}/sources/meta-nxp-desktop\""                    >> conf/bblayers.conf
 
