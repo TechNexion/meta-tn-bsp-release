@@ -19,6 +19,8 @@ SRC_URI = "https://github.com/TechNexion-customization/se050-tools/raw/master/SE
            "
 EXTRA_OECMAKE += "\
     -DCMAKE_BUILD_TYPE=Debug \
+    -DPTMW_SE05X_Ver=03_XX \
+    -DPTMW_Applet=SE05X_A \
     -DPTMW_Host=iMXLinux \
     -DPTMW_HostCrypto=OPENSSL \
     -DPTMW_SMCOM=T1oI2C \
