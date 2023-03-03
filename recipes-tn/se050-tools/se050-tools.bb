@@ -8,24 +8,30 @@ AUTHOR = "Ettore Chimenti <ettore.chimenti@seco.com> Tommaso Merciai <tommaso.me
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
-inherit cmake dos2unix pkgconfig
+inherit cmake dos2unix pkgconfig deploy
 
 DEPENDS += "python3 systemd openssl"
 RDEPENDS:${PN} += "libcrypto"
 
 S = "${WORKDIR}/simw-top"
 
-SRC_URI = "https://github.com/TechNexion-customization/se050-tools/raw/master/SE05x_MW.zip;md5sum=1046c81bb2ff215dafbbcb16ee5cbf18 \
-           "
+SRC_URI = "https://github.com/TechNexion-customization/se050-tools/raw/master/SE05x-MW-v04.03.00.zip;md5sum=d8fa4eac5b9ca3701f7dafc8e463c260 \
+	file://SE050F2HQ1_scp_keys.txt;md5sum=0ceee41787e383da36fec3bdb9390a70 \
+	"
+
 EXTRA_OECMAKE += "\
     -DCMAKE_BUILD_TYPE=Debug \
     -DPTMW_SE05X_Ver=03_XX \
-    -DPTMW_Applet=SE05X_A \
+    -DPTMW_Applet=SE05X_C \
     -DPTMW_Host=iMXLinux \
     -DPTMW_HostCrypto=OPENSSL \
+    -DPTMW_OpenSSL=3_0 \
     -DPTMW_SMCOM=T1oI2C \
-    -DSE05X_Auth=None \
-    -DIOT=None \
+    -DPTMW_FIPS=SE050 \
+    -DPTMW_SCP=SCP03_SSS \
+    -DSSSFTR_SE05X_RSA=1 \
+    -DPTMW_SE05X_Auth=PlatfSCP03 \
+    -DSSS_PFSCP_ENABLE_SE050F2_0001A92A=1 \
     "
 
 FILES:${PN} = "${datadir}/se05x \
@@ -34,3 +40,8 @@ FILES:${PN} = "${datadir}/se05x \
                 "
 
 FILES:${PN}-dev = "${includedir} ${libdir}/cmake"
+
+do_install() {
+	install -d ${D}${datadir}/se05x
+	install -m 0644 ${WORKDIR}/SE050F2HQ1_scp_keys.txt ${D}${datadir}/se05x/
+}
