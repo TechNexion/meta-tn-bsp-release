@@ -150,7 +150,7 @@ python do_setuenv() {
             f.write("bootcmd_mmc=run loadimage;run mmcboot;\n")
             if alt_fdt is not None:
                 f.write("alt_fdtname={}\n".format(alt_fdt))
-                f.write("uenvcmd=setenv has_fdt 1; setenv fdtname ${{alt_fdtname}}; setenv fdtfile ${{alt_fdtname}}.dtb; {}run bootcmd_mmc;\n".format(uenv_cmd if uenv_cmd is not None else ""))
+                f.write("uenvcmd=setenv has_fdt 1; setenv setfdt echo Ignore setfdt; setenv fdtname ${{alt_fdtname}}; setenv fdtfile ${{alt_fdtname}}.dtb; {}run bootcmd_mmc;\n".format(uenv_cmd if uenv_cmd is not None else ""))
             else:
                 f.write("uenvcmd={}run bootcmd_mmc;\n".format(uenv_cmd if uenv_cmd is not None else ""))
             f.seek(0, 0)
