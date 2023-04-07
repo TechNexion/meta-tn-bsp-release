@@ -19,9 +19,9 @@ LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a
 PR = "r0"
 SRCSERVER = "git://github.com/TechNexion/u-boot-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
-SRCBRANCH = "tn-imx_v2022.04_5.15.52_2.1.0-next"
+SRCBRANCH = "tn-imx_v2022.04_5.15.71_2.2.0-next"
 SRC_URI = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTIONS}"
-SRCREV = "592c9bfec3cd750ca58f8eb16f7b65bff4bbf322"
+SRCREV = "d78b3a013462b51f2916acb324d7ada0f1f7ce03"
 SRC_URI:append = " file://splash.bmp"
 SRC_URI:append:rescue = " file://rescue-fragment-uboot.cfg"
 
