@@ -117,7 +117,7 @@ fi
 # So workaround by appending additional layers
 #
 
-# both imx and technexion MACHINE configs
+# both imx and TechNexion MACHINE configs
 echo -e "\n# TechNexion setup-environment.sh wrapper: Further modification to bblayers.conf and local.conf" | tee -a conf/local.conf
 
 if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
@@ -158,17 +158,25 @@ if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
   fi
 fi
 
-# technexion MACHINE configs
+# TechNexion MACHINE configs
 if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ] ; then
-  # add technexion bsp layers to bblayers.conf
+  # add TechNexion bsp layers to bblayers.conf
   if [ -d $PWD/../sources/meta-tn-imx-bsp ]; then
     if ! grep -Fq "meta-tn-imx-bsp" $PWD/conf/bblayers.conf; then
       echo "" >> $PWD/conf/bblayers.conf
-      echo "# setup Technexion i.MX Yocto Project Release Layers in bblayers.conf" | tee -a $PWD/conf/bblayers.conf
+      echo "# setup TechNexion i.MX Yocto Project Release Layers in bblayers.conf" | tee -a $PWD/conf/bblayers.conf
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-tn-imx-bsp \"" >> $PWD/conf/bblayers.conf
     fi
   fi
-  # add technexion nfc bsp layers (from nxp) to bblayers.conf
+  # add TechNexion wifi layers to bblayers.conf
+  if [ -d $PWD/../sources/meta-tn-wifi ]; then
+    if ! grep -Fq "meta-tn-wifi" $PWD/conf/bblayers.conf; then
+      echo "" >> $PWD/conf/bblayers.conf
+      echo "# setup TechNexion wifi layer in bblayers.conf" | tee -a $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-tn-wifi \"" >> $PWD/conf/bblayers.conf
+    fi
+  fi
+  # add TechNexion nfc bsp layers (from nxp) to bblayers.conf
   if [ -d $PWD/../sources/meta-nxp-nfc ]; then
     if ! grep -Fq "meta-nxp-nfc" $PWD/conf/bblayers.conf; then
       echo "" >> $PWD/conf/bblayers.conf
@@ -176,7 +184,7 @@ if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ] ; then
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-nxp-nfc \"" >> $PWD/conf/bblayers.conf
     fi
   fi
-  # add technexion virtualization bsp layers (virtualization/boot2qt) to bblayers.conf
+  # add TechNexion virtualization bsp layers (virtualization/boot2qt) to bblayers.conf
   #if [ -d $PWD/../sources/meta-virtualization ]; then
   if false; then
     # has meta-virtualization

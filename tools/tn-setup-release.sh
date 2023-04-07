@@ -207,14 +207,6 @@ if grep -q "tn-setup-mender" <<< $CALLER; then
 fi
 
 # extra variables for BB_ENV_PASSTHROUGH_ADDITIONS
-if [ -n "$TOKEN" ]; then
-  echo "Specified PA_TOKEN: $TOKEN"
-  export PA_TOKEN=$TOKEN
-  if ! grep -qF "PA_TOKEN" <<< $BB_ENV_PASSTHROUGH_ADDITIONS; then
-    echo "Export PA_TOKEN=$TOKEN to yocto via BB_ENV_PASSTHROUGH_ADDITIONS"
-    export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS PA_TOKEN"
-  fi
-fi
 if [ -n "$DISPLAY" ]; then
   echo "Specified DISPLAY_INFO: $DISPLAY"
   export DISPLAY_INFO=$DISPLAY
@@ -240,48 +232,10 @@ if [ -n "$FDTNAME" ]; then
     export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS ALT_FDTNAME"
 fi
 
-# corresponding firmware package for different WLAN (QCA or BRCM), e.g. 'linux-firmware-brcm-tn' or 'linux-firmware-qca-tn'
-if [ -z "${WIFI_FIRMWARE#"${WIFI_FIRMWARE%%[! ]*}"}" ]; then
-    echo "WARNING - No WIFI_FIRMWARE specified"
-    RF_FIRMWARES=""
-else
-    # Identify SOC type
-    CPU_TYPE=$(echo $MACHINE | sed 's/.*-\(imx[5-8][a-z]*\)[- $]*.*/\1/g')
-    if [ "$WIFI_FIRMWARE" = "all" ]; then
-        if [ "$CPU_TYPE" = "imx8mq" -o "$CPU_TYPE" = "imx8mm" -o "$CPU_TYPE" = "imx8mp" ]; then
-            echo "WARNING - imx8mq/imx8mm/imx8mp SOM only supports qca wireless module, so load qca firmware"
-            RF_FIRMWARES="qca ath-pci"
-        elif [ "$CPU_TYPE" = "imx6" -o "$CPU_TYPE" = "imx7" -o "$CPU_TYPE" = "imx6ul" ]; then
-            RF_FIRMWARES="qca brcm ath-pci"
-        else
-            echo "WARNING - No matched CPU_TYPE: $CPU_TYPE, hence no WIFI_FIRMWARE"
-            RF_FIRMWARES=""
-        fi
-    elif [ "$WIFI_FIRMWARE" = "y" -o "$WIFI_FIRMWARE" = "Y" ]; then
-        if [ "$CPU_TYPE" = "imx8mq" -o "$CPU_TYPE" = "imx8mm" -o "$CPU_TYPE" = "imx8mp" ]; then
-            echo "WARNING - imx8mq/imx8mm/imx8mp SOM only supports qca wireless module, so load qca firmware"
-            RF_FIRMWARES="qca"
-        else
-            if  [ -z "${WIFI_MODULE#"${WIFI_MODULE%%[! ]*}"}" ]; then
-                echo "WARNING - No WIFI_MODULE specified."
-                RF_FIRMWARES=""
-            else
-                RF_FIRMWARES=$WIFI_MODULE
-            fi
-        fi
-    else
-        echo "WARNING - Unrecognized WIFI_FIRMWARE specified"
-        RF_FIRMWARES=""
-    fi
+if [ -d $CWD/sources/meta-tn-wifi ]; then
+    source $CWD/sources/meta-tn-wifi/tools/tn-wifi-setup.sh $MACHINE $TOKEN $WIFI_MODULE $WIFI_FIRMWARE
 fi
-if [ -n "$RF_FIRMWARES" ]; then
-  echo "Specified wifi firmwares: $RF_FIRMWARES"
-  export RF_FIRMWARES=$RF_FIRMWARES
-  if ! grep -qF "RF_FIRMWARES" <<< $BB_ENV_PASSTHROUGH_ADDITIONS; then
-    echo "Export RF_FIRMWARES=$RF_FIRMWARES to yocto via BB_ENV_PASSTHROUGH_ADDITIONS"
-    export BB_ENV_PASSTHROUGH_ADDITIONS="$BB_ENV_PASSTHROUGH_ADDITIONS RF_FIRMWARES"
-  fi
-fi
+
 # Include meta-nxp-desktop for building imx-image-desktop
 if [ "$DISTRO" = "imx-desktop-xwayland" ]; then
     if [ -f conf/local.conf ]; then
