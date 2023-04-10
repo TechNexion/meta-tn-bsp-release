@@ -176,6 +176,14 @@ if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ] ; then
       echo "BBLAYERS += \" \${BSPDIR}/sources/meta-tn-wifi \"" >> $PWD/conf/bblayers.conf
     fi
   fi
+  # add TechNexion vizionsdk layers to bblayers.conf
+  if [ -d $PWD/../sources/meta-tn-vizionsdk ]; then
+    if ! grep -Fq "meta-tn-vizionsdk" $PWD/conf/bblayers.conf; then
+      echo "" >> $PWD/conf/bblayers.conf
+      echo "# setup TechNexion vizionsdk layer in bblayers.conf" | tee -a $PWD/conf/bblayers.conf
+      echo "BBLAYERS += \" \${BSPDIR}/sources/meta-tn-vizionsdk \"" >> $PWD/conf/bblayers.conf
+    fi
+  fi
   # add TechNexion nfc bsp layers (from nxp) to bblayers.conf
   if [ -d $PWD/../sources/meta-nxp-nfc ]; then
     if ! grep -Fq "meta-nxp-nfc" $PWD/conf/bblayers.conf; then
