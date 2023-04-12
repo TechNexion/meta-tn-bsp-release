@@ -1,13 +1,13 @@
-yocto-4.0 Kirkstone 2023Q1 TechNexion BSP Release Notes
+yocto-4.0 Kirkstone 2023Q2 TechNexion BSP Release Notes
 
 ======================================
 
 Please refer to 'TechNexion developer portal' for detailed support list and demo images:
-https://developer.technexion.com/docs/release-notes-yp40-2023q1
+https://developer.technexion.com/docs/release-notes-yp40-2023q2
 
-Release Name: tn-kirkstone_5.15.52-2.1.0
+Release Name: tn-kirkstone_5.15.71-2.2.0
 
-Release Revision: 20221217
+Release Revision: 20230412
 
 
 ----
@@ -18,8 +18,6 @@ ARM64:
 EDM-G-IMX8MP (DRAM 1/2/4/8 GB) with WB/WIZARD
 
 EDM-G-IMX8MM (DRAM 1/2/4/8 GB) with WB/WIZARD
-
-EDM-G-IMX8MN (DRAM 2GB) with WB/WIZARD
 
 PICO-IMX8MQ (DRAM 1/2/4 GB) with PI-8M/WIZARD
 
@@ -32,13 +30,11 @@ TEK3-IMX8MP (DRAM 2/4/8 GB)
 
 ARM32:
 
-PICO-IMX6 with Nymph/PI
+PICO-IMX6 with Nymph
 
 PICO-IMX7D with PI
 
-PICO-IMX6UL with PI
-
-PICO-IMX6ULL with PI
+PICO-IMX6UL/ULL with PI
 
 EDM-IMX6 with Fairy/TC0700
 
@@ -46,29 +42,60 @@ TEP1-IMX7(TEP0500-IMX7 / TEP0700-IMX7)
 
 
 ----
-New feature:
+Support list table:
 
-    TEVI-AR series and vizionlink support on 8MPLUSLPD4-EVK
-    https://developer.technexion.com/docs/tevi-ar-cam-on-nxp-8mpluslpd4-evk-board
+    https://developer.technexion.com/docs/release-notes-yp40-2023q2
 
 
 ----
-Bug fix: bug tracing number
+New feature:
 
+1.  VizionSDK library
+
+2.  VizionViewer utility
+
+3.  Support for NXP IW416 WiFi module
+
+
+----
+Bug fix: bug tracking number
+
+1.  #987/#989: System hang after executing "iw dev p2p0 del"
+
+2.  #977/#985: The "Shutdown -h now" command cannot be executed.
+
+3.  #967: PICO-IMX6Quad + PICO-NYMPH Rev:A1 - AR8035 RX throughput drops to zero.
+
+4.  #1044: PICO-IMX6 + PICO-NYMPH - Unable to boot from baseboard SD card.
+
+5.  #983: PICO-IMX6 + PICO-NYMPH - No HDMI sound.
+
+6.  #966: PICO-IMX6 + PICO-NYMPH - Ethernet has IP but cannot be connected.
+
+7.  #968: TEK3-IMX8MP - If the connection LAN2 cannot wake up after suspend.
+
+8.  #994: EDM1-IMX6P - No audio device of imx-hdmi-soc available after system power up.
 
 
 ----
 Known issue:
 
+1.  #980/#1032: 10" MIPI panel (g101uan02) stays in black screen after waking up from sleep.
+
+2.  #915: LVDS display is distortion while the nvme SSD running the read/write test.
+
+3.  #897: EDM1-IXM6P + EDM1-FAIRY - SPDIF audio is not working for certain audio sample rate 44.1K, 48.K, 11.25K
+
+4.  #894: EDM-G-8M-PLUS - The Ethernet lost connection after been set WOL function.
 
 
 ----
 BSP version:
 
-Tag name on github: tn-kirkstone_5.15.52-2.1.0_20221217
+Tag name on github: tn-kirkstone_5.15.71-2.2.0_20230412
 
-u-boot-tn-imx: 5d163adfa874ddfa25dac787eb2d38a8bd72a56b
+u-boot-tn-imx: d78b3a013462b51f2916acb324d7ada0f1f7ce03
 
-linux-tn-imx: d6c58d2ff21ecd73a6b263c515b5a0eb6eb2b343
+linux-tn-imx: cb16c7ccae683429cd1cffe877a5a808cb2139b9
 
-meta-tn-imx-bsp: 72793ef061fe845ee4e647d491042a1fb03e6ca3
+meta-tn-imx-bsp: 2c8a586cb35a2b48cc2ae616764e73522a1152f9
