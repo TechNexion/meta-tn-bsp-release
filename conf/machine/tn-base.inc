@@ -143,4 +143,5 @@ USE_VT:rescue = "0"
 
 RDEPENDS:packagegroup-core-tools-testapps:remove:simcom = "mesa-demos connman-client connman-tools"
 RDEPENDS:packagegroup-base-3g:remove:simcom = "ofono"
-require conf/machine/tn-vizionsdk.inc
+
+include conf/machine/tn-vizionsdk.inc
