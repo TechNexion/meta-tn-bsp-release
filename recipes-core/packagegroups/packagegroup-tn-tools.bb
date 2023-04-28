@@ -56,6 +56,7 @@ RDEPENDS:${PN} = " \
     wireless-tools \
     cloud-utils-growpart \
     udev \
+    trace-cmd \
     libubootenv-bin \
     tn-u-boot-fw-env \
     ${@bb.utils.contains('DISTRO_FEATURES', 'x11', 'v4l-utils gtk+3-demo fbida', '', d)} \
