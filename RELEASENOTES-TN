@@ -7,7 +7,7 @@ https://developer.technexion.com/docs/release-notes-yp40-2023q2
 
 Release Name: tn-kirkstone_5.15.71-2.2.0
 
-Release Revision: 20230420
+Release Revision: 20230503
 
 
 ----
@@ -94,8 +94,8 @@ BSP version:
 
 Tag name on github: tn-kirkstone_5.15.71-2.2.0_20230420
 
-u-boot-tn-imx: d78b3a013462b51f2916acb324d7ada0f1f7ce03
+u-boot-tn-imx: 904dc8ddd50588add5ea5679f193bfdd4cad2552
 
-linux-tn-imx: cb16c7ccae683429cd1cffe877a5a808cb2139b9
+linux-tn-imx: 8a1c4c114fe9f444448cb71f6375f5f48baeafc6 
 
-meta-tn-imx-bsp: 0bcdbf08ce28f151a36897737e074bb770d0752d
+meta-tn-imx-bsp: 7afeb304e2cfe438a7969af61e19bf2c8d7ea97e
