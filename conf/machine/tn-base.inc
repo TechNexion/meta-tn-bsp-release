@@ -24,7 +24,7 @@ OVERRIDES:append = "${@'' if (d.getVar('NFC', True) is None or len(d.getVar('NFC
 #OVERRIDES:append = "${@bb.utils.contains('BBLAYERS', '${BSPDIR}/sources/meta-virtualization', ':virtualization', '', d)}"
 OVERRIDES:append = "${@':tools' if (d.getVar('DISTRO', True) == 'fsl-imx-xwayland' or d.getVar('DISTRO', True) == 'fsl-imx-wayland' or d.getVar('DISTRO', True) == 'fsl-imx-x11') else ''}"
 OVERRIDES:append = "${@':rescue:bootscr' if (d.getVar('INITRAMFS_IMAGE', True) == 'tn-image-loader-initramfs') else ''}"
-OVERRIDES:append = "${@':ubuntu' if (d.getVar('DISTRO', True) == 'imx-desktop-xwayland') else ''}"
+OVERRIDES:append = "$${@bb.utils.contains_any('DISTRO', 'imx-desktop-xwayland imx-desktop-x11', ':ubuntu', '', d)}"
 
 #
 # Release Info
@@ -145,3 +145,4 @@ RDEPENDS:packagegroup-core-tools-testapps:remove:simcom = "mesa-demos connman-cl
 RDEPENDS:packagegroup-base-3g:remove:simcom = "ofono"
 
 include conf/machine/tn-vizionsdk.inc
+include conf/machine/tn-misc.inc
