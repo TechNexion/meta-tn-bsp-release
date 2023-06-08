@@ -145,5 +145,10 @@ USE_VT:rescue = "0"
 RDEPENDS:packagegroup-core-tools-testapps:remove:simcom = "mesa-demos connman-client connman-tools"
 RDEPENDS:packagegroup-base-3g:remove:simcom = "ofono"
 
-include conf/machine/tn-vizionsdk.inc
-include conf/machine/tn-misc.inc
+#------ For VizionSDK/VizionViewer ------
+LICENSE_FLAGS_ACCEPTED:append = " commercial_tn"
+IMAGE_INSTALL:append = " tn-apt-list vizionsdk-dev vizionviewer"
+APTGET_EXTRA_PACKAGES += "gnupg"
+
+#------ For Ubuntu inspect V4L2 ------
+APTGET_EXTRA_PACKAGES += "v4l-utils"
