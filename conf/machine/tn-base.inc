@@ -25,6 +25,7 @@ OVERRIDES:append = "${@'' if (d.getVar('NFC', True) is None or len(d.getVar('NFC
 OVERRIDES:append = "${@':tools' if (d.getVar('DISTRO', True) == 'fsl-imx-xwayland' or d.getVar('DISTRO', True) == 'fsl-imx-wayland' or d.getVar('DISTRO', True) == 'fsl-imx-x11') else ''}"
 OVERRIDES:append = "${@':rescue:bootscr' if (d.getVar('INITRAMFS_IMAGE', True) == 'tn-image-loader-initramfs') else ''}"
 OVERRIDES:append = "${@bb.utils.contains_any('DISTRO', 'imx-desktop-xwayland imx-desktop-x11', ':ubuntu', '', d)}"
+OVERRIDES:append = "${@':tn-vizionsdk' if bb.utils.contains_any('TARGET_ARCH', 'arm64 aarch64', True, False, d) and bb.utils.contains('BBLAYERS', '${BSPDIR}/sources/meta-tn-vizionsdk', True, False, d) else ''}"
 
 #
 # Release Info
