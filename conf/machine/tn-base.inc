@@ -149,6 +149,7 @@ RDEPENDS:packagegroup-base-3g:remove:simcom = "ofono"
 LICENSE_FLAGS_ACCEPTED:append:tn-vizionsdk = " commercial_tn"
 IMAGE_INSTALL:append:tn-vizionsdk = " tn-apt-list vizionsdk-dev vizionviewer"
 APTGET_EXTRA_PACKAGES:tn-vizionsdk += "gnupg"
+IMAGE_INSTALL:remove:tn-vizionsdk:pico-imx8mq = " tn-apt-list vizionsdk-dev vizionviewer"
 
 #------ For Ubuntu inspect V4L2 ------
 APTGET_EXTRA_PACKAGES:ubuntu += "v4l-utils"
