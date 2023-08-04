@@ -146,7 +146,6 @@ RDEPENDS:packagegroup-core-tools-testapps:remove:simcom = "mesa-demos connman-cl
 RDEPENDS:packagegroup-base-3g:remove:simcom = "ofono"
 
 #------ For VizionSDK/VizionViewer ------
-LICENSE_FLAGS_ACCEPTED:append:tn-vizionsdk = " commercial_tn"
 IMAGE_INSTALL:append:tn-vizionsdk = " tn-apt-list vizionsdk-dev vizionviewer"
 APTGET_EXTRA_PACKAGES:tn-vizionsdk += "gnupg"
 IMAGE_INSTALL:remove:tn-vizionsdk:pico-imx8mq = " tn-apt-list vizionsdk-dev vizionviewer"
