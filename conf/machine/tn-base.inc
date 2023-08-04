@@ -145,10 +145,13 @@ USE_VT:rescue = "0"
 RDEPENDS:packagegroup-core-tools-testapps:remove:simcom = "mesa-demos connman-client connman-tools"
 RDEPENDS:packagegroup-base-3g:remove:simcom = "ofono"
 
+#------ For Ubuntu ------
+APTGET_EXTRA_PACKAGES:append:ubuntu = " libglu1-mesa"
+
 #------ For VizionSDK/VizionViewer ------
 IMAGE_INSTALL:append:tn-vizionsdk = " tn-apt-list vizionsdk-dev vizionviewer"
-APTGET_EXTRA_PACKAGES:tn-vizionsdk += "gnupg"
+APTGET_EXTRA_PACKAGES:append:tn-vizionsdk = " gnupg"
 IMAGE_INSTALL:remove:tn-vizionsdk:pico-imx8mq = " tn-apt-list vizionsdk-dev vizionviewer"
 
 #------ For Ubuntu inspect V4L2 ------
-APTGET_EXTRA_PACKAGES:ubuntu += "v4l-utils"
+APTGET_EXTRA_PACKAGES:append:ubuntu = " v4l-utils"
