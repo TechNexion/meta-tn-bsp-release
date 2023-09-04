@@ -2,10 +2,10 @@ SUMMARY = "flexspi u-boot image"
 SECTION = "devel"
 
 LICENSE = "GPL-2.0-or-later"
-LIC_FILES_CHKSUM = "file://fspi_u-boot.bin;md5=36b7f209b4d799b6435176ee8670b340"
+LIC_FILES_CHKSUM = "file://tek3-imx8mp_fspi_u-boot.bin;md5=36b7f209b4d799b6435176ee8670b340"
 
-SRC_URI += " \
-    file://fspi_u-boot.bin \
+SRC_URI += "file://tek3-imx8mp_fspi_u-boot.bin \
+	file://hmi-imx8mp_fspi_u-boot.bin \
 "
 
 S = "${WORKDIR}"
@@ -14,7 +14,11 @@ inherit deploy
 
 do_deploy() {
     install -d ${DEPLOYDIR}
-    install -m 0755 ${S}/fspi_u-boot.bin ${DEPLOYDIR}/
+    if [ "${MACHINE}" = "tek3-imx8mp" ];then
+        install -m 0755 ${S}/tek3-imx8mp_fspi_u-boot.bin ${DEPLOYDIR}/
+    elif [ "${MACHINE}" = "hmi-imx8mp" ];then
+        install -m 0755 ${S}/hmi-imx8mp_fspi_u-boot.bin ${DEPLOYDIR}/
+    fi
 }
 
 addtask deploy after do_install
