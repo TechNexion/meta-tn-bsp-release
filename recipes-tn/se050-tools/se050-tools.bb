@@ -43,5 +43,7 @@ FILES:${PN}-dev = "${includedir} ${libdir}/cmake"
 
 do_install() {
 	install -d ${D}${datadir}/se05x
+	install -d ${D}/usr/bin
 	install -m 0644 ${WORKDIR}/SE050F2HQ1_scp_keys.txt ${D}${datadir}/se05x/
+	install -m 0555 ${WORKDIR}/build/bin/se05x_* ${D}/usr/bin/
 }
