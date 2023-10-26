@@ -2,7 +2,7 @@ SUMMARY = "flexspi u-boot image"
 SECTION = "devel"
 
 LICENSE = "GPL-2.0-or-later"
-LIC_FILES_CHKSUM = "file://tek3-imx8mp_fspi_u-boot.bin;md5=36b7f209b4d799b6435176ee8670b340"
+LIC_FILES_CHKSUM = "file://tek3-imx8mp_fspi_u-boot.bin;md5=401ae7718fe883ba4ed2477c61ceb2bc"
 
 SRC_URI += "file://tek3-imx8mp_fspi_u-boot.bin \
 	file://hmi-imx8mp_fspi_u-boot.bin \
