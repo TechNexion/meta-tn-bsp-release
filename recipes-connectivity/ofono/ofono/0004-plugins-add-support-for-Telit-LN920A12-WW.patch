@@ -1,0 +1,58 @@
+From 62954010b423a90c682d9ec9f279241a5054b9fc Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Thu, 2 Nov 2023 10:54:00 +0800
+Subject: [PATCH] plugins: add support for Telit LN920A12-WW
+
+---
+ plugins/telit.c  | 4 ++++
+ plugins/udevng.c | 8 ++++++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/plugins/telit.c b/plugins/telit.c
+index 094d762..e7b8fc5 100644
+--- a/plugins/telit.c
++++ b/plugins/telit.c
+@@ -66,6 +66,7 @@ enum modem_model {
+ 	HE910 = 1,
+ 	UE910,
+ 	LE910,
++	LN920A12,
+ 	UC864,
+ 	UE866,
+ };
+@@ -92,6 +93,7 @@ static struct {
+ 	{ UC864,	"G",	TRUE,	TRUE },
+ 	{ UC864,	"WD",	FALSE,	FALSE },
+ 	{ UE866,	NULL,	FALSE,	FALSE },
++	{ LN920A12,	"WW",	FALSE,	TRUE },
+ 	{ }
+ };
+ 
+@@ -288,6 +290,8 @@ static gboolean find_model_variant(struct ofono_modem *modem,
+ 		data->model = UC864;
+ 	else if (g_str_equal(model, "UE866"))
+ 		data->model = UE866;
++	else if (g_str_equal(model, "LN920A12"))
++		data->model = LN920A12;
+ 	else
+ 		return FALSE;
+ 
+diff --git a/plugins/udevng.c b/plugins/udevng.c
+index d476821..cc064d1 100644
+--- a/plugins/udevng.c
++++ b/plugins/udevng.c
+@@ -651,6 +651,14 @@ static gboolean setup_telit(struct modem_info *modem)
+ 				gps = info->devnode;
+ 			else if (g_strcmp0(info->number, "03") == 0)
+ 				aux = info->devnode;
++		} else if (g_strcmp0(info->interface, "255/255/64") == 0) {
++			if (g_strcmp0(info->number, "04") == 0)
++				mdm = info->devnode;
++			else if (g_strcmp0(info->number, "06") == 0)
++				aux = info->devnode;
++		} else if (g_strcmp0(info->interface, "255/255/96") == 0) {
++			if (g_strcmp0(info->number, "03") == 0)
++				gps = info->devnode;
+ 		} else if (g_strcmp0(info->interface, "2/2/1") == 0) {
+ 			if (g_strcmp0(info->number, "00") == 0)
+ 				mdm = info->devnode;

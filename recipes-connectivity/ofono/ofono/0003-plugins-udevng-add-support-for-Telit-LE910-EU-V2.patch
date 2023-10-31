@@ -1,4 +1,4 @@
-From 632f34d2fc7b9c50d0959346bad4d61cbe64075b Mon Sep 17 00:00:00 2001
+From 638620435c8e82da109b0fa42fc6fb18f6c5df09 Mon Sep 17 00:00:00 2001
 From: Ray Chang <ray.chang@technexion.com>
 Date: Tue, 5 May 2020 18:15:59 +0800
 Subject: [PATCH] plugins/udevng: add support for Telit LE910-EU V2
@@ -8,11 +8,11 @@ Subject: [PATCH] plugins/udevng: add support for Telit LE910-EU V2
  1 file changed, 2 insertions(+)
 
 diff --git a/plugins/udevng.c b/plugins/udevng.c
-index 60b523e..848dd14 100644
+index e36526b..c933e6a 100644
 --- a/plugins/udevng.c
 +++ b/plugins/udevng.c
-@@ -1813,6 +1813,8 @@ static struct {
- 	{ "gemalto",	"cdc_ether",	"1e2d",	"0061"	},
+@@ -1863,6 +1863,8 @@ static struct {
+ 	{ "gemalto",	"cdc_ether",	"1e2d",	"005b"	},
  	{ "telit",	"cdc_ncm",	"1bc7", "0036"	},
  	{ "telit",	"cdc_acm",	"1bc7", "0036"	},
 +	{ "telit",	"cdc_ncm",	"1bc7", "0032"	},

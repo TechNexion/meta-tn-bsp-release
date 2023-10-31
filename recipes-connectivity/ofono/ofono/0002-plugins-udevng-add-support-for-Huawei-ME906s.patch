@@ -1,4 +1,4 @@
-From b724e844b7caf3ca0638f6122864842e27b4ec99 Mon Sep 17 00:00:00 2001
+From d5bf2e1f49c37f978f79ce1b400080992783e7fd Mon Sep 17 00:00:00 2001
 From: Ray Chang <ray.chang@technexion.com>
 Date: Wed, 29 Apr 2020 13:39:13 +0800
 Subject: [PATCH] plugins/udevng: add support for Huawei ME906s
@@ -8,10 +8,10 @@ Subject: [PATCH] plugins/udevng: add support for Huawei ME906s
  1 file changed, 4 insertions(+)
 
 diff --git a/plugins/udevng.c b/plugins/udevng.c
-index 9b78ab4..6e444fe 100644
+index 34ac1cc..e36526b 100644
 --- a/plugins/udevng.c
 +++ b/plugins/udevng.c
-@@ -332,6 +332,7 @@ static gboolean setup_huawei(struct modem_info *modem)
+@@ -334,6 +334,7 @@ static gboolean setup_huawei(struct modem_info *modem)
  				g_strcmp0(info->interface, "255/1/1") == 0 ||
  				g_strcmp0(info->interface, "255/2/1") == 0 ||
  				g_strcmp0(info->interface, "255/3/1") == 0 ||
@@ -19,7 +19,7 @@ index 9b78ab4..6e444fe 100644
  				g_strcmp0(info->interface, "255/1/49") == 0) {
  			mdm = info->devnode;
  		} else if (g_strcmp0(info->label, "pcui") == 0 ||
-@@ -339,17 +340,20 @@ static gboolean setup_huawei(struct modem_info *modem)
+@@ -341,17 +342,20 @@ static gboolean setup_huawei(struct modem_info *modem)
  				g_strcmp0(info->interface, "255/2/2") == 0 ||
  				g_strcmp0(info->interface, "255/2/18") == 0 ||
  				g_strcmp0(info->interface, "255/3/18") == 0 ||

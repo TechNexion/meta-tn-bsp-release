@@ -1,4 +1,4 @@
-From 4bc9a91ed3c323b02dbe373fb4a4f882931e8eca Mon Sep 17 00:00:00 2001
+From 6452765025b3b944a2736cf16d20f5044e3811f8 Mon Sep 17 00:00:00 2001
 From: Ray Chang <ray.chang@technexion.com>
 Date: Mon, 13 Jul 2020 17:38:42 +0800
 Subject: [PATCH] plugins/udevng: add support for Fibocom NL668-EU
@@ -8,10 +8,10 @@ Subject: [PATCH] plugins/udevng: add support for Fibocom NL668-EU
  1 file changed, 1 insertion(+)
 
 diff --git a/plugins/udevng.c b/plugins/udevng.c
-index 848dd14..879cf31 100644
+index c933e6a..d476821 100644
 --- a/plugins/udevng.c
 +++ b/plugins/udevng.c
-@@ -1766,6 +1766,7 @@ static struct {
+@@ -1810,6 +1810,7 @@ static struct {
  	{ "hso",	"hso"				},
  	{ "gobi",	"qmi_wwan"			},
  	{ "gobi",	"qcserial"			},
