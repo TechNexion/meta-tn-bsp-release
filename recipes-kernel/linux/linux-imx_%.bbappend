@@ -5,5 +5,5 @@ SRC_URI:append:tevi = " \
        "
 SRCBRANCH:tevi = "tn-imx_5.15.71_2.2.0-next"
 KERNEL_SRC:tevi = "git://github.com/TechNexion/linux-tn-imx.git;protocol=https;branch=${SRCBRANCH}"
-SRCREV:tevi = "c4c71fdb178230bc76d61276b645e1c9c4b76909"
+SRCREV:tevi = "9a49c1b3ef9dc4676a74b13a8ccb46fc84aedcbe"
 DELTA_KERNEL_DEFCONFIG:tevi = "tn-camera.cfg"
