@@ -115,20 +115,8 @@ imx8*)
     ;;
 esac
 
-# Cleanup previous meta-freescale/EULA overrides
-cd $CWD/sources/meta-freescale
-if [ -h EULA ]; then
-    echo Cleanup meta-freescale/EULA...
-    git checkout -- EULA
-fi
-if [ ! -f classes/fsl-eula-unpack.bbclass ]; then
-    echo Cleanup meta-freescale/classes/fsl-eula-unpack.bbclass...
-    git checkout -- classes/fsl-eula-unpack.bbclass
-fi
-cd -
-
-# Override the click-through in meta-freescale/EULA
-FSL_EULA_FILE=$CWD/sources/meta-imx/EULA.txt
+# Override the click-through in meta-freescale
+FSL_EULA_FILE=$CWD/sources/meta-imx/LICENSE.txt
 
 # Set up the basic yocto environment by souring our setup-environment.sh
 if [ -n "$DISTRO" ]; then

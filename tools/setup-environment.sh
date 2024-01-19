@@ -122,8 +122,8 @@ echo -e "\n# TechNexion setup-environment.sh wrapper: Further modification to bb
 
 if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
   if [ -d $PWD/../sources/meta-imx ]; then
-    # copy new EULA into community so setup uses latest i.MX EULA
-    cp $PWD/../sources/meta-imx/EULA.txt $PWD/../sources/meta-freescale/EULA
+    # copy new EULA(LICENSE.txt) into community so setup uses latest i.MX EULA
+    cp $PWD/../sources/meta-imx/LICENSE.txt $PWD/../sources/meta-freescale/EULA
     if ! grep -Fq "meta-imx" $PWD/conf/bblayers.conf; then
       # add i.MX bsp layers to bblayers.conf
       echo -e "\n# setup i.MX Yocto Project Release layers in bblayers.conf" | tee -a $PWD/conf/bblayers.conf
