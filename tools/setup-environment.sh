@@ -87,9 +87,9 @@ FSLCONFIGS=$(ls $CWD/sources/meta-imx/meta-bsp/conf/machine/*.conf $CWD/sources/
 if [ -n "${DISTRO}" ]; then
   if [ ${TNCONFIGS} != 0 ]; then
     echo "Setup TechNexion Yocto"
-    echo "    TEMPLATECONF=$CWD/sources/meta-tn-imx-bsp/conf MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
+    echo "    TEMPLATECONF=$CWD/sources/meta-tn-imx-bsp/conf/templates/default MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
     echo ""
-    TEMPLATECONF="$CWD/sources/meta-tn-imx-bsp/conf" MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
+    TEMPLATECONF="$CWD/sources/meta-tn-imx-bsp/conf/templates/default" MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY
   elif [ ${FSLCONFIGS} != 0 ]; then
     echo "Setup Freescale/i.MX Yocto"
     echo "    MACHINE=$MACHINE DISTRO=$DISTRO source $PROGNAME $BUILDDIRECTORY"
