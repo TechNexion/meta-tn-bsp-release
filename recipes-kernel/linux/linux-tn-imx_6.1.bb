@@ -1,7 +1,11 @@
-# Copyright (C) 2013-2016 Freescale Semiconductor
-# Copyright 2017-2021 NXP
-# Copyright 2020 TechNexion Ltd.
+# Copyright 2013-2016 Freescale Semiconductor
+# Copyright 2017-2023 NXP
+# Copyright 2024 TechNexion Ltd.
+# Copyright 2018 O.S. Systems Software LTDA.
 # Released under the MIT license (see COPYING.MIT for the terms)
+#
+# SPDX-License-Identifier: MIT
+#
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/file:"
 
@@ -16,19 +20,21 @@ LIC_FILES_CHKSUM = "file://COPYING;md5=6bc538ed5bd9a7fc9398086aedcd7e46"
 
 DEPENDS += "lzop-native bc-native"
 
-KERNEL_BRANCH ?= "tn-imx_5.15.71_2.2.0-next"
-LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KERNEL_BRANCH', True).split('_')[2:]).lower()}"
-KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https"
-SRCOPTIONS = ""
-SRC_URI = "${KERNEL_SRC};branch=${KERNEL_BRANCH}${SRCOPTIONS}"
+SRC_URI = "${KERNEL_SRC}"
+KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https;branch=${SRCBRANCH}"
+KBRANCH = "${SRCBRANCH}"
+SRCBRANCH = "tn-imx_6.1.22_2.0.0-next"
+LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KBRANCH', True).split('_')[2:]).lower()}"
+SRCREV = "f2bdb8d458a19b4dbc95af5c1ea75ec426b1ac20"
 
 SRC_URI:append:virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
 
-SRCREV = "b0c3bb3ea65ff52a6164ce07e885eb2348a1b729"
-
-LINUX_VERSION = "5.15.71"
-
-FILES_${KERNEL_PACKAGE_NAME}-base += "${nonarch_base_libdir}/modules/${KERNEL_VERSION}/modules.builtin.modinfo "
+# PV is defined in the base in linux-imx.inc file and uses the LINUX_VERSION definition
+# required by kernel-yocto.bbclass.
+#
+# LINUX_VERSION define should match to the kernel version referenced by SRC_URI and
+# should be updated once patchlevel is merged.
+LINUX_VERSION = "6.1.22"
 
 KERNEL_CONFIG_COMMAND = "oe_runmake_call -C ${S} CC="${KERNEL_CC}" O=${B} olddefconfig"
 
@@ -40,6 +46,7 @@ DO_CONFIG_V7_COPY = "no"
 DO_CONFIG_V7_COPY:mx6-nxp-bsp = "yes"
 DO_CONFIG_V7_COPY:mx7-nxp-bsp = "yes"
 DO_CONFIG_V7_COPY:mx8-nxp-bsp = "no"
+DO_CONFIG_V7_COPY:mx9-nxp-bsp = "no"
 
 # Add setting for LF Mainline build
 IMX_KERNEL_CONFIG_AARCH32 = "tn_imx_defconfig"
@@ -48,6 +55,7 @@ KBUILD_DEFCONFIG ?= ""
 KBUILD_DEFCONFIG:mx6-nxp-bsp= "${IMX_KERNEL_CONFIG_AARCH32}"
 KBUILD_DEFCONFIG:mx7-nxp-bsp= "${IMX_KERNEL_CONFIG_AARCH32}"
 KBUILD_DEFCONFIG:mx8-nxp-bsp= "${IMX_KERNEL_CONFIG_AARCH64}"
+KBUILD_DEFCONFIG:mx9-nxp-bsp= "${IMX_KERNEL_CONFIG_AARCH64}"
 
 
 # Use a verbatim copy of the defconfig from the linux-imx repo.
@@ -93,4 +101,4 @@ addtask merge_delta_config before do_kernel_localversion after do_copy_defconfig
 do_kernel_configcheck[noexec] = "1"
 
 KERNEL_VERSION_SANITY_SKIP="1"
-COMPATIBLE_MACHINE = "(mx6-nxp-bsp|mx7-nxp-bsp|mx8-nxp-bsp)"
+COMPATIBLE_MACHINE = "(imx-nxp-bsp)"
