@@ -13,4 +13,5 @@ SRC_URI = " \
     file://0002-Makefile-cleanup-tagetting-a-Yocto-Project-recipe.patch \
     file://0003-pn544_enable.patch \
     file://0001-Use-pr_warn-instead-of-pr_warning-to-adapt-to-Linux-.patch \
+    file://0001-fix-incompatible-pointer-types-assigning-on-GCC-12.x.patch \
 "

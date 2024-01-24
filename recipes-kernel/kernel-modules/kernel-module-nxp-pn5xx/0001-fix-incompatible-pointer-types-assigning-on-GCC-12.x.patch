@@ -1,0 +1,22 @@
+From 2300d7cc48434c599d68cc5ce3a7ee59d927d8d5 Mon Sep 17 00:00:00 2001
+From: Ray Chang <ray.chang@technexion.com>
+Date: Wed, 24 Jan 2024 11:31:04 +0800
+Subject: [PATCH] fix incompatible pointer types assigning on GCC 12.x
+
+---
+ pn5xx_i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pn5xx_i2c.c b/pn5xx_i2c.c
+index 9aa35bf..99de6d5 100644
+--- a/pn5xx_i2c.c
++++ b/pn5xx_i2c.c
+@@ -747,7 +747,7 @@ static struct i2c_driver pn54x_driver = {
+ #ifdef KERNEL_3_4_AND_OLDER
+ 	.remove		= __devexit_p(pn54x_remove),
+ #else
+-	.remove		= pn54x_remove,
++	.remove		= (void (*)(struct i2c_client *))pn54x_remove,
+ #endif
+ 	.driver		= {
+ 		.owner	= THIS_MODULE,
