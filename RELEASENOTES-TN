@@ -25,7 +25,7 @@ PICO-IMX8MM (DRAM 1/2/4 GB) with PI-8M/WIZARD
 
 AXON-IMX8MP (DRAM 2/4/8 GB) with WIZARD
 
-TEK3-IMX8MP (DRAM 2/4/8 GB)
+TEK-IMX8MP (DRAM 2/4/8 GB)
 
 
 ARM32:
@@ -72,7 +72,7 @@ Bug fix: bug tracking number
 
 6.  #966: PICO-IMX6 + PICO-NYMPH - Ethernet has IP but cannot be connected.
 
-7.  #968: TEK3-IMX8MP - If the connection LAN2 cannot wake up after suspend.
+7.  #968: TEK-IMX8MP - If the connection LAN2 cannot wake up after suspend.
 
 8.  #994: EDM1-IMX6P - No audio device of imx-hdmi-soc available after system power up.
 
