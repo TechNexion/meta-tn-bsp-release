@@ -23,9 +23,9 @@ DEPENDS += "lzop-native bc-native"
 SRC_URI = "${KERNEL_SRC}"
 KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https;branch=${SRCBRANCH}"
 KBRANCH = "${SRCBRANCH}"
-SRCBRANCH = "tn-imx_6.1.22_2.0.0-next"
+SRCBRANCH = "tn-imx_6.1.55_2.2.0-next"
 LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KBRANCH', True).split('_')[2:]).lower()}"
-SRCREV = "f2bdb8d458a19b4dbc95af5c1ea75ec426b1ac20"
+SRCREV = "59b3830ebb06881f3f8644e3dee8d0e747bdb53a"
 
 SRC_URI:append:virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
 
@@ -34,7 +34,7 @@ SRC_URI:append:virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-bt
 #
 # LINUX_VERSION define should match to the kernel version referenced by SRC_URI and
 # should be updated once patchlevel is merged.
-LINUX_VERSION = "6.1.22"
+LINUX_VERSION = "6.1.55"
 
 KERNEL_CONFIG_COMMAND = "oe_runmake_call -C ${S} CC="${KERNEL_CC}" O=${B} olddefconfig"
 
