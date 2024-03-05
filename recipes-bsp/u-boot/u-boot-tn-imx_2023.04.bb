@@ -1,6 +1,7 @@
 # Copyright (C) 2013-2016 Freescale Semiconductor
-# Copyright 2017-2018 NXP
-# Copyright (C) 2020 TechNexion.
+# Copyright 2018 (C) O.S. Systems Software LTDA.
+# Copyright 2017-2023 NXP
+# Copyright (C) 2023 TechNexion.
 
 DESCRIPTION = "i.MX U-Boot suppporting TechNexion i.MX boards."
 HOMEPAGE = "http://www.denx.de/wiki/U-Boot/WebHome"
@@ -19,9 +20,9 @@ LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a
 PR = "r0"
 SRCSERVER = "git://github.com/TechNexion/u-boot-tn-imx.git;protocol=https"
 SRCOPTIONS = ""
-SRCBRANCH = "tn-imx_v2022.04_5.15.71_2.2.0-next"
+SRCBRANCH = "tn-imx_v2023.04_6.1.55_2.2.0-next"
 SRC_URI = "${SRCSERVER};branch=${SRCBRANCH}${SRCOPTIONS}"
-SRCREV = "d5886ef0c7c2688e295bbb96fcc8a08df08175d3"
+SRCREV = "867bee2284f132d6fd4f83d6c1f3eef9742d8e4b"
 SRC_URI:append = " file://splash.bmp"
 SRC_URI:append:rescue = " file://rescue-fragment-uboot.cfg"
 
@@ -42,19 +43,19 @@ PROVIDES += "u-boot"
 inherit uuu_bootloader_tag
 
 UUU_BOOTLOADER            = ""
-UUU_BOOTLOADER:mx6-nxp-bsp        = "${UBOOT_BINARY}"
-UUU_BOOTLOADER:mx7-nxp-bsp        = "${UBOOT_BINARY}"
+UUU_BOOTLOADER:mx6-generic-bsp        = "${UBOOT_BINARY}"
+UUU_BOOTLOADER:mx7-generic-bsp        = "${UBOOT_BINARY}"
 UUU_BOOTLOADER_TAGGED     = ""
-UUU_BOOTLOADER_TAGGED:mx6-nxp-bsp = "u-boot-tagged.${UBOOT_SUFFIX}"
-UUU_BOOTLOADER_TAGGED:mx7-nxp-bsp = "u-boot-tagged.${UBOOT_SUFFIX}"
+UUU_BOOTLOADER_TAGGED:mx6-generic-bsp = "u-boot-tagged.${UBOOT_SUFFIX}"
+UUU_BOOTLOADER_TAGGED:mx7-generic-bsp = "u-boot-tagged.${UBOOT_SUFFIX}"
 
 do_deploy:append () {
 	install -d ${DEPLOYDIR}
 	install ${WORKDIR}/splash.bmp ${DEPLOYDIR}/splash.bmp
 }
 
-do_deploy:append:mx8m-nxp-bsp() {
-    # Deploy u-boot-nodtb.bin and fsl-imx8mq-XX.dtb, to be packaged in boot binary by imx-boot
+do_deploy:append:mx8m-generic-bsp() {
+    # Deploy u-boot-nodtb.bin and fsl-imx8m*-XX.dtb for mkimage to generate boot binary
     if [ -n "${UBOOT_CONFIG}" ]
     then
         for config in ${UBOOT_MACHINE}; do
@@ -78,4 +79,4 @@ do_deploy:append:mx8m-nxp-bsp() {
 }
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "(mx6-generic-bsp|mx7-generic-bsp|mx8-generic-bsp)"
+COMPATIBLE_MACHINE = "(mx6-generic-bsp|mx7-generic-bsp|mx8-generic-bsp|mx9-generic-bsp)"
