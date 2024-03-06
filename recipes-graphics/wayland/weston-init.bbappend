@@ -8,7 +8,8 @@ SRC_URI += " file://setup-weston-init.sh"
 S = "${WORKDIR}"
 
 do_install:append() {
-	install -D -p -m0755 ${WORKDIR}/setup-weston-init.sh ${D}${bindir}
+	install -d ${D}${bindir}
+	install -p -m 0755 ${WORKDIR}/setup-weston-init.sh ${D}${bindir}
 
 	sed -i '/^ExecStart=\/usr\/bin\/weston*/i ExecStartPre=-\/usr\/bin\/setup-weston-init.sh' ${D}${systemd_system_unitdir}/weston.service
 }
