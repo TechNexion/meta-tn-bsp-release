@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 SRCBRANCH = "freertos_2.10.x"
 M4_SRC = "git://github.com/TechNexion/imx-m4-demos-tn.git;protocol=https"
 SRC_URI = "${M4_SRC};branch=${SRCBRANCH}"
-SRCREV = "9cabf100cae635422c988a1a760aec7bffce4f8f"
+SRCREV = "27942c6b5c32400254297f69652eaefbe881c8c7"
 
 S = "${WORKDIR}/git"
 
