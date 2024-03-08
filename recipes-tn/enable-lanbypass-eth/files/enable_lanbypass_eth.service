@@ -1,0 +1,12 @@
+[Unit]
+Description=enable lanbypass ethernet service
+
+[Service]
+Type=simple
+StandardOutput=tty
+TTYPath=/dev/ttymxc1
+ExecStartPre=/bin/sleep 1
+ExecStart=/bin/bash /usr/sbin/enable_lanbypass_eth.sh
+
+[Install]
+WantedBy=multi-user.target
