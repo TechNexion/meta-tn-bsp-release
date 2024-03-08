@@ -112,6 +112,7 @@ IMAGE_FSTYPES:append = " ext4 wic.md5sum wic.xz wic.bz2"
 LICENSE_FLAGS_ACCEPTED:append = " commercial_qca commercial_brcm commercial_tn"
 MACHINE_FEATURES_BACKFILL:append:simcom = " nmcli"
 DISTRO_FEATURES_BACKFILL:append:simcom = " nmcli"
+PACKAGECONFIG_GRAPHICS:append:mx6-nxp-bsp:pn-qtbase = " gles2"
 
 #
 # Avoid conflict errir during build image of Ubuntu
