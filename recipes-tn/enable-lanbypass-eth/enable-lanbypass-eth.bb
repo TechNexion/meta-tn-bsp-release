@@ -9,8 +9,9 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 inherit systemd allarch
 
-SRC_URI = "file://enable_lanbypass_eth.service;md5sum=262d4d3e575bbcace928b9b3bed0ca0f \
-	file://enable_lanbypass_eth.sh;md5sum=533a467176815b704adc471b68988bbc \
+SRC_URI = "file://enable_lanbypass_eth.service;md5sum=cb2e351f71fcd0faddd133c2eb2ba457 \
+	file://enable_lanbypass_eth.sh;md5sum=ffa3207f02dba79af27dadd0bcfd52c7 \
+	file://disable_lanbypass_eth.sh;md5sum=8db87f0ffd76e2264d81925d8785b426 \
 	"
 
 S = "${WORKDIR}"
@@ -20,9 +21,11 @@ do_install () {
     install -m 0644 ${S}/enable_lanbypass_eth.service ${D}${systemd_unitdir}/system/enable_lanbypass_eth.service
     install -d ${D}${sbindir}
     install -m 0755 ${S}/enable_lanbypass_eth.sh ${D}${sbindir}
+    install -m 0755 ${S}/disable_lanbypass_eth.sh ${D}${sbindir}
 }
 
-FILES:${PN} = "${sbindir}/enable_lanbypass_eth.sh"
+FILES:${PN} = "${sbindir}/enable_lanbypass_eth.sh \
+		${sbindir}/disable_lanbypass_eth.sh"
 
 SYSTEMD_SERVICE:${PN} = "enable_lanbypass_eth.service"
 RDEPENDS:${PN} += "bash util-linux e2fsprogs"
