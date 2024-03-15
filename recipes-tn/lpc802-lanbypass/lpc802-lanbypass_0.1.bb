@@ -16,4 +16,5 @@ do_install () {
 }
 
 FILES:${PN} = "${sbindir}/lanbypass_on.sh"
-RDEPENDS:${PN} += "bash util-linux"
+RDEPENDS:${PN} = "bash util-linux"
+RDEPENDS:${PN}:ubuntu = "bash"

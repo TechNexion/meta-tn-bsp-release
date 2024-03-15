@@ -45,4 +45,5 @@ FILES:${PN} = "${datadir}/technexion/tn-standby.jpg \
 
 
 SYSTEMD_SERVICE:${PN} = "tn-growpart-helper.service"
-RDEPENDS:${PN} += "bash util-linux e2fsprogs"
+RDEPENDS:${PN} = "bash util-linux e2fsprogs"
+RDEPENDS:${PN}:ubuntu = "bash e2fsprogs"

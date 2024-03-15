@@ -28,4 +28,5 @@ FILES:${PN} = "${sbindir}/enable_lanbypass_eth.sh \
 		${sbindir}/disable_lanbypass_eth.sh"
 
 SYSTEMD_SERVICE:${PN} = "enable_lanbypass_eth.service"
-RDEPENDS:${PN} += "bash util-linux e2fsprogs"
+RDEPENDS:${PN} = "bash util-linux e2fsprogs"
+RDEPENDS:${PN}:ubuntu = "bash e2fsprogs"

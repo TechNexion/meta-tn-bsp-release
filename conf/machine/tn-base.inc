@@ -114,11 +114,6 @@ MACHINE_FEATURES_BACKFILL:append:simcom = " nmcli"
 DISTRO_FEATURES_BACKFILL:append:simcom = " nmcli"
 PACKAGECONFIG_GRAPHICS:append:mx6-nxp-bsp:pn-qtbase = " gles2"
 
-#
-# Avoid conflict errir during build image of Ubuntu
-RDEPENDS:tn-growpart-helper:remove:ubuntu = "util-linux e2fsprogs"
-RDEPENDS:lpc802-lanbypass:remove:ubuntu = "util-linux"
-
 # wic (sdcard) image
 WKS_FILE = "imx-uboot-spl-bootpart.wks.in"
 WKS_FILE:mx8-nxp-bsp = "imx-imx-boot-bootpart.wks.in"

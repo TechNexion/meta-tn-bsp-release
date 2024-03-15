@@ -25,4 +25,5 @@ do_install () {
 FILES:${PN} = "${sbindir}/power_key_listener.sh"
 
 SYSTEMD_SERVICE:${PN} = "power_key_listener.service"
-RDEPENDS:${PN} += "bash util-linux e2fsprogs"
+RDEPENDS:${PN} = "bash util-linux e2fsprogs"
+RDEPENDS:${PN}:ubuntu = "bash e2fsprogs"
