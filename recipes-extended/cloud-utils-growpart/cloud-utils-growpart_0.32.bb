@@ -40,3 +40,4 @@ RDEPENDS:${PN} = " \
     gawk \
     util-linux \
 "
+RDEPENDS:${PN}:ubuntu = " gawk"
