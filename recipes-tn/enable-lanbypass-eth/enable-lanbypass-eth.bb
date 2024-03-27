@@ -10,8 +10,8 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 inherit systemd allarch
 
 SRC_URI = "file://enable_lanbypass_eth.service;md5sum=cb2e351f71fcd0faddd133c2eb2ba457 \
-	file://enable_lanbypass_eth.sh;md5sum=ffa3207f02dba79af27dadd0bcfd52c7 \
-	file://disable_lanbypass_eth.sh;md5sum=8db87f0ffd76e2264d81925d8785b426 \
+	file://enable_lanbypass_eth.sh;md5sum=a91d90152138884e06a5eacfebdeea32 \
+	file://disable_lanbypass_eth.sh;md5sum=56f7675d7de2a8bfcd8ca897f175bad7 \
 	"
 
 S = "${WORKDIR}"

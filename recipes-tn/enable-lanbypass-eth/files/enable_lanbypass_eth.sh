@@ -10,7 +10,7 @@ generate_clock () {
 	done
 }
 
-GPIO_NUM=$(cat /sys/kernel/debug/gpio | grep "LANBYPASS_gen_clock" | grep -Poi "gpio-\d+" | cut -d '-' -f 2)
+GPIO_NUM=$(cat /sys/kernel/debug/gpio | grep "LANBYPASS_gen_clock" | grep -Eoi "[[:digit:]]{1,}" | cut -d '-' -f 2)
 echo ${GPIO_NUM} > /sys/class/gpio/export
 echo out > /sys/class/gpio/gpio${GPIO_NUM}/direction
 
