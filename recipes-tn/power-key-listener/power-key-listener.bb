@@ -10,7 +10,7 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 inherit systemd allarch
 
 SRC_URI = "file://power_key_listener.service;md5sum=6fe9afeed4d2e8fb390a2963f7bf5748 \
-	file://power_key_listener.sh;md5sum=715974e9ddf9542aa9b69b5aefbb981d \
+	file://power_key_listener.sh;md5sum=a1f8637d29d203af80cd89fe10768aed \
 	"
 
 S = "${WORKDIR}"
