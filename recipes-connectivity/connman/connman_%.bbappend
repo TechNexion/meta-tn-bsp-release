@@ -9,4 +9,4 @@ do_install:append() {
     install -m 0644 ${WORKDIR}/settings ${D}${localstatedir}/lib/connman
 }
 
-COMPATIBLE_MACHINE = "(mx6-nxp-bsp|mx6ul-nxp-bsp|mx7-nxp-bsp|mx8-nxp-bsp)"
+COMPATIBLE_MACHINE = "(imx-nxp-bsp)"
