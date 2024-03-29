@@ -99,7 +99,7 @@ if [ -z "$MACHINE" ]; then
 fi
 
 case $MACHINE in
-imx8*)
+imx8*|imx9*)
     if [ -n "$DISTRO" ]; then
         case $DISTRO in
         *wayland)
