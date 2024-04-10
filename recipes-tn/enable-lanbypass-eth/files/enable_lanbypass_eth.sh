@@ -3,16 +3,10 @@
 generate_clock () {
 	while true
 	do
-		echo 1 > /sys/class/gpio/gpio${1}/value
-		sleep 0.2
-		echo 0 > /sys/class/gpio/gpio${1}/value
-		sleep 0.2
+		gpioset --hold-period 200ms -t0 "LANBYPASS_gen_clock"=0
+		gpioset --hold-period 200ms -t0 "LANBYPASS_gen_clock"=1
 	done
 }
-
-GPIO_NUM=$(cat /sys/kernel/debug/gpio | grep "LANBYPASS_gen_clock" | grep -Eoi "[[:digit:]]{1,}" | cut -d '-' -f 2)
-echo ${GPIO_NUM} > /sys/class/gpio/export
-echo out > /sys/class/gpio/gpio${GPIO_NUM}/direction
 
 generate_clock ${GPIO_NUM} &
 
