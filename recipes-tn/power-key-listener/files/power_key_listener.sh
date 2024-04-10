@@ -21,10 +21,7 @@ toggle_led(){
 
 do_long_pressed_job(){
         # reset device
-	# gpiochip1=32~63, number=5 =>37
-	echo 37 > /sys/class/gpio/export
-	echo out > /sys/class/gpio/gpio37/direction
-	echo 0 > /sys/class/gpio/gpio37/value
+	gpioset --hold-period 20ms -t0 "HW_RESET"=0
 }
 
 do_job(){
