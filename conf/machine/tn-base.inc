@@ -25,7 +25,7 @@ OVERRIDES:append = "${@'' if (d.getVar('NFC', True) is None or len(d.getVar('NFC
 OVERRIDES:append = "${@':tools' if (d.getVar('DISTRO', True) == 'fsl-imx-xwayland' or d.getVar('DISTRO', True) == 'fsl-imx-wayland' or d.getVar('DISTRO', True) == 'fsl-imx-x11') else ''}"
 OVERRIDES:append = "${@':rescue:bootscr' if (d.getVar('INITRAMFS_IMAGE', True) == 'tn-image-loader-initramfs') else ''}"
 OVERRIDES:append = "${@bb.utils.contains_any('DISTRO', 'imx-desktop-xwayland imx-desktop-x11', ':ubuntu', '', d)}"
-OVERRIDES:append = "${@':tn-vizionsdk' if bb.utils.contains_any('TARGET_ARCH', 'arm64 aarch64', True, False, d) and bb.utils.contains('BBLAYERS', '${BSPDIR}/sources/meta-tn-vizionsdk', True, False, d) else ''}"
+OVERRIDES:append = "${@':tn-vizionsdk' if bb.utils.contains('BBLAYERS', '${BSPDIR}/sources/meta-tn-vizionsdk', True, False, d) else ''}"
 
 #
 # Release Info
@@ -112,6 +112,7 @@ IMAGE_INSTALL:append = " packagegroup-tn-wlan"
 IMAGE_INSTALL:append:tools = " packagegroup-tn-tools"
 #IMAGE_INSTALL:append:voicehat = " packagegroup-tn-voicehat"
 IMAGE_INSTALL:append:nfc = " packagegroup-tn-nfc"
+IMAGE_INSTALL:append:tn-vizionsdk = " packagegroup-tn-vizionsdk"
 IMAGE_INSTALL:append:ubuntu = " hciattach-qca tn-growpart-helper glmark2 tn-ubuntu-custom"
 IMAGE_FSTYPES:append = " ext4 wic.md5sum wic.xz wic.bz2"
 LICENSE_FLAGS_ACCEPTED:append = " commercial_qca commercial_brcm commercial_tn"
@@ -152,9 +153,7 @@ RDEPENDS:packagegroup-base-3g:remove:simcom = "ofono"
 APTGET_EXTRA_PACKAGES:append:ubuntu = " libglu1-mesa"
 
 #------ For VizionSDK/VizionViewer ------
-IMAGE_INSTALL:append:tn-vizionsdk = " tn-apt-list vizionsdk-dev vizionviewer"
 APTGET_EXTRA_PACKAGES:append:tn-vizionsdk = " gnupg"
-IMAGE_INSTALL:remove:tn-vizionsdk:pico-imx8mq = " tn-apt-list vizionsdk-dev vizionviewer"
 
 #------ For Ubuntu inspect V4L2 ------
 APTGET_EXTRA_PACKAGES:append:ubuntu = " v4l-utils"
