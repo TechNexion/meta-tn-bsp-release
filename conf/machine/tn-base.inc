@@ -119,6 +119,7 @@ LICENSE_FLAGS_ACCEPTED:append = " commercial_qca commercial_brcm commercial_tn"
 MACHINE_FEATURES_BACKFILL:append:simcom = " nmcli"
 DISTRO_FEATURES_BACKFILL:append:simcom = " nmcli"
 PACKAGECONFIG_GRAPHICS:append:mx6-nxp-bsp:pn-qtbase = " gles2"
+PACKAGECONFIG:remove:mx6ul-nxp-bsp:pn-qtbase = "no-opengl"
 
 # wic (sdcard) image
 WKS_FILE = "imx-uboot-spl-bootpart.wks.in"
