@@ -17,9 +17,9 @@ BBLAYERS ?= " \
   ##OEROOT##/../meta-freescale-3rdparty \
   ##OEROOT##/../meta-freescale-distro \
   \
-  ##OEROOT##/../meta-imx/meta-bsp \
-  ##OEROOT##/../meta-imx/meta-sdk \
-  ##OEROOT##/../meta-imx/meta-ml \
+  ##OEROOT##/../meta-imx/meta-imx-bsp \
+  ##OEROOT##/../meta-imx/meta-imx-sdk \
+  ##OEROOT##/../meta-imx/meta-imx-ml \
   \
   ##OEROOT##/../meta-openembedded/meta-gnome \
   ##OEROOT##/../meta-openembedded/meta-networking \

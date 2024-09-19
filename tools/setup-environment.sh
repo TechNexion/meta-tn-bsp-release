@@ -82,7 +82,7 @@ if [ ! -d "$CWD/sources/meta-boot2qt" ]; then
 fi
 
 # Get i.MX MACHINE configs
-FSLCONFIGS=$(ls $CWD/sources/meta-imx/meta-bsp/conf/machine/*.conf $CWD/sources/meta-freescale*/conf/machine/*.conf | xargs -n 1 basename | grep -E -c "$MACHINE")
+FSLCONFIGS=$(ls $CWD/sources/meta-imx/meta-imx-bsp/conf/machine/*.conf $CWD/sources/meta-freescale*/conf/machine/*.conf | xargs -n 1 basename | grep -E -c "$MACHINE")
 # Set up the basic yocto environment by sourcing fsl community's setup-environment bash script with/without TEMPLATECONF
 if [ -n "${DISTRO}" ]; then
   if [ ${TNCONFIGS} != 0 ]; then
@@ -127,10 +127,10 @@ if [ ${TNCONFIGS} != 0 -o ${FSLCONFIGS} != 0 ]; then
     if ! grep -Fq "meta-imx" $PWD/conf/bblayers.conf; then
       # add i.MX bsp layers to bblayers.conf
       echo -e "\n# setup i.MX Yocto Project Release layers in bblayers.conf" | tee -a $PWD/conf/bblayers.conf
-      hook_in_layer meta-imx/meta-bsp
-      hook_in_layer meta-imx/meta-sdk
-      hook_in_layer meta-imx/meta-ml
-      hook_in_layer meta-imx/meta-v2x
+      hook_in_layer meta-imx/meta-imx-bsp
+      hook_in_layer meta-imx/meta-imx-sdk
+      hook_in_layer meta-imx/meta-imx-ml
+      hook_in_layer meta-imx/meta-imx-v2x
       hook_in_layer meta-nxp-demo-experience
       hook_in_layer meta-arm/meta-arm
       hook_in_layer meta-arm/meta-arm-toolchain

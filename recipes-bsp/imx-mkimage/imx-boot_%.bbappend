@@ -3,7 +3,7 @@ do_replace () {
 	sed -i 's|dtbs = evk.dtb|dtbs = ${UBOOT_DTB_NAME}|g' ${BOOT_STAGING}/soc.mak
 }
 
-#copy from "meta-imx/meta-bsp/recipes-bsp/imx-mkimage/imx-boot_1.0.bb"
+#copy from "meta-imx/meta-imx-bsp/recipes-bsp/imx-mkimage/imx-boot_1.0.bb"
 compile_mx8m() {
     bbnote 8MQ/8MM/8MN/8MP boot binary build
     for ddr_firmware in ${DDR_FIRMWARE_NAME}; do
