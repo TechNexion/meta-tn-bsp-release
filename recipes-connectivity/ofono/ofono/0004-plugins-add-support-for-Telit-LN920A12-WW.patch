@@ -2,7 +2,7 @@ From 62954010b423a90c682d9ec9f279241a5054b9fc Mon Sep 17 00:00:00 2001
 From: Ray Chang <ray.chang@technexion.com>
 Date: Thu, 2 Nov 2023 10:54:00 +0800
 Subject: [PATCH] plugins: add support for Telit LN920A12-WW
-
+Upstream-Status: Pending
 ---
  plugins/telit.c  | 4 ++++
  plugins/udevng.c | 8 ++++++++

@@ -2,7 +2,7 @@ From 22b52db4842611ac31a356f023fc09595384e2ad Mon Sep 17 00:00:00 2001
 From: Khem Raj <raj.khem@gmail.com>
 Date: Thu, 23 May 2019 18:11:22 -0700
 Subject: [PATCH] mbim: add an optional TEMP_FAILURE_RETRY macro copy
-
+Upstream-Status: Pending
 Fixes build on musl which does not provide this macro
 
 Upstream-Status: Submitted [https://lists.ofono.org/pipermail/ofono/2019-May/019370.html]

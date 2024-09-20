@@ -2,7 +2,7 @@ From ada7ac730ef776ac769c36ee09ab5d979e81e797 Mon Sep 17 00:00:00 2001
 From: Ray Chang <ray.chang@technexion.com>
 Date: Fri, 3 Nov 2023 11:39:48 +0800
 Subject: [PATCH] drivers/atmodem: plugins: add support for Telit LE910C4-WWXD
-
+Upstream-Status: Pending
 ---
  drivers/atmodem/network-registration.c | 10 +++++++---
  drivers/atmodem/vendor.h               |  1 +
