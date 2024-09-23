@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <bitset>
 #include <vector>
+#include <cstdint>
 
 const uint8_t page_size_bytes = 16;
 
