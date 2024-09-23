@@ -1,0 +1,61 @@
+From 56547fa9a8014a226e4d2eedc0f7484cc15d9764 Mon Sep 17 00:00:00 2001
+From: Joe Zhang <joe.zhang@technexion.com>
+Date: Mon, 23 Sep 2024 14:42:23 +0800
+Subject: [PATCH 1/4] nfc: correct the of_get_named_gpio_flags to
+ of_get_named_gpio to match kernel v6.6
+
+---
+ pn5xx_i2c.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
+
+diff --git a/pn5xx_i2c.c b/pn5xx_i2c.c
+index 7faa67d..2f8288d 100644
+--- a/pn5xx_i2c.c
++++ b/pn5xx_i2c.c
+@@ -408,7 +408,6 @@ static int pn54x_get_pdata(struct device *dev,
+ 							struct pn544_i2c_platform_data *pdata)
+ {
+ 	struct device_node *node;
+-	u32 flags;
+ 	int val;
+ 
+ 	/* make sure there is actually a device tree node */
+@@ -421,7 +420,7 @@ static int pn54x_get_pdata(struct device *dev,
+ 	/* read the dev tree data */
+ 
+ 	/* ven pin - enable's power to the chip - REQUIRED */
+-	val = of_get_named_gpio_flags(node, "enable-gpios", 0, &flags);
++	val = of_get_named_gpio(node, "enable-gpios", 0);
+ 	if (val >= 0) {
+ 		pdata->ven_gpio = val;
+ 	}
+@@ -431,7 +430,7 @@ static int pn54x_get_pdata(struct device *dev,
+ 	}
+ 
+ 	/* firm pin - controls firmware download - OPTIONAL */
+-	val = of_get_named_gpio_flags(node, "firmware-gpios", 0, &flags);
++	val = of_get_named_gpio(node, "firmware-gpios", 0);
+ 	if (val >= 0) {
+ 		pdata->firm_gpio = val;
+ 	}
+@@ -441,7 +440,7 @@ static int pn54x_get_pdata(struct device *dev,
+ 	}
+ 
+ 	/* irq pin - data available irq - REQUIRED */
+-	val = of_get_named_gpio_flags(node, "interrupt-gpios", 0, &flags);
++	val = of_get_named_gpio(node, "interrupt-gpios", 0);
+ 	if (val >= 0) {
+ 		pdata->irq_gpio = val;
+ 	}
+@@ -451,7 +450,7 @@ static int pn54x_get_pdata(struct device *dev,
+ 	}
+ 
+ 	/* clkreq pin - controls the clock to the PN547 - OPTIONAL */
+-	val = of_get_named_gpio_flags(node, "nxp,pn54x-clkreq", 0, &flags);
++	val = of_get_named_gpio(node, "nxp,pn54x-clkreq", 0);
+ 	if (val >= 0) {
+ 		pdata->clkreq_gpio = val;
+ 	}
+-- 
+2.34.1
+

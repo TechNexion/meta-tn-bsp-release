@@ -1,0 +1,48 @@
+From 11b02adff32906c08bb626b2b68dfe1e77681c33 Mon Sep 17 00:00:00 2001
+From: Joe Zhang <joe.zhang@technexion.com>
+Date: Mon, 23 Sep 2024 14:57:51 +0800
+Subject: [PATCH 3/4] nfc: correct the i2c_driver probe/remove param to match
+ kernel v6.6
+
+---
+ pn5xx_i2c.c | 9 +++------
+ 1 file changed, 3 insertions(+), 6 deletions(-)
+
+diff --git a/pn5xx_i2c.c b/pn5xx_i2c.c
+index 2f17db8..b987bdb 100644
+--- a/pn5xx_i2c.c
++++ b/pn5xx_i2c.c
+@@ -513,8 +513,7 @@ static int pn54x_get_pdata(struct device *dev,
+  static int __devinit pn54x_probe(struct i2c_client *client,
+ 		const struct i2c_device_id *id)
+ #else
+-static int pn54x_probe(struct i2c_client *client,
+-		const struct i2c_device_id *id)
++static int pn54x_probe(struct i2c_client *client)
+ #endif
+ {
+ 	int ret;
+@@ -693,9 +692,9 @@ err_ven:
+ }
+ 
+ #ifdef KERNEL_3_4_AND_OLDER
+-static int __devexit pn54x_remove(struct i2c_client *client)
++static void __devexit pn54x_remove(struct i2c_client *client)
+ #else
+-static int pn54x_remove(struct i2c_client *client)
++static void pn54x_remove(struct i2c_client *client)
+ #endif
+ {
+ 	struct pn54x_dev *pn54x_dev;
+@@ -718,8 +717,6 @@ static int pn54x_remove(struct i2c_client *client)
+ 	regulator_put(pn54x_dev->sevdd_reg);
+ 
+ 	kfree(pn54x_dev);
+-
+-	return 0;
+ }
+ 
+ /*
+-- 
+2.34.1
+

@@ -14,4 +14,6 @@ SRC_URI = " \
     file://0003-pn544_enable.patch \
     file://0001-Use-pr_warn-instead-of-pr_warning-to-adapt-to-Linux-.patch \
     file://0001-fix-incompatible-pointer-types-assigning-on-GCC-12.x.patch \
+    file://0001-nfc-correct-the-of_get_named_gpio_flags-to-of_get_na.patch \
+    file://0002-nfc-correct-the-i2c_driver-probe-remove-param-to-mat.patch \
 "
