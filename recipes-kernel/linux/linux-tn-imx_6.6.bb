@@ -23,9 +23,9 @@ DEPENDS += "lzop-native bc-native"
 SRC_URI = "${KERNEL_SRC}"
 KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https;branch=${SRCBRANCH}"
 KBRANCH = "${SRCBRANCH}"
-SRCBRANCH = "tn-imx_6.6.23_2.0.0-next"
+SRCBRANCH = "tn-imx_6.6.36_2.1.0-next"
 LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KBRANCH', True).split('_')[2:]).lower()}"
-SRCREV = "5b65661865f33eadc5aeecb105d4e5b44015ab14"
+SRCREV = "173d563c95367f447fbddeab78113dff5a6fc932"
 
 SRC_URI:append:virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
 
