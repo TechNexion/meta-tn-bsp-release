@@ -23,7 +23,7 @@ compile_mx8m() {
                                                              ${BOOT_STAGING}/u-boot-nodtb.bin
     ln -sf ${STAGING_DIR_NATIVE}/${bindir}/mkimage               ${BOOT_STAGING}/mkimage_uboot
     cp ${DEPLOY_DIR_IMAGE}/${BOOT_TOOLS}/${ATF_MACHINE_NAME} ${BOOT_STAGING}/bl31.bin
-    cp ${DEPLOY_DIR_IMAGE}/${UBOOT_NAME}                     ${BOOT_STAGING}/u-boot.bin
+    cp ${DEPLOY_DIR_IMAGE}/${UBOOT_NAME_EXTRA}                     ${BOOT_STAGING}/u-boot.bin
 }
 
 addtask replace before do_compile after do_configure
