@@ -168,6 +168,10 @@ echo >> conf/local.conf
 echo "PACKAGE_CLASSES = \"package_deb\"" >> conf/local.conf
 echo "EXTRA_IMAGE_FEATURES += \"package-management\"" >> conf/local.conf
 
+# for scarthgap, need to increase the fetch retry
+echo >> conf/local.conf
+echo "BBFETCH_RETRYCOUNT = \"5\"" >> conf/local.conf
+
 # for mender, note: below should really be in tn-setup-mender.sh
 if grep -q "tn-setup-mender" <<< $CALLER; then
   echo -e "\n# Setup additional mender settings in local.conf" | tee -a conf/local.conf
