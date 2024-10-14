@@ -1,13 +1,13 @@
-yocto-4.0 Kirkstone 2023Q2 TechNexion BSP Release Notes
+yocto-5.0 Scarthgap 2024Q4 TechNexion BSP Release Notes
 
 ======================================
 
 Please refer to 'TechNexion developer portal' for detailed support list and demo images:
-https://developer.technexion.com/docs/release-notes-yp40-2023q2
+https://developer.technexion.com/docs/release-notes-yp50-2024q4
 
-Release Name: tn-kirkstone_5.15.71-2.2.0
+Release Name: tn-scarthgap_6.6.36_2.1.0
 
-Release Revision: 20230512
+Release Revision: 20241014
 
 
 ----
@@ -19,83 +19,37 @@ EDM-G-IMX8MP (DRAM 1/2/4/8 GB) with WB/WIZARD
 
 EDM-G-IMX8MM (DRAM 1/2/4/8 GB) with WB/WIZARD
 
-PICO-IMX8MQ (DRAM 1/2/4 GB) with PI-8M/WIZARD
-
-PICO-IMX8MM (DRAM 1/2/4 GB) with PI-8M/WIZARD
-
-AXON-IMX8MP (DRAM 2/4/8 GB) with WIZARD
-
-TEK-IMX8MP (DRAM 2/4/8 GB)
-
-
-ARM32:
-
-PICO-IMX6 with Nymph
-
-PICO-IMX7D with PI
-
-PICO-IMX6UL/ULL with PI
-
-EDM-IMX6 with Fairy/TC0700
-
-TEP1-IMX7(TEP0500-IMX7 / TEP0700-IMX7)
-
+AXON-IMX93 (DRAM 2 GB) with WB
 
 ----
 Support list table:
 
-    https://developer.technexion.com/docs/release-notes-yp40-2023q2
-
+    https://developer.technexion.com/docs/release-notes-yp50-2024q4
 
 ----
 New feature:
 
-1.  VizionSDK library
-
-2.  VizionViewer utility
-
-3.  Support for NXP IW416 WiFi module
-
+1.  Vizionpanel TTL panel support
 
 ----
 Bug fix: bug tracking number
 
-1.  #987/#989: System hang after executing "iw dev p2p0 del"
-
-2.  #977/#985: The "Shutdown -h now" command cannot be executed.
-
-3.  #967: PICO-IMX6Quad + PICO-NYMPH Rev:A1 - AR8035 RX throughput drops to zero.
-
-4.  #1044: PICO-IMX6 + PICO-NYMPH - Unable to boot from baseboard SD card.
-
-5.  #983: PICO-IMX6 + PICO-NYMPH - No HDMI sound.
-
-6.  #966: PICO-IMX6 + PICO-NYMPH - Ethernet has IP but cannot be connected.
-
-7.  #968: TEK-IMX8MP - If the connection LAN2 cannot wake up after suspend.
-
-8.  #994: EDM1-IMX6P - No audio device of imx-hdmi-soc available after system power up.
-
+1.
 
 ----
 Known issue:
 
-1.  #980/#1032: 10" MIPI panel (g101uan02) stays in black screen after waking up from sleep.
+1.  #1436: TEVS CAMERA cause boot failed.Fail rate:5/10
 
-2.  #915: LVDS display is distortion while the nvme SSD running the read/write test.
-
-3.  #897: EDM1-IXM6P + EDM1-FAIRY - SPDIF audio is not working for certain audio sample rate 44.1K, 48.K, 11.25K
-
-4.  #894: EDM-G-8M-PLUS - The Ethernet lost connection after been set WOL function.
-
+2.  #894: The Ethernet lost connection after been set WOL function.
 
 ----
 BSP version:
 
-Tag name on github: tn-kirkstone_5.15.71-2.2.0_20230420
+Tag name on github: tn-scarthgap_6.6.36_2.1.0_20241014
 
-u-boot-tn-imx: 904dc8ddd50588add5ea5679f193bfdd4cad2552
+u-boot-tn-imx: 4e59a2b59c9bff8cb2fb8835b4e73154bcafe19d
 
-linux-tn-imx: 7c37b47490ee2f927fb90664d914f19887bbee58
+linux-tn-imx: 65d0b78c9675a74f24c1e3e553c36c30cd3010a8
 
-meta-tn-imx-bsp: d5d755f8bcb346d6a063728e015fa300743e47ba
+meta-tn-imx-bsp: 3789e5214dddfa97a6980eeb74f4a217d2ea8f24
