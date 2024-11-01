@@ -29,4 +29,4 @@ RDEPENDS:${PN} = "bash alsa-utils evtest"
 
 FILES:${PN}-dbg += "/opt/${PN}/.debug"
 
-COMPATIBLE_MACHINE = "(mx7-nxp-bsp|mx8-nxp-bsp)"
+COMPATIBLE_MACHINE = "(imx-nxp-bsp)"
