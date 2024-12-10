@@ -1,16 +1,15 @@
-yocto-4.0 Kirkstone 2023Q2 TechNexion BSP Release Notes
+yocto-4.2 Mickledore 2024Q3 TechNexion BSP Release Notes
 
 ======================================
 
 Please refer to 'TechNexion developer portal' for detailed support list and demo images:
-https://developer.technexion.com/docs/release-notes-yp40-2023q2
 
-Release Name: tn-kirkstone_5.15.71-2.2.0
+https://developer.technexion.com/docs/release-notes-yp42-2024q3
 
-Release Revision: 20230512
+Release Name: tn-mickledore_6.1.55-2.2.0
 
+Release Revision: 20240719
 
-----
 Supported TechNexion products:
 
 ARM64:
@@ -19,83 +18,54 @@ EDM-G-IMX8MP (DRAM 1/2/4/8 GB) with WB/WIZARD
 
 EDM-G-IMX8MM (DRAM 1/2/4/8 GB) with WB/WIZARD
 
-PICO-IMX8MQ (DRAM 1/2/4 GB) with PI-8M/WIZARD
-
 PICO-IMX8MM (DRAM 1/2/4 GB) with PI-8M/WIZARD
 
 AXON-IMX8MP (DRAM 2/4/8 GB) with WIZARD
 
 TEK-IMX8MP (DRAM 2/4/8 GB)
 
+AXON-IMX93 (DRAM 2 GB) with WB
+
+EDM-IMX93 (DRAM 2 GB) with WB
+
+TEP-IMX8MP (DRAM 2/4/8 GB)
 
 ARM32:
 
-PICO-IMX6 with Nymph
+PICO-IMX7D (DRAM 512MB/1GB) with PI-GL
 
-PICO-IMX7D with PI
+PICO-IMX6 (DRAM Solo:512MB DL/Quad:1GB) with Nymph
 
-PICO-IMX6UL/ULL with PI
+PICO-IMX6UL/ULL (DRAM 256MB/512MB) with PI-FL
 
-EDM-IMX6 with Fairy/TC0700
+EDM-IMX6 (DRAM Solo:512MB DL:1GB Quad:2GB) with Fairy
 
-TEP1-IMX7(TEP0500-IMX7 / TEP0700-IMX7)
+TEP1-IMX7 (DRAM 512MB/1GB)
 
+TC-0700/1010 (DRAM Solo:512MB DL:1GB Quad:2GB)
 
-----
 Support list table:
 
-    https://developer.technexion.com/docs/release-notes-yp40-2023q2
+https://developer.technexion.com/docs/release-notes-yp42-2024q3
 
-
-----
 New feature:
 
-1.  VizionSDK library
-
-2.  VizionViewer utility
-
-3.  Support for NXP IW416 WiFi module
-
-
-----
-Bug fix: bug tracking number
-
-1.  #987/#989: System hang after executing "iw dev p2p0 del"
-
-2.  #977/#985: The "Shutdown -h now" command cannot be executed.
-
-3.  #967: PICO-IMX6Quad + PICO-NYMPH Rev:A1 - AR8035 RX throughput drops to zero.
-
-4.  #1044: PICO-IMX6 + PICO-NYMPH - Unable to boot from baseboard SD card.
-
-5.  #983: PICO-IMX6 + PICO-NYMPH - No HDMI sound.
-
-6.  #966: PICO-IMX6 + PICO-NYMPH - Ethernet has IP but cannot be connected.
-
-7.  #968: TEK-IMX8MP - If the connection LAN2 cannot wake up after suspend.
-
-8.  #994: EDM1-IMX6P - No audio device of imx-hdmi-soc available after system power up.
-
-
-----
 Known issue:
 
-1.  #980/#1032: 10" MIPI panel (g101uan02) stays in black screen after waking up from sleep.
+1. TEP-IMX8MP - WIFI AP mode or Concurrent mode no function.
 
-2.  #915: LVDS display is distortion while the nvme SSD running the read/write test.
+2. AXON-IMX8MP/EDM-G-8MP/PICO-IMX8MM - Audio codec wm8960 play 8(Khz) sound source with noise
 
-3.  #897: EDM1-IXM6P + EDM1-FAIRY - SPDIF audio is not working for certain audio sample rate 44.1K, 48.K, 11.25K
+3. EDM-G-IMX8MP/AXON-IMX8MP - The Ethernet lost connection after been set WOL function.
 
-4.  #894: EDM-G-8M-PLUS - The Ethernet lost connection after been set WOL function.
+4. AXON-IMX93 - TTL 8 inch panel splash screen no full function
 
-
-----
 BSP version:
 
-Tag name on github: tn-kirkstone_5.15.71-2.2.0_20230420
+Tag name on github: tn-mickledore_6.1.55-2.2.0_20240719
 
-u-boot-tn-imx: 904dc8ddd50588add5ea5679f193bfdd4cad2552
+u-boot-tn-imx: 6e5acadb0e01131b24d4508a7af01021efeca7d5
 
-linux-tn-imx: 7c37b47490ee2f927fb90664d914f19887bbee58
+linux-tn-imx: 80c1b69083bdfef4fc2b6bb68ec4ba2c16e7abfd
 
-meta-tn-imx-bsp: d5d755f8bcb346d6a063728e015fa300743e47ba
+meta-tn-imx-bsp: 806f0a5
