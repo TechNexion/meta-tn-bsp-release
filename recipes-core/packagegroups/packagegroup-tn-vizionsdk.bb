@@ -13,12 +13,7 @@ RDEPENDS:${PN}:append:mx9-nxp-bsp = " \
     vizionsdk-dev \
     vizionviewer \
 "
-RDEPENDS:${PN}:append:mx8mp-nxp-bsp = " \
-    tn-apt-list \
-    vizionsdk-dev \
-    vizionviewer \
-"
-RDEPENDS:${PN}:append:mx8mm-nxp-bsp = " \
+RDEPENDS:${PN}:append:mx8m-nxp-bsp = " \
     tn-apt-list \
     vizionsdk-dev \
     vizionviewer \
