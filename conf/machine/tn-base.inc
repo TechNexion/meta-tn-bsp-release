@@ -131,6 +131,8 @@ WKS_FILE_DEPENDS:mx9-nxp-bsp += "imx-boot"
 IMAGE_BOOT_FILES:append = " ${SPLASH_FILENAME}"
 IMAGE_BOOT_FILES:append:uenv = " ${UENV_FILENAME}"
 IMAGE_BOOT_FILES:append:bootscr = " ${UENV_SCRNAME};boot.scr"
+IMAGE_BOOT_FILES:append:mx6-nxp-bsp = " u-boot-${MACHINE}.${UBOOT_SUFFIX};u-boot-dtb.img"
+IMAGE_BOOT_FILES:append:mx7-nxp-bsp = " u-boot-${MACHINE}.${UBOOT_SUFFIX};u-boot-dtb.img"
 
 # xz compression options
 XZ_COMPRESSION_LEVEL = "-9"
