@@ -1,55 +1,50 @@
-yocto-5.0 Scarthgap 2024Q4 TechNexion BSP Release Notes
+yocto-5.0 Scarthgap 2025Q1 TechNexion BSP Release Notes
 
 ======================================
-
 Please refer to 'TechNexion developer portal' for detailed support list and demo images:
-https://developer.technexion.com/docs/release-notes-yp50-2024q4
+https://developer.technexion.com/docs/release-notes-yp50-2025q1
+Release Name: tn-scarthgap_6.6.52-2.2.0
+Release Revision: 20241230
 
-Release Name: tn-scarthgap_6.6.36_2.1.0
-
-Release Revision: 20241014
-
-
-----
 Supported TechNexion products:
-
 ARM64:
-
 EDM-G-IMX8MP (DRAM 1/2/4/8 GB) with WB/WIZARD
-
 EDM-G-IMX8MM (DRAM 1/2/4/8 GB) with WB/WIZARD
-
+PICO-IMX8MM (DRAM 1/2/4 GB) with PI-8M/WIZARD
+AXON-IMX8MP (DRAM 2/4/8 GB) with WIZARD
 AXON-IMX93 (DRAM 2 GB) with WB
+EDM-IMX93 (DRAM 2 GB) with WB
 
-----
+ARM32:
+PICO-IMX7D (DRAM 512MB/1GB/2GB) with PI-GL
+PICO-IMX6 (DRAM Solo:512MB DL/Quad:1GB) with Nymph
+PICO-IMX6UL/ULL (DRAM 256MB/512MB) with PI-FL
+EDM-IMX6 (DRAM Solo:512MB DL:1GB Quad:2GB) with Fairy
+TC-0700/1010 (DRAM Solo:512MB DL:1GB Quad:2GB)
+
+Camera on EVK:
+IMX8MP-EVK (DDR4/ LPDDR4) with tevs
+IMX93-EVK (LPDDR4) with tevs
+IMX93-EVK (LPDDR5) with tevs
+
 Support list table:
+https://developer.technexion.com/docs/release-notes-yp50-2025q1
 
-    https://developer.technexion.com/docs/release-notes-yp50-2024q4
-
-----
 New feature:
 
-1.  Vizionpanel TTL panel support
-
-----
-Bug fix: bug tracking number
-
-1.
-
-----
 Known issue:
+1. EDM-G-IMX8MM - 21.5-inch panel not working
 
-1.  #1436: TEVS CAMERA cause boot failed.Fail rate:5/10
+Bug fixed:
+1. AXON-IMX93 - watch dog missing
+2. IMX8MP series - System cannot boot up with TEVS camera connected.Fail rate:1/2(pcie crash)
+3. EDM-G-IMX8MM - 10.1-inch panel not working
+4. ALL - DSI panel suspend/ resume failed
+5. ARM32 and IMX9 series - terminal icon is missong on menu bar
+6. ARM32 series - 2GB sku CMA alloc not match the device-tree setting
 
-2.  #894: The Ethernet lost connection after been set WOL function.
-
-----
 BSP version:
-
-Tag name on github: tn-scarthgap_6.6.36_2.1.0_20241014
-
-u-boot-tn-imx: 4e59a2b59c9bff8cb2fb8835b4e73154bcafe19d
-
-linux-tn-imx: 65d0b78c9675a74f24c1e3e553c36c30cd3010a8
-
-meta-tn-imx-bsp: 3789e5214dddfa97a6980eeb74f4a217d2ea8f24
+Tag name on github: tn-scarthgap_6.6.52_2.2.0_20241230
+u-boot-tn-imx: 153e8e48579c3f0c15a16a3d2649354868ba7912
+linux-tn-imx: c8aa74583f0a56a2237e047a07f9508d0be6fc1f
+meta-tn-imx-bsp: 610a8a78db47dc1f100f8a3e5228ad990de61fd4
