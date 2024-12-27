@@ -25,7 +25,7 @@ KERNEL_SRC ?= "git://github.com/TechNexion/linux-tn-imx.git;protocol=https;branc
 KBRANCH = "${SRCBRANCH}"
 SRCBRANCH = "tn-imx_6.6.52_2.2.0-next"
 LOCALVERSION = "${@'-%s' % '-'.join(d.getVar('KBRANCH', True).split('_')[2:]).lower()}"
-SRCREV = "6cf80ede731e17099c83b529c0b2e212f3c892e0"
+SRCREV = "c8aa74583f0a56a2237e047a07f9508d0be6fc1f"
 
 SRC_URI:append:virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-btrfs-fuse-overlayfs.patch"
 
@@ -34,7 +34,7 @@ SRC_URI:append:virtualization = " file://0001-ARM64-configs-tn_imx8_defconfig-bt
 #
 # LINUX_VERSION define should match to the kernel version referenced by SRC_URI and
 # should be updated once patchlevel is merged.
-LINUX_VERSION = "6.6.23"
+LINUX_VERSION = "6.6.52"
 
 KERNEL_CONFIG_COMMAND = "oe_runmake_call -C ${S} CC="${KERNEL_CC}" O=${B} olddefconfig"
 
